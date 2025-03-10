@@ -104,3 +104,6 @@ function to_segs(value : in std_ulogic_vector(3 downto 0)) return std_ulogic_vec
 
 Converts the hexadecimal (4-bit) input value into a bit-pattern that can be displayed on a seven-segment display.
 
+
+
+[Return to main page](../../README.md)

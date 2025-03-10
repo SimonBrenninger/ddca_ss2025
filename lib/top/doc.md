@@ -1,6 +1,6 @@
 
-# top
-This library module provides you the top entity used during DDCA.
+# top Module
+This library module provides you the top entity used during DDCA and provides the remote lab functionality.
 
 
 [[_TOC_]]
@@ -12,3 +12,6 @@ This library module provides you the top entity used during DDCA.
 - [dbg_top.vhd](src/dbg_top.vhd)
 
 - [top.vhd](src/top.vhd)
+
+
+[Return to main page](../../README.md)

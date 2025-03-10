@@ -91,3 +91,6 @@ Ask a tutor for help if you are unsure how to proceed!
 - **Implement**: [top_arch.vhd](top_arch.vhd)
 
 - **Create**: period.png
+
+
+[Return to main page](../../../README.md)

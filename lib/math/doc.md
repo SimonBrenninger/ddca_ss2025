@@ -58,3 +58,6 @@ function min3(constant value1, value2, value3 : in integer) return integer;
 
 Determines the maximum / minimum of the three integer operands and returns it.
 
+
+
+[Return to main page](../../README.md)

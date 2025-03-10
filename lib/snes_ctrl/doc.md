@@ -113,3 +113,6 @@ function to_snes_ctrl_state(sulv : std_ulogic_vector(11 downto 0)) return snes_c
 Conversion functions between a 12-bit `std_ulogic_value` and one of `snes_ctrl_t` and vice versa.
 You can find the respective order of the individual button bits in the function bodies in [snes_ctrl_pkg.vhd](src/snes_ctrl_pkg.vhd).
 
+
+
+[Return to main page](../../README.md)

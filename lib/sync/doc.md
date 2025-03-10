@@ -55,3 +55,6 @@ Note that due to the structure of the synchronizer, between a change of `data_in
 
 ![Synchronizer Timing Diagram](.mdata/sync_timing.svg)
 
+
+
+[Return to main page](../../README.md)
