@@ -40,6 +40,9 @@ The root directory of this repository contains the following subfolders
 * `util`: This folder contains Makefile templates, used to build and simulate your code. Don't make any changes here.
 * `tasks`: The actual tasks are located here. Your own code (i.e., your solutions) also goes here.
 
+Furthermore, there is a [submission scipt](submission.py) which you will use to submit your solutions.
+You can learn more about it by running it and reading its synopsis.
+
 
 # First Steps
 
