@@ -23,8 +23,8 @@ set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
 
 set_global_assignment -name VHDL_FILE ../../../../lib/math/src/math_pkg.vhd
 set_global_assignment -name VHDL_FILE ../../../../lib/util/src/util_pkg.vhd
-set_global_assignment -name VHDL_FILE ../../../../lib/util/src/sync_pkg.vhd
-set_global_assignment -name VHDL_FILE ../../../../lib/util/src/sync.vhd
+set_global_assignment -name VHDL_FILE ../../../../lib/sync/src/sync_pkg.vhd
+set_global_assignment -name VHDL_FILE ../../../../lib/sync/src/sync.vhd
 set_global_assignment -name VHDL_FILE ../../../../lib/top/src/dbg_top.vhd
 set_global_assignment -name VHDL_FILE ../../../../lib/top/src/top.vhd
 set_global_assignment -name VHDL_FILE ../../../../lib/snes_ctrl/src/snes_ctrl_pkg.vhd

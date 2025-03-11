@@ -1,5 +1,5 @@
 
-# top Module
+# Top Module
 This library module provides you the top entity used during DDCA and provides the remote lab functionality.
 
 
