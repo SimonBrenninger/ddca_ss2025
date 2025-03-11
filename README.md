@@ -102,6 +102,7 @@ Your login credentials are the same as for the (local) TILab.
 | task | Points | Keywords (Topics) |
 |-|-|----|
 | [snes_ctrl](tasks/level1/snes_ctrl/task.md) | 10 | FSM, External Interface |
+| [gfx_cmd_interpreter](tasks/level1/gfx_cmd_interpreter/task.md) | 15 | Advanced Testbench, Specifications |
 
 
 
@@ -119,4 +120,5 @@ Feel free to use them in your designs as you see fit.
 | SNES Controller Package | [snes_ctrl](lib/snes_ctrl/doc.md) |
 | Testbench Utility Package | [tb_util](lib/tb_util/doc.md) |
 | Top Module | [top](lib/top/doc.md) |
+| Graphics Command Interface Core Package | [gfx_core](lib/gfx_core/doc.md) |
 

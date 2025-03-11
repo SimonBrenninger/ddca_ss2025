@@ -1,6 +1,6 @@
 
 # Testbench Utility Package
-The testbench utility package provides useful types and subprograms for writing advanced testbenches.
+The testbench utility package provides useful types and subprograms for implementing advanced testbenches.
 
 
 [[_TOC_]]

@@ -1,0 +1,1 @@
+{"points": 15, "files": {"src/gfx_cmd_interpreter.vhd": {"Type": "COMPLETE", "Lines": 131}, "tb/gfx_cmd_interpreter_tb.vhd": {"Type": "COMPLETE", "Lines": 31}, "Makefile": {"Type": "DONT CARE"}}, "checks": []}
