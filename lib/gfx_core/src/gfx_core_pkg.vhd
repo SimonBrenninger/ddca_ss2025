@@ -20,7 +20,7 @@ package gfx_core_pkg is
 		frame_sync : std_ulogic;
 	end record;
 
-
+	
 	constant INDEX_OPCODE : integer := 11;
 	constant WIDTH_OPCODE : integer := 5;
 	constant INDEX_MX : integer := 4;
@@ -52,7 +52,7 @@ package gfx_core_pkg is
 	constant INDEX_CHARWIDTH : integer := 0;
 	constant WIDTH_CHARWIDTH : integer := 6;
 
-
+	
 	subtype opcode_t is std_ulogic_vector(WIDTH_OPCODE-1 downto 0);
 	subtype mxs_t is std_ulogic_vector(WIDTH_MXS-1 downto 0);
 	subtype mys_t is std_ulogic_vector(WIDTH_MYS-1 downto 0);
@@ -65,7 +65,7 @@ package gfx_core_pkg is
 	subtype xoffset_t is std_ulogic_vector(WIDTH_XOFFSET-1 downto 0);
 	subtype charwidth_t is std_ulogic_vector(WIDTH_CHARWIDTH-1 downto 0);
 
-
+	
 	-- OPCODE
 	constant OPCODE_NOP : opcode_t := 5x"0";
 	constant OPCODE_MOVE_GP : opcode_t := 5x"1";
@@ -119,7 +119,7 @@ package gfx_core_pkg is
 	constant MASKOP_OR : maskop_t := 2x"2";
 	constant MASKOP_XOR : maskop_t := 2x"3";
 
-
+	
 	function get_opcode (x : gfx_cmd_t) return opcode_t;
 	function get_mxs (x : gfx_cmd_t) return mxs_t;
 	function get_mys (x : gfx_cmd_t) return mys_t;
@@ -155,7 +155,7 @@ package gfx_core_pkg is
 		charwidth : charwidth_t := (others=>'-')
 	) return gfx_cmd_t;
 
-
+	
 	-- returns -1 for variable length instructions
 	function get_operands_count(opc : opcode_t) return integer;
 end package;
@@ -163,7 +163,7 @@ end package;
 
 package body gfx_core_pkg is
 
-
+	
 	function get_opcode (x : gfx_cmd_t) return opcode_t is
 	begin
 		return x(WIDTH_OPCODE+INDEX_OPCODE-1 downto INDEX_OPCODE);
@@ -308,7 +308,7 @@ package body gfx_core_pkg is
 	end function;
 
 	function get_operands_count(opc : opcode_t) return integer is
-	begin
+	begin 
 		case opc is
 			when OPCODE_NOP => return 0;
 			when OPCODE_MOVE_GP => return 2;
@@ -336,6 +336,6 @@ package body gfx_core_pkg is
 		end case;
 		return -2;
 	end function;
-
+	
 end package body;
 

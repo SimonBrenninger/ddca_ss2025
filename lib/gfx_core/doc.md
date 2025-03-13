@@ -163,7 +163,7 @@ The `BB_CLIP` command is the most generic of the bit blit commands, but needs 4 
 For this reason the core also supports the simpler `BB_FULL` and `BB_CHAR` commands.
 The following (Python) listing demonstrates how the bit blit operations calculate the read address for a pixel in the source bitmap and the write address for the respective pixel destination bitmap.
 
-```Python
+```python
 #!/bin/env python3
 
 from collections import namedtuple
@@ -316,6 +316,22 @@ Draws a vertical line between the `gp` and the destination coordinate at (`gp.x`
 The operand `dy` is a signed 16-bit value.
 After the line has been drawn `gp.y` is set to the destination *y* coordinate of the line if `my` is set.
 If `mx` is set `gp.x` is incremented by one.
+
+
+
+
+#### DRAW_CIRCLE
+
+**Format**:
+
+![Image Caption](.mdata/draw_circle.svg)
+
+**Format**:
+
+
+Draws a circle with a radius specified by the operand `radius` and its center at the `gp` using the color specified by `cs`.
+The operand `radius` is an unsigned 15 bit value.
+After the circle has been drawn `gp.x` (`gp.y`) is incremented by `radius` if `mx` (`my`) is set.
 
 
 
