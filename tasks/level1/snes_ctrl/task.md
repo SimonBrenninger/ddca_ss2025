@@ -6,7 +6,7 @@
 [[_TOC_]]
 
 Your task is to create and test a `snes_ctrl` module that implements the protocol used by the [SNES (Super Nintendo Entertainment System)](https://en.wikipedia.org/wiki/Super_Nintendo_Entertainment_System) gamepad.
-Note that an obfuscated reference implementation of the `snes_ctrl`, as well as a package containing useful declarations and a documentation are available in [lib/snes_ctrl](../../../lib/snes_ctrl/).
+Note that an obfuscated reference implementation of the `snes_ctrl`, as well as a package containing useful declarations and a documentation are available in [lib/snes_ctrl](../../../lib/snes_ctrl/doc.md).
 
 
 

@@ -13,7 +13,7 @@ This package provides a synchronizer module that can be used to connect external
 
 ## Components
 
-### sync component
+### sync
 The `sync` module is a simple shift-register based waiting synchronizer.
 
 

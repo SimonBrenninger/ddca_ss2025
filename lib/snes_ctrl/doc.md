@@ -7,15 +7,15 @@ This package provides everything required to interface with a [SNES (Super Ninte
 
 ## Required Files
 
-- [snes_ctrl.vhd](src/snes_ctrl.vhd)
-
 - [snes_ctrl_pkg.vhd](src/snes_ctrl_pkg.vhd)
+
+- [snes_ctrl.vhd](src/snes_ctrl.vhd)
 
 - [snes_ctrl_arch_ref.vhd](src/snes_ctrl_arch_ref.vhd)
 
 ## Components
 
-### snes_ctrl component
+### snes_ctrl
 The self-contained `snes_ctrl` module can be directly connected to a SNES gamepad and will continuously poll the states of its buttons.
 
 

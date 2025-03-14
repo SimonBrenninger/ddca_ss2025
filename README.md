@@ -103,6 +103,7 @@ Your login credentials are the same as for the (local) TILab.
 |-|-|----|
 | [snes_ctrl](tasks/level1/snes_ctrl/task.md) | 10 | FSM, External Interface |
 | [gfx_cmd_interpreter](tasks/level1/gfx_cmd_interpreter/task.md) | 15 | Advanced Testbench, Specifications |
+| [vga_ctrl](tasks/level1/vga_ctrl/task.md) | 10 | External Interface, Advanced Testbench, Oscilloscope |
 
 
 
@@ -121,4 +122,5 @@ Feel free to use them in your designs as you see fit.
 | Testbench Utility Package | [tb_util](lib/tb_util/doc.md) |
 | Top Module | [top](lib/top/doc.md) |
 | Graphics Command Interface Core Package | [gfx_core](lib/gfx_core/doc.md) |
+| VGA Controller | [vga_ctrl](lib/vga_ctrl/doc.md) |
 

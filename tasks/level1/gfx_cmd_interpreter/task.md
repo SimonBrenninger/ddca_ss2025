@@ -90,7 +90,7 @@ The interpreter should be capable of dumping images of arbitrary dimensions.
 ## Testbench
 
 Create a testbench to see if **all** the graphics commands are executed correctly (i.e., the testbench shall execute each command at least once).
-Use the provided [template](./tb/[gfx_cmd_interpreter_tb.vhd](tb/gfx_cmd_interpreter_tb.vhd)).
+Use the provided [template](tb/[gfx_cmd_interpreter_tb.vhd](tb/gfx_cmd_interpreter_tb.vhd)).
 
 
 
