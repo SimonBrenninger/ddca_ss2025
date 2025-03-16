@@ -58,7 +58,7 @@ This output is updated every `REFRESH_TIMEOUT` cycles of `clk`, plus the time it
 
 The implementation of the `snes_ctrl` can be found in [snes_ctrl_arch_ref.vhd](src/snes_ctrl_arch_ref.vhd).
 
-This reference architecture implements the SNES protocol and polls the state of a connected controller approximately every 20 ms.
+This reference architecture implements the SNES protocol and polls the state of a connected controller approximately every 200 us.
 **After** each polling cycle, the `ctrl_state` output is updated (i.e., the states of all buttons in the connected gamepad are always consistent).
 
 Note that the reference implementation expects a **50 MHz clock to be applied at `clk`** and generates a `snes_clk` signal with a frequency of 100 kHz.

@@ -35,99 +35,106 @@ architecture ref of snes_ctrl is
   signal n12 : std_logic;
   signal n13 : std_logic;
   signal n14 : std_logic;
-  signal state : std_logic_vector (2 downto 0);
-  signal state_nxt : std_logic_vector (2 downto 0);
-  signal clk_cnt : std_logic_vector (15 downto 0);
-  signal clk_cnt_nxt : std_logic_vector (15 downto 0);
-  signal bit_cnt : std_logic_vector (3 downto 0);
-  signal bit_cnt_nxt : std_logic_vector (3 downto 0);
-  signal shift_reg : std_logic_vector (15 downto 0);
-  signal shift_reg_nxt : std_logic_vector (15 downto 0);
-  signal btn_nxt : std_logic_vector (11 downto 0);
+  signal s : std_logic_vector (50 downto 0);
+  signal s_nxt : std_logic_vector (50 downto 0);
   signal n16 : std_logic;
-  signal n35 : std_logic;
+  signal n23 : std_logic_vector (11 downto 0);
+  signal n24 : std_logic_vector (2 downto 0);
+  signal n32 : std_logic;
   signal n36 : std_logic;
-  signal n37 : std_logic;
-  signal n38 : std_logic;
   signal n39 : std_logic;
-  signal n40 : std_logic;
   signal n41 : std_logic;
-  signal n42 : std_logic;
   signal n43 : std_logic;
-  signal n44 : std_logic;
   signal n45 : std_logic;
-  signal n46 : std_logic;
-  signal n48 : std_logic;
-  signal n50 : std_logic_vector (15 downto 0);
-  signal n52 : std_logic_vector (2 downto 0);
-  signal n54 : std_logic_vector (15 downto 0);
-  signal n56 : std_logic;
-  signal n58 : std_logic;
+  signal n47 : std_logic;
+  signal n49 : std_logic;
+  signal n51 : std_logic;
+  signal n52 : std_logic;
+  signal n53 : std_logic;
+  signal n55 : std_logic;
+  signal n56 : std_logic_vector (11 downto 0);
   signal n60 : std_logic_vector (15 downto 0);
-  signal n62 : std_logic_vector (2 downto 0);
-  signal n64 : std_logic_vector (15 downto 0);
-  signal n66 : std_logic;
-  signal n68 : std_logic;
-  signal n70 : std_logic_vector (15 downto 0);
-  signal n72 : std_logic_vector (2 downto 0);
-  signal n74 : std_logic_vector (15 downto 0);
-  signal n76 : std_logic;
-  signal n78 : std_logic;
-  signal n80 : std_logic_vector (15 downto 0);
-  signal n82 : std_logic_vector (2 downto 0);
+  signal n62 : std_logic;
+  signal n65 : std_logic_vector (15 downto 0);
+  signal n67 : std_logic_vector (15 downto 0);
+  signal n68 : std_logic_vector (18 downto 0);
+  signal n69 : std_logic_vector (2 downto 0);
+  signal n70 : std_logic_vector (2 downto 0);
+  signal n71 : std_logic_vector (2 downto 0);
+  signal n72 : std_logic_vector (15 downto 0);
+  signal n73 : std_logic_vector (15 downto 0);
+  signal n75 : std_logic;
+  signal n79 : std_logic_vector (15 downto 0);
+  signal n81 : std_logic;
   signal n84 : std_logic_vector (15 downto 0);
-  signal n86 : std_logic;
-  signal n87 : std_logic_vector (14 downto 0);
-  signal n88 : std_logic;
-  signal n89 : std_logic_vector (15 downto 0);
-  signal n91 : std_logic;
-  signal n93 : std_logic;
-  signal n95 : std_logic;
-  signal n97 : std_logic_vector (3 downto 0);
-  signal n100 : std_logic_vector (2 downto 0);
-  signal n102 : std_logic_vector (3 downto 0);
-  signal n104 : std_logic_vector (15 downto 0);
-  signal n105 : std_logic_vector (2 downto 0);
-  signal n107 : std_logic_vector (15 downto 0);
-  signal n108 : std_logic_vector (3 downto 0);
-  signal n110 : std_logic;
-  signal n111 : std_logic_vector (5 downto 0);
-  signal n117 : std_logic;
-  signal n122 : std_logic;
+  signal n86 : std_logic_vector (15 downto 0);
+  signal n87 : std_logic_vector (18 downto 0);
+  signal n88 : std_logic_vector (2 downto 0);
+  signal n89 : std_logic_vector (2 downto 0);
+  signal n90 : std_logic_vector (2 downto 0);
+  signal n91 : std_logic_vector (15 downto 0);
+  signal n92 : std_logic_vector (15 downto 0);
+  signal n94 : std_logic;
+  signal n98 : std_logic_vector (15 downto 0);
+  signal n100 : std_logic;
+  signal n103 : std_logic_vector (15 downto 0);
+  signal n105 : std_logic_vector (15 downto 0);
+  signal n106 : std_logic_vector (18 downto 0);
+  signal n107 : std_logic_vector (2 downto 0);
+  signal n108 : std_logic_vector (2 downto 0);
+  signal n109 : std_logic_vector (2 downto 0);
+  signal n110 : std_logic_vector (15 downto 0);
+  signal n111 : std_logic_vector (15 downto 0);
+  signal n113 : std_logic;
+  signal n117 : std_logic_vector (15 downto 0);
+  signal n119 : std_logic;
+  signal n122 : std_logic_vector (15 downto 0);
+  signal n124 : std_logic_vector (15 downto 0);
+  signal n125 : std_logic_vector (18 downto 0);
   signal n126 : std_logic_vector (2 downto 0);
-  signal n128 : std_logic_vector (15 downto 0);
-  signal n130 : std_logic_vector (3 downto 0);
-  signal n132 : std_logic_vector (15 downto 0);
-  signal n133 : std_logic;
-  signal n135 : std_logic;
-  signal n136 : std_logic;
+  signal n127 : std_logic_vector (2 downto 0);
+  signal n128 : std_logic_vector (2 downto 0);
+  signal n129 : std_logic_vector (15 downto 0);
+  signal n130 : std_logic_vector (15 downto 0);
+  signal n132 : std_logic;
+  signal n134 : std_logic;
+  signal n135 : std_logic_vector (14 downto 0);
+  signal n136 : std_logic_vector (15 downto 0);
   signal n138 : std_logic;
-  signal n139 : std_logic;
+  signal n139 : std_logic_vector (15 downto 0);
   signal n141 : std_logic;
-  signal n142 : std_logic;
-  signal n144 : std_logic;
+  signal n143 : std_logic_vector (3 downto 0);
   signal n145 : std_logic;
-  signal n147 : std_logic;
-  signal n148 : std_logic;
-  signal n150 : std_logic;
-  signal n151 : std_logic;
-  signal n153 : std_logic;
-  signal n154 : std_logic;
-  signal n156 : std_logic;
-  signal n157 : std_logic;
-  signal n159 : std_logic;
-  signal n160 : std_logic;
-  signal n162 : std_logic;
-  signal n163 : std_logic;
-  signal n165 : std_logic;
-  signal n166 : std_logic;
-  signal n168 : std_logic;
-  signal n181 : std_logic_vector (2 downto 0);
-  signal n182 : std_logic_vector (15 downto 0);
-  signal n183 : std_logic_vector (3 downto 0);
-  signal n184 : std_logic_vector (15 downto 0);
-  signal n185 : std_logic_vector (11 downto 0);
-  signal n186 : std_logic_vector (11 downto 0);
+  signal n148 : std_logic_vector (3 downto 0);
+  signal n150 : std_logic_vector (3 downto 0);
+  signal n152 : std_logic_vector (2 downto 0);
+  signal n153 : std_logic_vector (3 downto 0);
+  signal n154 : std_logic_vector (15 downto 0);
+  signal n156 : std_logic_vector (15 downto 0);
+  signal n157 : std_logic_vector (22 downto 0);
+  signal n158 : std_logic_vector (2 downto 0);
+  signal n159 : std_logic_vector (2 downto 0);
+  signal n160 : std_logic_vector (2 downto 0);
+  signal n161 : std_logic_vector (15 downto 0);
+  signal n162 : std_logic_vector (15 downto 0);
+  signal n163 : std_logic_vector (3 downto 0);
+  signal n164 : std_logic_vector (3 downto 0);
+  signal n165 : std_logic_vector (3 downto 0);
+  signal n167 : std_logic;
+  signal n168 : std_logic_vector (5 downto 0);
+  signal n174 : std_logic;
+  signal n179 : std_logic;
+  signal n182 : std_logic_vector (2 downto 0);
+  signal n183 : std_logic_vector (15 downto 0);
+  signal n185 : std_logic_vector (15 downto 0);
+  signal n186 : std_logic_vector (3 downto 0);
+  signal n188 : std_logic_vector (3 downto 0);
+  signal n189 : std_logic_vector (15 downto 0);
+  signal n191 : std_logic_vector (15 downto 0);
+  signal n192 : std_logic_vector (11 downto 0);
+  signal n194 : std_logic_vector (11 downto 0);
+  signal n200 : std_logic_vector (50 downto 0);
+  signal n201 : std_logic_vector (50 downto 0);
 begin
   wrap_clk <= clk;
   wrap_res_n <= res_n;
@@ -146,8 +153,8 @@ begin
   ctrl_state.btn_r <= wrap_ctrl_state_btn_r;
   ctrl_state.btn_start <= wrap_ctrl_state_btn_start;
   ctrl_state.btn_select <= wrap_ctrl_state_btn_select;
-  wrap_snes_clk <= n117;
-  wrap_snes_latch <= n122;
+  wrap_snes_clk <= n174;
+  wrap_snes_latch <= n179;
   wrap_ctrl_state_btn_up <= n3;
   wrap_ctrl_state_btn_down <= n4;
   wrap_ctrl_state_btn_left <= n5;
@@ -160,76 +167,106 @@ begin
   wrap_ctrl_state_btn_r <= n12;
   wrap_ctrl_state_btn_start <= n13;
   wrap_ctrl_state_btn_select <= n14;
-  n3 <= n186 (0);
-  n4 <= n186 (1);
-  n5 <= n186 (2);
-  n6 <= n186 (3);
-  n7 <= n186 (4);
-  n8 <= n186 (5);
-  n9 <= n186 (6);
-  n10 <= n186 (7);
-  n11 <= n186 (8);
-  n12 <= n186 (9);
-  n13 <= n186 (10);
-  n14 <= n186 (11);
-  state <= n181; -- (signal)
-  state_nxt <= n126; -- (signal)
-  clk_cnt <= n182; -- (signal)
-  clk_cnt_nxt <= n128; -- (signal)
-  bit_cnt <= n183; -- (signal)
-  bit_cnt_nxt <= n130; -- (signal)
-  shift_reg <= n184; -- (signal)
-  shift_reg_nxt <= n132; -- (signal)
-  btn_nxt <= n185; -- (signal)
+  n3 <= n23 (0);
+  n4 <= n23 (1);
+  n5 <= n23 (2);
+  n6 <= n23 (3);
+  n7 <= n23 (4);
+  n8 <= n23 (5);
+  n9 <= n23 (6);
+  n10 <= n23 (7);
+  n11 <= n23 (8);
+  n12 <= n23 (9);
+  n13 <= n23 (10);
+  n14 <= n23 (11);
+  s <= n200; -- (signal)
+  s_nxt <= n201; -- (signal)
   n16 <= not wrap_res_n;
-  n35 <= shift_reg (15);
-  n36 <= shift_reg (14);
-  n37 <= shift_reg (13);
-  n38 <= shift_reg (12);
-  n39 <= shift_reg (11);
-  n40 <= shift_reg (10);
-  n41 <= shift_reg (9);
-  n42 <= shift_reg (8);
-  n43 <= shift_reg (7);
-  n44 <= shift_reg (6);
-  n45 <= shift_reg (5);
-  n46 <= shift_reg (4);
-  n48 <= '1' when clk_cnt = "0000001111101000" else '0';
-  n50 <= std_logic_vector (unsigned (clk_cnt) + unsigned'("0000000000000001"));
-  n52 <= state when n48 = '0' else "001";
-  n54 <= n50 when n48 = '0' else "0000000000000000";
-  n56 <= '1' when state = "000" else '0';
-  n58 <= '1' when clk_cnt = "0000000011111010" else '0';
-  n60 <= std_logic_vector (unsigned (clk_cnt) + unsigned'("0000000000000001"));
-  n62 <= state when n58 = '0' else "010";
-  n64 <= n60 when n58 = '0' else "0000000000000000";
-  n66 <= '1' when state = "001" else '0';
-  n68 <= '1' when clk_cnt = "0000000011111010" else '0';
-  n70 <= std_logic_vector (unsigned (clk_cnt) + unsigned'("0000000000000001"));
-  n72 <= state when n68 = '0' else "101";
-  n74 <= n70 when n68 = '0' else "0000000000000000";
-  n76 <= '1' when state = "010" else '0';
-  n78 <= '1' when clk_cnt = "0000000011111001" else '0';
-  n80 <= std_logic_vector (unsigned (clk_cnt) + unsigned'("0000000000000001"));
-  n82 <= state when n78 = '0' else "100";
-  n84 <= n80 when n78 = '0' else "0000000000000000";
-  n86 <= '1' when state = "101" else '0';
-  n87 <= shift_reg (14 downto 0);
-  n88 <= not wrap_snes_data;
-  n89 <= n87 & n88;
-  n91 <= '1' when state = "100" else '0';
-  n93 <= '1' when clk_cnt = "0000000011111010" else '0';
-  n95 <= '1' when bit_cnt = "1111" else '0';
-  n97 <= std_logic_vector (unsigned (bit_cnt) + unsigned'("0001"));
-  n100 <= "101" when n95 = '0' else "000";
-  n102 <= n97 when n95 = '0' else "0000";
-  n104 <= std_logic_vector (unsigned (clk_cnt) + unsigned'("0000000000000001"));
-  n105 <= state when n93 = '0' else n100;
-  n107 <= n104 when n93 = '0' else "0000000000000000";
-  n108 <= bit_cnt when n93 = '0' else n102;
-  n110 <= '1' when state = "011" else '0';
-  n111 <= n110 & n91 & n86 & n76 & n66 & n56;
-  with n111 select n117 <=
+  n23 <= s (50 downto 39);
+  n24 <= s (2 downto 0);
+  n32 <= s (23);
+  n36 <= s (24);
+  n39 <= s (25);
+  n41 <= s (26);
+  n43 <= s (27);
+  n45 <= s (28);
+  n47 <= s (29);
+  n49 <= s (30);
+  n51 <= s (31);
+  n52 <= s (32);
+  n53 <= s (33);
+  n55 <= s (34);
+  n56 <= n39 & n41 & n55 & n53 & n36 & n52 & n32 & n51 & n49 & n47 & n45 & n43;
+  n60 <= s (18 downto 3);
+  n62 <= '1' when n60 = "0000001111100111" else '0';
+  n65 <= s (18 downto 3);
+  n67 <= std_logic_vector (unsigned (n65) + unsigned'("0000000000000001"));
+  n68 <= "0000000000000000" & "001";
+  n69 <= n68 (2 downto 0);
+  n70 <= s (2 downto 0);
+  n71 <= n70 when n62 = '0' else n69;
+  n72 <= n68 (18 downto 3);
+  n73 <= n67 when n62 = '0' else n72;
+  n75 <= '1' when n24 = "000" else '0';
+  n79 <= s (18 downto 3);
+  n81 <= '1' when n79 = "0000000011111001" else '0';
+  n84 <= s (18 downto 3);
+  n86 <= std_logic_vector (unsigned (n84) + unsigned'("0000000000000001"));
+  n87 <= "0000000000000000" & "010";
+  n88 <= n87 (2 downto 0);
+  n89 <= s (2 downto 0);
+  n90 <= n89 when n81 = '0' else n88;
+  n91 <= n87 (18 downto 3);
+  n92 <= n86 when n81 = '0' else n91;
+  n94 <= '1' when n24 = "001" else '0';
+  n98 <= s (18 downto 3);
+  n100 <= '1' when n98 = "0000000011111001" else '0';
+  n103 <= s (18 downto 3);
+  n105 <= std_logic_vector (unsigned (n103) + unsigned'("0000000000000001"));
+  n106 <= "0000000000000000" & "101";
+  n107 <= n106 (2 downto 0);
+  n108 <= s (2 downto 0);
+  n109 <= n108 when n100 = '0' else n107;
+  n110 <= n106 (18 downto 3);
+  n111 <= n105 when n100 = '0' else n110;
+  n113 <= '1' when n24 = "010" else '0';
+  n117 <= s (18 downto 3);
+  n119 <= '1' when n117 = "0000000011111000" else '0';
+  n122 <= s (18 downto 3);
+  n124 <= std_logic_vector (unsigned (n122) + unsigned'("0000000000000001"));
+  n125 <= "0000000000000000" & "100";
+  n126 <= n125 (2 downto 0);
+  n127 <= s (2 downto 0);
+  n128 <= n127 when n119 = '0' else n126;
+  n129 <= n125 (18 downto 3);
+  n130 <= n124 when n119 = '0' else n129;
+  n132 <= '1' when n24 = "101" else '0';
+  n134 <= not wrap_snes_data;
+  n135 <= s (38 downto 24);
+  n136 <= n134 & n135;
+  n138 <= '1' when n24 = "100" else '0';
+  n139 <= s (18 downto 3);
+  n141 <= '1' when n139 = "0000000011111001" else '0';
+  n143 <= s (22 downto 19);
+  n145 <= '1' when n143 = "1111" else '0';
+  n148 <= s (22 downto 19);
+  n150 <= std_logic_vector (unsigned (n148) + unsigned'("0001"));
+  n152 <= "101" when n145 = '0' else "000";
+  n153 <= n150 when n145 = '0' else "0000";
+  n154 <= s (18 downto 3);
+  n156 <= std_logic_vector (unsigned (n154) + unsigned'("0000000000000001"));
+  n157 <= n153 & "0000000000000000" & n152;
+  n158 <= n157 (2 downto 0);
+  n159 <= s (2 downto 0);
+  n160 <= n159 when n141 = '0' else n158;
+  n161 <= n157 (18 downto 3);
+  n162 <= n156 when n141 = '0' else n161;
+  n163 <= n157 (22 downto 19);
+  n164 <= s (22 downto 19);
+  n165 <= n164 when n141 = '0' else n163;
+  n167 <= '1' when n24 = "011" else '0';
+  n168 <= n167 & n138 & n132 & n113 & n94 & n75;
+  with n168 select n174 <=
     '1' when "100000",
     '0' when "010000",
     '0' when "001000",
@@ -237,7 +274,7 @@ begin
     '1' when "000010",
     '1' when "000001",
     'X' when others;
-  with n111 select n122 <=
+  with n168 select n179 <=
     '0' when "100000",
     '0' when "010000",
     '0' when "001000",
@@ -245,187 +282,59 @@ begin
     '1' when "000010",
     '0' when "000001",
     'X' when others;
-  with n111 select n126 <=
-    n105 when "100000",
-    "011" when "010000",
-    n82 when "001000",
-    n72 when "000100",
-    n62 when "000010",
-    n52 when "000001",
-    "XXX" when others;
-  with n111 select n128 <=
-    n107 when "100000",
-    clk_cnt when "010000",
-    n84 when "001000",
-    n74 when "000100",
-    n64 when "000010",
-    n54 when "000001",
-    (15 downto 0 => 'X') when others;
-  with n111 select n130 <=
-    n108 when "100000",
-    bit_cnt when "010000",
-    bit_cnt when "001000",
-    bit_cnt when "000100",
-    bit_cnt when "000010",
-    bit_cnt when "000001",
-    "XXXX" when others;
-  with n111 select n132 <=
-    shift_reg when "100000",
-    n89 when "010000",
-    shift_reg when "001000",
-    shift_reg when "000100",
-    shift_reg when "000010",
-    shift_reg when "000001",
-    (15 downto 0 => 'X') when others;
-  n133 <= n186 (0);
-  with n111 select n135 <=
-    n133 when "100000",
-    n133 when "010000",
-    n133 when "001000",
-    n133 when "000100",
-    n133 when "000010",
-    n39 when "000001",
-    'X' when others;
-  n136 <= n186 (1);
-  with n111 select n138 <=
-    n136 when "100000",
-    n136 when "010000",
-    n136 when "001000",
-    n136 when "000100",
-    n136 when "000010",
-    n40 when "000001",
-    'X' when others;
-  n139 <= n186 (2);
-  with n111 select n141 <=
-    n139 when "100000",
-    n139 when "010000",
-    n139 when "001000",
-    n139 when "000100",
-    n139 when "000010",
-    n41 when "000001",
-    'X' when others;
-  n142 <= n186 (3);
-  with n111 select n144 <=
-    n142 when "100000",
-    n142 when "010000",
-    n142 when "001000",
-    n142 when "000100",
-    n142 when "000010",
-    n42 when "000001",
-    'X' when others;
-  n145 <= n186 (4);
-  with n111 select n147 <=
-    n145 when "100000",
-    n145 when "010000",
-    n145 when "001000",
-    n145 when "000100",
-    n145 when "000010",
-    n43 when "000001",
-    'X' when others;
-  n148 <= n186 (5);
-  with n111 select n150 <=
-    n148 when "100000",
-    n148 when "010000",
-    n148 when "001000",
-    n148 when "000100",
-    n148 when "000010",
-    n35 when "000001",
-    'X' when others;
-  n151 <= n186 (6);
-  with n111 select n153 <=
-    n151 when "100000",
-    n151 when "010000",
-    n151 when "001000",
-    n151 when "000100",
-    n151 when "000010",
-    n44 when "000001",
-    'X' when others;
-  n154 <= n186 (7);
-  with n111 select n156 <=
-    n154 when "100000",
-    n154 when "010000",
-    n154 when "001000",
-    n154 when "000100",
-    n154 when "000010",
-    n36 when "000001",
-    'X' when others;
-  n157 <= n186 (8);
-  with n111 select n159 <=
-    n157 when "100000",
-    n157 when "010000",
-    n157 when "001000",
-    n157 when "000100",
-    n157 when "000010",
-    n45 when "000001",
-    'X' when others;
-  n160 <= n186 (9);
-  with n111 select n162 <=
+  with n168 select n182 <=
     n160 when "100000",
-    n160 when "010000",
-    n160 when "001000",
-    n160 when "000100",
-    n160 when "000010",
-    n46 when "000001",
-    'X' when others;
-  n163 <= n186 (10);
-  with n111 select n165 <=
-    n163 when "100000",
-    n163 when "010000",
-    n163 when "001000",
-    n163 when "000100",
-    n163 when "000010",
-    n38 when "000001",
-    'X' when others;
-  n166 <= n186 (11);
-  with n111 select n168 <=
-    n166 when "100000",
-    n166 when "010000",
-    n166 when "001000",
-    n166 when "000100",
-    n166 when "000010",
-    n37 when "000001",
-    'X' when others;
+    "011" when "010000",
+    n128 when "001000",
+    n109 when "000100",
+    n90 when "000010",
+    n71 when "000001",
+    "XXX" when others;
+  n183 <= s (18 downto 3);
+  with n168 select n185 <=
+    n162 when "100000",
+    n183 when "010000",
+    n130 when "001000",
+    n111 when "000100",
+    n92 when "000010",
+    n73 when "000001",
+    (15 downto 0 => 'X') when others;
+  n186 <= s (22 downto 19);
+  with n168 select n188 <=
+    n165 when "100000",
+    n186 when "010000",
+    n186 when "001000",
+    n186 when "000100",
+    n186 when "000010",
+    n186 when "000001",
+    "XXXX" when others;
+  n189 <= s (38 downto 23);
+  with n168 select n191 <=
+    n189 when "100000",
+    n136 when "010000",
+    n189 when "001000",
+    n189 when "000100",
+    n189 when "000010",
+    n189 when "000001",
+    (15 downto 0 => 'X') when others;
+  n192 <= s (50 downto 39);
+  with n168 select n194 <=
+    n192 when "100000",
+    n192 when "010000",
+    n192 when "001000",
+    n192 when "000100",
+    n192 when "000010",
+    n56 when "000001",
+    (11 downto 0 => 'X') when others;
   process (wrap_clk, n16)
   begin
     if n16 = '1' then
-      n181 <= "000";
+      n200 <= "000000000000000000000000000000000000000000000000000";
     elsif rising_edge (wrap_clk) then
-      n181 <= state_nxt;
+      n200 <= s_nxt;
     end if;
   end process;
-  process (wrap_clk, n16)
-  begin
-    if n16 = '1' then
-      n182 <= "0000000000000000";
-    elsif rising_edge (wrap_clk) then
-      n182 <= clk_cnt_nxt;
-    end if;
-  end process;
-  process (wrap_clk, n16)
-  begin
-    if n16 = '1' then
-      n183 <= "0000";
-    elsif rising_edge (wrap_clk) then
-      n183 <= bit_cnt_nxt;
-    end if;
-  end process;
-  process (wrap_clk, n16)
-  begin
-    if n16 = '1' then
-      n184 <= "0000000000000000";
-    elsif rising_edge (wrap_clk) then
-      n184 <= shift_reg_nxt;
-    end if;
-  end process;
-  n185 <= n168 & n165 & n162 & n159 & n156 & n153 & n150 & n147 & n144 & n141 & n138 & n135;
-  process (wrap_clk, n16)
-  begin
-    if n16 = '1' then
-      n186 <= "000000000000";
-    elsif rising_edge (wrap_clk) then
-      n186 <= btn_nxt;
-    end if;
-  end process;
+  n201 <= n194 & n191 & n188 & n185 & n182;
   assert clk_freq = 50000000 report "Unsupported generic value! clk_freq must be 50000000." severity failure;
   assert clk_out_freq = 100000 report "Unsupported generic value! clk_out_freq must be 100000." severity failure;
   assert refresh_timeout = 1000 report "Unsupported generic value! refresh_timeout must be 1000." severity failure;
