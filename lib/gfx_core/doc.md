@@ -527,7 +527,7 @@ After the execution of the command `gp.x` (`gp.y`) is incremented by *dx* (*dy*)
 ```math
   dx =
   \begin{cases}
-    text{\texttt{width}} & \text{if \texttt{rot}=00 or \texttt{rot}=10}\\
+    \text{\texttt{width}} & \text{if \texttt{rot}=00 or \texttt{rot}=10}\\
     \text{\texttt{height}} & \text{otherwise}
   \end{cases},\;\;\;\;\;
   dy =
