@@ -62,7 +62,7 @@ The `clk` and `res_n` inputs are for the clock respectively. Note that `clk` mus
 
 The provided reference implementation of the `vga_ctrl` core produces a VGA output signal with a resolution of 640x480 pixels.
 
-The core has two interfaces: an internal, FIFO-like, one consisting of `frame_start`, `pix_color` and `pix_ack`, and one responsible for providing the actual VGA signls.
+The core has two interfaces: an internal, FIFO-like, one consisting of `frame_start`, `pix_color` and `pix_ack`, and one responsible for providing the actual VGA signals.
 This interface can be further partitioned into signals that are directly connected to the VGA connector (`vga_hsync`, `vga_vsync`) and signals that are fed into the board's ADV7123 DAC (`vga_dac_*`).
 The below image illustrates this:
 
@@ -72,15 +72,15 @@ The below image illustrates this:
 Exactly one horizontal line before each frame (i.e., 800 cycles of `clk`) the `vga_ctrl` asserts its `frame_start` signal for exactly one clock cycle.
 This allows the module that provides the frame data at this input with enough time to fetch the required data (e.g., from an external memory).
 
-After these 800 cycles the core expects the core expects valid data at `pixel_color` (see below for details about its `vga_pixel_color_t` type).
-Each valud input at this input is the color of a single pixel of the frame (24-bit RGB data).
+After these 800 cycles the core expects valid data at `pixel_color` (see below for details about its `vga_pixel_color_t` type).
+Each valid input at this input is the color of a single pixel of the frame (24-bit RGB data).
 The core then uses `pix_ack` to request the next pixel color data.
 When this signal is high, the currently applied pixel color data was *acknowledged*.
 Hence, the next one **must** be applied such that it is available during the next cycle of `clk`.
 Note that this essentially corresponds to the same protocol used by FIFOs. Hence, the `vga_ctrl`'s internal interface can be directly connected to an appropriate FIFO buffer if needed.
 
 The timing diagram below shows how this interface protocol is used to feed actual pixel data into the core.
-Observe how pixels are expected to arrive in the sequence shwon in the timing diagram (i.e., line by line starting at line 0 in the top left corner of the frame).
+Observe how pixels are expected to arrive in the sequence shown in the timing diagram (i.e., line by line starting at line 0 in the top left corner of the frame).
 
 
 ![VGA Controller Timing Diagram](.mdata/data_timing.svg)
