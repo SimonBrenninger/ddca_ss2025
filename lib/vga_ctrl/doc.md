@@ -147,7 +147,7 @@ For `WIDTH=640` and `HEIGHT=480` the test pattern generator will produce the ima
 Note that the test pattern has a white frame, i.e., all pixels with an `x` coordinate of `0` or `WIDTH-1`, or a `y` coordinate of `0` or `HEIGHT-1` are white.
 
 
-![Test Pattern](doc/tpg.png)
+![Test Pattern](.mdata/tpg.png)
 
 ### dac_dump
 The *non-synthesizable* `dac_dump` acts as a sink for the `vga_*` signals of a `vga_ctrl` instance and dumps the frames drawn by such an image as bitmaps to the local file system.
