@@ -49,7 +49,7 @@ begin
 		-- TODO: Check your design
 
 		-- Example for generating random input data
-		generate_snes_data_input(to_snes_ctrl_state(rnd.gen_slv_01(12)));
+		generate_snes_data_input(to_snes_ctrl_state(rnd.gen_sulv_01(12)));
 
 		report "Simulation end";
 		-- End simulation

@@ -9,8 +9,8 @@ use ieee.std_logic_textio.all;
 
 package tb_util_pkg is
 	type random_t is protected
-		impure function gen_slv_01(len : positive) return std_ulogic_vector;
-		impure function gen_sl_01 return std_ulogic;
+		impure function gen_sul_01 return std_ulogic;
+		impure function gen_sulv_01(len : positive) return std_ulogic_vector;
 	end protected;
 
 	type vram_t is protected
@@ -29,19 +29,7 @@ package body tb_util_pkg is
 	type random_t is protected body
 		variable seed1, seed2 : integer := 1;
 
-		impure function gen_slv_01(len : positive) return std_ulogic_vector is
-			variable random_real : real;
-			variable slv : std_ulogic_vector(len - 1 downto 0);
-		begin
-			for i in slv'range loop
-				uniform(seed1, seed2, random_real);
-				slv(i) := '1';
-				if (random_real > 0.5) then slv(i) := '0'; end if;
-			end loop;
-			return slv;
-		end function;
-
-		impure function gen_sl_01 return std_ulogic is
+		impure function gen_sul_01 return std_ulogic is
 			variable random_real : real;
 		begin
 			uniform(seed1, seed2, random_real);
@@ -50,6 +38,19 @@ package body tb_util_pkg is
 			end if;
 			return '1';
 		end function;
+
+		impure function gen_sulv_01(len : positive) return std_ulogic_vector is
+			variable random_real : real;
+			variable sulv        : std_ulogic_vector(len - 1 downto 0);
+		begin
+			for i in sulv'range loop
+				uniform(seed1, seed2, random_real);
+				sulv(i) := '1';
+				if (random_real > 0.5) then sulv(i) := '0'; end if;
+			end loop;
+			return sulv;
+		end function;
+
 	end protected body;
 
 	type vram_t is protected body
