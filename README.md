@@ -117,6 +117,7 @@ Feel free to use them in your designs as you see fit.
 | Library Core | Package Documentation |
 |-|-|
 | Mathematical Support Package | [math](lib/math/doc.md) |
+| On-Chip Memory Package | [mem](lib/mem/doc.md) |
 | Synchronizer Package | [sync](lib/sync/doc.md) |
 | Utility Support Package | [util](lib/util/doc.md) |
 | SNES Controller Package | [snes_ctrl](lib/snes_ctrl/doc.md) |
