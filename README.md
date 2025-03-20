@@ -103,6 +103,7 @@ Your login credentials are the same as for the (local) TILab.
 |-|-|----|
 | [snes_ctrl](tasks/level1/snes_ctrl/task.md) | 10 | FSM, External Interface |
 | [gfx_cmd_interpreter](tasks/level1/gfx_cmd_interpreter/task.md) | 15 | Advanced Testbench, Specifications |
+| [tetris](tasks/level1/tetris/task.md) | 25 | FSM, Specifiacations, Filling Gaps, Reading Code |
 | [vga_ctrl](tasks/level1/vga_ctrl/task.md) | 10 | External Interface, Advanced Testbench, Oscilloscope |
 
 
@@ -123,4 +124,7 @@ Feel free to use them in your designs as you see fit.
 | Top Module | [top](lib/top/doc.md) |
 | Graphics Command Interface Core Package | [gfx_core](lib/gfx_core/doc.md) |
 | VGA Controller | [vga_ctrl](lib/vga_ctrl/doc.md) |
+| Tetris Utility Package | [tetris_util](lib/tetris_util/doc.md) |
+| Decimal Printer Package | [decimal_printer](lib/decimal_printer/doc.md) |
+| VGA Graphics Controller Package | [vga_gfx_ctrl](lib/vga_gfx_ctrl/doc.md) |
 

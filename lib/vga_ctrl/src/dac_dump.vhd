@@ -39,8 +39,10 @@ begin
 		variable img_line : line;
 	begin
 		wait until rising_edge(frame_start);
+		-- frame_start comes one line before the actual data is expected
+		wait for (H_VISIBLE_AREA+H_FRONT_PORCH+H_SYNC_PULSE+H_BACK_PORCH+1) * CLK_PERIOD;
 
-		file_open(output_img, BMP_BASE_NAME & to_string(current_img) & ".bmp", write_mode);
+		file_open(output_img, BMP_BASE_NAME & to_string(current_img) & ".ppm", write_mode);
 
 		-- add .bmp file header
 		swrite(img_line, "P3");

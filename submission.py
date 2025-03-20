@@ -49,7 +49,10 @@ def usage():
 		    'tasks/LEVEL/'. Hence, you can also run:
 		    ./submission.py level1 tasks/level1/snes_ctrl/ tasks/level1/gfx_cmd_interpreter/
 		  * Submit all tasks of level 1:
-		    ./submission.py level1 -a"""))
+		    ./submission.py level1 -a
+		  * Submit all (core | commitiment | resilience) tasks of level 1:
+		    ./submission.py level1 (--core | --commitment | --resilience)
+	"""))
 		#--------|---------|---------|---------|---------|---------|---------|---------|
 
 

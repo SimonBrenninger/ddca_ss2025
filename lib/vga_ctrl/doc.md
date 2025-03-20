@@ -7,13 +7,13 @@ This package provides everything required to interface with the DE2115-2 board's
 
 ## Required Files
 
-- [dac_dump.vhd](src/dac_dump.vhd)
-
 - [tpg.vhd](src/tpg.vhd)
 
 - [vga_ctrl.vhd](src/vga_ctrl.vhd)
 
 - [vga_ctrl_pkg.vhd](src/vga_ctrl_pkg.vhd)
+
+- [dac_dump.vhd](src/dac_dump.vhd)
 
 - [vga_ctrl_arch_ref.vhd](src/vga_ctrl_arch_ref.vhd)
 
@@ -99,11 +99,11 @@ The provided implementation's generics were set to the following values:
 `H_VISIBLE_AREA` | 640 |
 `H_FRONT_PROCH` | 16 |
 `H_SYNC_PULS` | 96 |
-`H_BACK_PRCH` | 48 |
+`H_BACK_PORCH` | 48 |
 `V_VISIBLE_AREA` | 480 |
 `V_FRONT_PROCH` | 10 |
 `V_SYNC_PULS` | 2 |
-`V_BACK_PRCH` | 33 |
+`V_BACK_PORCH` | 33 |
 
 This means that each line consists of 800 clock cycles and that there are 525 lines per frame in total.
 
@@ -192,12 +192,12 @@ The remainining generics must be set to the same value as the ones of the connec
 
 The `dac_dump` core waits for the `frame_start` signal being set by the connected `vga_ctrl` and then captures the incoming VGA and DAC signals.
 It uses these signals to write the color of each pixel of a frame into an internal buffer.
-Once the whole frame was captured, it creates a `.bmp` file in the directory where the simulation was started from.
-The `.bmp` files are named by taking the `BMP_BASE_NAME` generic and appending an increasing index number to it.
-This numbers starts at 0, i.e., the first dumped bitmap will be named `BMP_BASE_NAME0.bmp`.
+Once the whole frame was captured, it creates a `.ppm` file in the directory where the simulation was started from.
+The `.ppm` files are named by taking the `BMP_BASE_NAME` generic and appending an increasing index number to it.
+This numbers starts at 0, i.e., the first dumped bitmap will be named `BMP_BASE_NAME0.ppm`.
 Already existing bitmaps of the same name will be overwritten.
 
-Note that `.bmp` is a text-based file since VHDL does not support writing binary data to files.
+Note that `.ppm` is a text-based file since VHDL does not support writing binary data to files.
 The resulting files can therefore become quite large.
 
 

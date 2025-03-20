@@ -17,7 +17,7 @@ TB=vga_ctrl_tb
 WAVE_FILE=wave.do
 GTK_WAVE_FILE=wave.gtkw
 
-CLEAN_FILES=*.bmp
+CLEAN_FILES=*.ppm
 CLEAN_DIRS=vendor_libs
 GHDL_USE_ALTERA_LIB=1
 
