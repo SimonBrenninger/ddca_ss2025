@@ -59,7 +59,7 @@ However, if you want you may implement this feature as well.
 
 ### Controlling the game
 
-Note that in order to make controlling the game independent of the actual physical gamepad used by the design, the [tetris_pkg](src/[tetris_pkg.vhd](src/tetris_pkg.vhd)) defines a custom record type:
+Note that in order to make controlling the game independent of the actual physical gamepad used by the design, the [tetris_pkg](src/tetris_pkg.vhd) defines a custom record type:
 
 
 
@@ -176,7 +176,7 @@ We recommend you to stick to the suggested implementation sequence:
 
 ## Testbench
 
-Use and extend the provided [testbench template](tb/[tetris_tb.vhd](tb/tetris_tb.vhd)) to simulate your game using your `gfx_cmd_interpreter`.
+Use and extend the provided [testbench template](tb/tetris_tb.vhd) to simulate your game using your `gfx_cmd_interpreter`.
 For the final submission, your testbench should (at least) show a game where three tetrominoes are moved, rotated and placed on the game field meaningfully.
 
 

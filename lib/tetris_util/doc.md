@@ -8,11 +8,11 @@ The `tetris_util_pkg` package contains some utility functions and modules that d
 
 ## Required Files
 
+- [tetris_util_pkg.vhd](src/tetris_util_pkg.vhd)
+
 - [tetromino_collider.vhd](src/tetromino_collider.vhd)
 
 - [tetromino_drawer.vhd](src/tetromino_drawer.vhd)
-
-- [tetris_util_pkg.vhd](src/tetris_util_pkg.vhd)
 
 
 ## Overview

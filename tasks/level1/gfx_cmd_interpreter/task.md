@@ -30,7 +30,7 @@ Therefore, whenever a module outputs something over a graphics command interface
 **Important**: Before you continue reading with reading this task description, you should consult the [`gfx_core`](../../../lib/gfx_core/doc.md) documentation to get an overview of the GCI and its functionality.
 You should also have a look at the [`gfx_cmd_pkg`](../../../lib/gfx_core/src/gfx_core_pkg.vhd), as it contains important constants and functions that will help you with your implementation.
 
-You are already provided with a [template](src/[gfx_cmd_interpreter.vhd](src/gfx_cmd_interpreter.vhd)) for the interpreter containing some very basic code and procedure / function skeletons.
+You are already provided with a [template](src/gfx_cmd_interpreter.vhd) for the interpreter containing some very basic code and procedure / function skeletons.
 You do not have to use the provided code, but we strongly suggest you to.
 The interface of the `gfx_cmd_interpreter` entity is
 
@@ -90,7 +90,7 @@ The interpreter should be capable of dumping images of arbitrary dimensions.
 ## Testbench
 
 Create a testbench to see if **all** the graphics commands are executed correctly (i.e., the testbench shall execute each command at least once).
-Use the provided [template](tb/[gfx_cmd_interpreter_tb.vhd](tb/gfx_cmd_interpreter_tb.vhd)).
+Use the provided [template](tb/gfx_cmd_interpreter_tb.vhd).
 
 
 
