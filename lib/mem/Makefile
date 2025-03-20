@@ -24,3 +24,5 @@ sim_fifo_gui: sim_gui
 
 gsim_fifo: TB=fifo_1c1r1w_tb
 gsim_fifo: gsim
+
+
