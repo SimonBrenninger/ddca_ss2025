@@ -65,7 +65,7 @@ For `DRAW_CIRCLE` use the [Bresenham algorithm for circles](https://de.wikipedia
 
 The `gfx_cmd_interpreter`'s main purpose is to dump frames as images.
 This is achieved by dumping the bitmap identified by the `bmpidx` field to a file whenever the `gfx_cmd_interpreter` executes a `DISPLAY_BMP` command.
-Also, if the `fs` flag field of the `DISPLAY_BMP` is set, your interpreter shall assert its `gfx_frame_sync` output for a single clock cycle.
+Also, if the `fs` flag field of the `DISPLAY_BMP` command is set, your interpreter shall assert its `gci_out.frame_sync` output for a single clock cycle.
 
 Name the dumped frame images as `[N].ppm`, where `[N]` is a number increased with every frame that is dumped (beginning with 0, i.e., the first dumped frame shall be named `0.ppm`).
 Your interpreter shall place the created image files in the directory specified by the `OUTPUT_DIR` generic.
