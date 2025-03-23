@@ -8,11 +8,11 @@ The `tetris_util_pkg` package contains some utility functions and modules that d
 
 ## Required Files
 
+- [tetris_util_pkg.vhd](src/tetris_util_pkg.vhd)
+
 - [tetromino_collider.vhd](src/tetromino_collider.vhd)
 
 - [tetromino_drawer.vhd](src/tetromino_drawer.vhd)
-
-- [tetris_util_pkg.vhd](src/tetris_util_pkg.vhd)
 
 
 ## Overview
@@ -72,7 +72,7 @@ assert is_tetromino_solid_at(TET_T, ROT_0, "10", "01") = true;
 ## Components
 
 ### tetromino_drawer
-The `tetromino_drawer` allows drawing of tetrominoes to a Graphics Command Interface (CGI).
+The `tetromino_drawer` allows drawing of tetrominoes to a Graphics Command Interface (GCI).
 
 
 ```vhdl

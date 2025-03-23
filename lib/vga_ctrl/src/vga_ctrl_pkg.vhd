@@ -152,8 +152,8 @@ package body vga_ctrl_pkg is
 		pixel_color.g(7 downto 3) := rgb(10 downto 6);
 		pixel_color.g(2 downto 0) := (others => rgb(5));
 
-		pixel_color.r(7 downto 4) := rgb(4 downto 1);
-		pixel_color.r(3 downto 0) := (others => rgb(0));
+		pixel_color.b(7 downto 4) := rgb(4 downto 1);
+		pixel_color.b(3 downto 0) := (others => rgb(0));
 		return pixel_color;
 	end function;
 
