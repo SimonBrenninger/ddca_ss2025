@@ -1,6 +1,6 @@
 
 # Decimal Printer Package
-The `decimal_printer_pkg` provides a single core that can be used to print the decimal representation of unsigned numbers to a Graphics Command Interface (CGI).
+The `decimal_printer_pkg` provides a single core that can be used to print the decimal representation of unsigned numbers to a Graphics Command Interface (GCI).
 
 
 [[_TOC_]]
@@ -14,7 +14,7 @@ The `decimal_printer_pkg` provides a single core that can be used to print the d
 ## Components
 
 ### decimal_printer
-The `decimal_printer` prints the 5-digit decimal representation of an unsigned 16-bit number using a CGI.
+The `decimal_printer` prints the 5-digit decimal representation of an unsigned 16-bit number using a GCI.
 
 
 ```vhdl

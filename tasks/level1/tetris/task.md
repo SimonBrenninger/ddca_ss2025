@@ -33,7 +33,7 @@ end entity;
 ```
 
 
-As can be seen from the interface the `tetris` module implements a CGI (refer to the [`gfx_core` package](../../../lib/gfx_core/doc.md)).
+As can be seen from the interface the `tetris` module implements a GCI (refer to the [`gfx_core` package](../../../lib/gfx_core/doc.md)).
 We already provide you with a template architecture, that initializes this interface and loads the required assets for the Tetris game into VRAM.
 It also sets up a basic "main" loop for your game that you can use as the basis for your implementation.
 Moreover, it demonstrates how to interface with the `decimal_printer`, `tetromino_drawer` and `tetromino_collider` library cores, that implement important core functionality of the game.

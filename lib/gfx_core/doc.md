@@ -80,7 +80,7 @@ Depending on the instruction the number of operands can range from 0 to 4, with 
 This means that for most commands multiple 16 bit words must be issued to the GCI using the inputs `wr` and `wr_data`.
 
 
-In the following we refer to a VHDL module that implements the CGI as sink as a graphics core.
+In the following we refer to a VHDL module that implements the GCI as sink as a graphics core.
 On a very basic level a graphics core must be able to display images to a user.
 This can be image files on the file system of a computer (in the case of a simulation setting), or via some interface to a display in hardware (e.g., VGA, HDMI, etc.).
 
