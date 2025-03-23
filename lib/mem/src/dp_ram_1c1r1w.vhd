@@ -6,21 +6,21 @@ use ieee.numeric_std.all;
 
 entity dp_ram_1c1r1w is
 	generic (
-		ADDR_WIDTH : integer; -- Address bus width
-		DATA_WIDTH : integer  -- Data bus width
+		ADDR_WIDTH : positive; -- Address bus width
+		DATA_WIDTH : positive  -- Data bus width
 	);
 	port (
 		clk    : in  std_ulogic; -- Connection for the clock signal.
 		
-		-- read port
-		rd1_addr : in  std_ulogic_vector(ADDR_WIDTH - 1 downto 0); -- The address bus for a reader of the dual port RAM.
-		rd1_data : out std_ulogic_vector(DATA_WIDTH - 1 downto 0) := (others=>'0'); -- The data bus for a reader of the dual port RAM.
-		rd1      : in  std_ulogic; -- The indicator signal for a reader of the dual port RAM (must  be set high in order to be able to read).
+		-- Read port
+		rd1_addr : in  std_ulogic_vector(ADDR_WIDTH - 1 downto 0);
+		rd1_data : out std_ulogic_vector(DATA_WIDTH - 1 downto 0) := (others=>'0');
+		rd1      : in  std_ulogic;
 		
-		-- write port
-		wr2_addr : in  std_ulogic_vector(ADDR_WIDTH - 1 downto 0); -- The address bus for a writer of the dual port RAM.
-		wr2_data : in  std_ulogic_vector(DATA_WIDTH - 1 downto 0); -- The data bus for a writer of the dual port RAM.
-		wr2      : in  std_ulogic  -- The indicator signal for wrting to the dual port RAM (must be set high in order to be able to write).
+		-- Write port
+		wr2_addr : in  std_ulogic_vector(ADDR_WIDTH - 1 downto 0);
+		wr2_data : in  std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+		wr2      : in  std_ulogic
 	);
 end entity;
 

@@ -7,14 +7,14 @@ use work.mem_pkg.all;
 
 entity dp_ram_2c2rw_byteen is
 	generic (
-		ADDR_WIDTH : integer;
-		DATA_WIDTH : integer
+		ADDR_WIDTH : positive;
+		DATA_WIDTH : positive
 	);
 	port (
 		clk1 : in  std_ulogic;
 		clk2 : in  std_ulogic;
 		
-		-- read/write port 1
+		-- Read/write port 1
 		rw1_addr    : in  std_ulogic_vector(ADDR_WIDTH-1 downto 0);
 		rw1_rd_data : out std_ulogic_vector(DATA_WIDTH-1 downto 0) := (others=>'0');
 		rw1_rd      : in  std_ulogic;
@@ -22,7 +22,7 @@ entity dp_ram_2c2rw_byteen is
 		rw1_wr_ben  : in  std_ulogic_vector(DATA_WIDTH/8-1 downto 0);
 		rw1_wr      : in  std_ulogic;
 
-		-- read/write port 2
+		-- Read/write port 2
 		rw2_addr    : in  std_ulogic_vector(ADDR_WIDTH-1 downto 0);
 		rw2_rd_data : out std_ulogic_vector(DATA_WIDTH-1 downto 0) := (others=>'0');
 		rw2_rd      : in  std_ulogic;

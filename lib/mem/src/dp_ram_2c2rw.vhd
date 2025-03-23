@@ -4,21 +4,21 @@ use ieee.numeric_std.all;
 
 entity dp_ram_2c2rw is
 	generic (
-		ADDR_WIDTH : integer;
-		DATA_WIDTH : integer
+		ADDR_WIDTH : positive;
+		DATA_WIDTH : positive
 	);
 	port (
 		clk1 : in  std_ulogic;
 		clk2 : in  std_ulogic;
 		
-		-- read/write port 1
+		-- Read/write port 1
 		rw1_addr    : in  std_ulogic_vector(ADDR_WIDTH-1 downto 0);
 		rw1_rd_data : out std_ulogic_vector(DATA_WIDTH-1 downto 0) := (others=>'0');
 		rw1_rd      : in  std_ulogic;
 		rw1_wr_data : in  std_ulogic_vector(DATA_WIDTH-1 downto 0);
 		rw1_wr      : in  std_ulogic;
 
-		-- read/write port 2
+		-- Read/write port 2
 		rw2_addr    : in  std_ulogic_vector(ADDR_WIDTH-1 downto 0);
 		rw2_rd_data : out std_ulogic_vector(DATA_WIDTH-1 downto 0) := (others=>'0');
 		rw2_rd      : in  std_ulogic;
@@ -27,7 +27,7 @@ entity dp_ram_2c2rw is
 	);
 end entity;
 
--- see Intel Quartus Prime User Guide - Design Recommendations
+-- See Intel Quartus Prime User Guide - Design Recommendations
 architecture rtl of dp_ram_2c2rw is
 	subtype word_t is std_ulogic_vector((DATA_WIDTH-1) downto 0);
 	type memory_t is array(2**ADDR_WIDTH-1 downto 0) of word_t;

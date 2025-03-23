@@ -7,8 +7,8 @@ use work.mem_pkg.all;
 
 entity fifo_1c1r1w_fwft is
 	generic (
-		DEPTH  : integer;
-		DATA_WIDTH : integer
+		DEPTH  : positive;
+		DATA_WIDTH : positive
 	);
 	port (
 		clk       : in  std_ulogic;

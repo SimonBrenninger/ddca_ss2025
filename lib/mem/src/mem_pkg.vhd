@@ -6,8 +6,8 @@ package mem_pkg is
 
 	component dp_ram_1c1r1w is
 		generic (
-			ADDR_WIDTH : integer;
-			DATA_WIDTH : integer
+			ADDR_WIDTH : positive;
+			DATA_WIDTH : positive
 		);
 		port (
 			clk : in std_ulogic;
@@ -23,24 +23,24 @@ package mem_pkg is
 	end component;
 	
 	component dp_ram_1c1r1w_rdw is
-	generic (
-		ADDR_WIDTH : integer;
-		DATA_WIDTH : integer
-	);
-	port (
-		clk           : in std_ulogic;
-		rd1_addr      : in std_ulogic_vector(ADDR_WIDTH-1 downto 0);
-		rd1_data      : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
-		wr2_addr      : in std_ulogic_vector(ADDR_WIDTH-1 downto 0);
-		wr2_data      : in std_ulogic_vector(DATA_WIDTH-1 downto 0);
-		wr2           : in std_ulogic
-	);
+		generic (
+			ADDR_WIDTH : positive;
+			DATA_WIDTH : positive
+		);
+		port (
+			clk           : in std_ulogic;
+			rd1_addr      : in std_ulogic_vector(ADDR_WIDTH-1 downto 0);
+			rd1_data      : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
+			wr2_addr      : in std_ulogic_vector(ADDR_WIDTH-1 downto 0);
+			wr2_data      : in std_ulogic_vector(DATA_WIDTH-1 downto 0);
+			wr2           : in std_ulogic
+		);
 	end component;
 
 	component dp_ram_2c2rw is
 		generic (
-			ADDR_WIDTH : integer;
-			DATA_WIDTH : integer
+			ADDR_WIDTH : positive;
+			DATA_WIDTH : positive
 		);
 		port (
 			clk1 : in std_ulogic;
@@ -62,8 +62,8 @@ package mem_pkg is
 
 	component dp_ram_2c2rw_byteen is
 		generic (
-			ADDR_WIDTH : integer;
-			DATA_WIDTH : integer
+			ADDR_WIDTH : positive;
+			DATA_WIDTH : positive
 		);
 		port (
 			clk1 : in std_ulogic;
@@ -87,8 +87,8 @@ package mem_pkg is
 	
 	component fifo_1c1r1w is
 		generic (
-			DEPTH : integer;
-			DATA_WIDTH : integer
+			DEPTH : positive;
+			DATA_WIDTH : positive
 		);
 		port (
 			clk : in std_ulogic;
@@ -108,8 +108,8 @@ package mem_pkg is
 	
 	component fifo_1c1r1w_fwft is
 		generic (
-			DEPTH : integer;
-			DATA_WIDTH : integer
+			DEPTH : positive;
+			DATA_WIDTH : positive
 		);
 		port (
 			clk : in std_ulogic;
