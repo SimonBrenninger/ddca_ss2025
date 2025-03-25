@@ -40,7 +40,7 @@ The root directory of this repository contains the following subfolders
 * `util`: This folder contains Makefile templates, used to build and simulate your code. Don't make any changes here.
 * `tasks`: The actual tasks are located here. Your own code (i.e., your solutions) also goes here.
 
-Furthermore, there is a [submission scipt](submission.py) which you will use to submit your solutions.
+Furthermore, there is a [submission script](submission.py) which you will use to submit your solutions.
 You can learn more about it by running it and reading its synopsis.
 
 
@@ -104,6 +104,7 @@ Your login credentials are the same as for the (local) TILab.
 | [snes_ctrl](tasks/level1/snes_ctrl/task.md) | 10 | FSM, External Interface |
 | [gfx_cmd_interpreter](tasks/level1/gfx_cmd_interpreter/task.md) | 15 | Advanced Testbench, Specifications |
 | [tetris](tasks/level1/tetris/task.md) | 25 | FSM, Specifiacations, Filling Gaps, Reading Code |
+| [rasterizer](tasks/level1/rasterizer/task.md) | 10 | Advanced Testbench, Specifications |
 | [vga_ctrl](tasks/level1/vga_ctrl/task.md) | 10 | External Interface, Advanced Testbench, Oscilloscope |
 
 

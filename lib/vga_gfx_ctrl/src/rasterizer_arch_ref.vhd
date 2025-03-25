@@ -20,16 +20,16 @@ entity dp_ram_1c1r1w_3_8 is
     rd1_data : out std_logic_vector (7 downto 0));
 end entity dp_ram_1c1r1w_3_8;
 architecture ref of dp_ram_1c1r1w_3_8 is
-  signal n2234 : std_logic_vector (7 downto 0);
-  signal n2235 : std_logic_vector (7 downto 0) := "00000000";
-  signal n2237 : std_logic_vector (7 downto 0);
+  signal n2233 : std_logic_vector (7 downto 0);
+  signal n2234 : std_logic_vector (7 downto 0) := "00000000";
+  signal n2236 : std_logic_vector (7 downto 0);
 begin
-  rd1_data <= n2235;
-  n2234 <= n2235 when rd1 = '0' else n2237;
+  rd1_data <= n2234;
+  n2233 <= n2234 when rd1 = '0' else n2236;
   process (clk)
   begin
     if rising_edge (clk) then
-      n2235 <= n2234;
+      n2234 <= n2233;
     end if;
   end process;
   process (rd1_addr, clk) is
@@ -37,7 +37,7 @@ begin
       of std_logic_vector (7 downto 0);
     variable ram : ram_type := (others => (others => '0'));
   begin
-    n2237 <= ram(to_integer (unsigned (rd1_addr)));
+    n2236 <= ram(to_integer (unsigned (rd1_addr)));
     if rising_edge (clk) and (wr2 = '1') then
       ram (to_integer (unsigned (wr2_addr))) := wr2_data;
     end if;
@@ -70,72 +70,72 @@ architecture ref of fifo_1c1r1w_8_8 is
   signal half_full_next : std_logic;
   signal pointer_diff : std_logic_vector (31 downto 0);
   signal pointer_diff_next : std_logic_vector (31 downto 0);
-  signal memory_inst_n2097 : std_logic_vector (7 downto 0);
+  signal memory_inst_n2096 : std_logic_vector (7 downto 0);
   signal memory_inst_c_rd1_data : std_logic_vector (7 downto 0);
-  signal n2101 : std_logic;
+  signal n2100 : std_logic;
+  signal n2123 : std_logic;
   signal n2124 : std_logic;
-  signal n2125 : std_logic;
+  signal n2126 : std_logic_vector (2 downto 0);
   signal n2127 : std_logic_vector (2 downto 0);
-  signal n2128 : std_logic_vector (2 downto 0);
-  signal n2131 : std_logic;
+  signal n2130 : std_logic;
+  signal n2132 : std_logic;
   signal n2133 : std_logic;
-  signal n2134 : std_logic;
+  signal n2135 : std_logic_vector (2 downto 0);
   signal n2136 : std_logic_vector (2 downto 0);
-  signal n2137 : std_logic_vector (2 downto 0);
-  signal n2140 : std_logic;
+  signal n2139 : std_logic;
+  signal n2141 : std_logic;
   signal n2142 : std_logic;
-  signal n2143 : std_logic;
-  signal n2145 : std_logic_vector (31 downto 0);
+  signal n2144 : std_logic_vector (31 downto 0);
+  signal n2145 : std_logic;
   signal n2146 : std_logic;
-  signal n2147 : std_logic;
+  signal n2148 : std_logic_vector (31 downto 0);
   signal n2149 : std_logic_vector (31 downto 0);
   signal n2150 : std_logic_vector (31 downto 0);
-  signal n2151 : std_logic_vector (31 downto 0);
-  signal n2153 : std_logic;
-  signal n2156 : std_logic;
-  signal n2159 : std_logic_vector (2 downto 0);
-  signal n2160 : std_logic;
-  signal n2162 : std_logic;
+  signal n2152 : std_logic;
+  signal n2155 : std_logic;
+  signal n2158 : std_logic_vector (2 downto 0);
+  signal n2159 : std_logic;
+  signal n2161 : std_logic;
+  signal n2163 : std_logic;
   signal n2164 : std_logic;
-  signal n2165 : std_logic;
-  signal n2167 : std_logic_vector (2 downto 0);
-  signal n2168 : std_logic;
+  signal n2166 : std_logic_vector (2 downto 0);
+  signal n2167 : std_logic;
+  signal n2169 : std_logic;
   signal n2170 : std_logic;
-  signal n2171 : std_logic;
-  signal n2173 : std_logic;
-  signal n2179 : std_logic;
+  signal n2172 : std_logic;
+  signal n2178 : std_logic;
+  signal n2180 : std_logic;
   signal n2181 : std_logic;
-  signal n2182 : std_logic;
+  signal n2185 : std_logic;
   signal n2186 : std_logic;
-  signal n2187 : std_logic;
+  signal n2188 : std_logic;
   signal n2189 : std_logic;
-  signal n2190 : std_logic;
-  signal n2194 : std_logic;
-  signal n2203 : std_logic := '1';
-  signal n2205 : std_logic := '1';
+  signal n2193 : std_logic;
+  signal n2202 : std_logic := '1';
+  signal n2204 : std_logic := '1';
+  signal n2205 : std_logic_vector (2 downto 0);
   signal n2206 : std_logic_vector (2 downto 0);
-  signal n2207 : std_logic_vector (2 downto 0);
-  signal n2208 : std_logic_vector (31 downto 0) := "00000000000000000000000000000000";
+  signal n2207 : std_logic_vector (31 downto 0) := "00000000000000000000000000000000";
+  signal n2208 : std_logic;
   signal n2209 : std_logic;
   signal n2210 : std_logic;
-  signal n2211 : std_logic;
 begin
-  rd_data <= memory_inst_n2097;
-  empty <= n2209;
-  full <= n2210;
-  half_full <= n2211;
-  read_address <= n2206; -- (signal)
-  read_address_next <= n2137; -- (signal)
-  write_address <= n2207; -- (signal)
-  write_address_next <= n2128; -- (signal)
-  full_next <= n2170; -- (signal)
-  empty_next <= n2173; -- (signal)
-  wr_int <= n2131; -- (signal)
-  rd_int <= n2140; -- (signal)
-  half_full_next <= n2156; -- (signal)
-  pointer_diff <= n2208; -- (isignal)
-  pointer_diff_next <= n2151; -- (isignal)
-  memory_inst_n2097 <= memory_inst_c_rd1_data; -- (signal)
+  rd_data <= memory_inst_n2096;
+  empty <= n2208;
+  full <= n2209;
+  half_full <= n2210;
+  read_address <= n2205; -- (signal)
+  read_address_next <= n2136; -- (signal)
+  write_address <= n2206; -- (signal)
+  write_address_next <= n2127; -- (signal)
+  full_next <= n2169; -- (signal)
+  empty_next <= n2172; -- (signal)
+  wr_int <= n2130; -- (signal)
+  rd_int <= n2139; -- (signal)
+  half_full_next <= n2155; -- (signal)
+  pointer_diff <= n2207; -- (isignal)
+  pointer_diff_next <= n2150; -- (isignal)
+  memory_inst_n2096 <= memory_inst_c_rd1_data; -- (signal)
   memory_inst : entity work.dp_ram_1c1r1w_3_8 port map (
     clk => clk,
     rd1_addr => read_address,
@@ -144,105 +144,105 @@ begin
     wr2_data => wr_data,
     wr2 => wr_int,
     rd1_data => memory_inst_c_rd1_data);
-  n2101 <= not res_n;
-  n2124 <= not n2210;
-  n2125 <= n2124 and wr;
-  n2127 <= std_logic_vector (unsigned (write_address) + unsigned'("001"));
-  n2128 <= write_address when n2125 = '0' else n2127;
-  n2131 <= '0' when n2125 = '0' else '1';
-  n2133 <= not n2209;
-  n2134 <= n2133 and rd;
-  n2136 <= std_logic_vector (unsigned (read_address) + unsigned'("001"));
-  n2137 <= read_address when n2134 = '0' else n2136;
-  n2140 <= '0' when n2134 = '0' else '1';
-  n2142 <= not rd;
-  n2143 <= n2142 and wr;
-  n2145 <= std_logic_vector (unsigned (pointer_diff) + unsigned'("00000000000000000000000000000001"));
-  n2146 <= not wr;
-  n2147 <= n2146 and rd;
-  n2149 <= std_logic_vector (unsigned (pointer_diff) - unsigned'("00000000000000000000000000000001"));
-  n2150 <= pointer_diff when n2147 = '0' else n2149;
-  n2151 <= n2150 when n2143 = '0' else n2145;
-  n2153 <= '1' when signed (n2151) >= signed'("00000000000000000000000000000100") else '0';
-  n2156 <= '0' when n2153 = '0' else '1';
-  n2159 <= std_logic_vector (unsigned (read_address) + unsigned'("001"));
-  n2160 <= '1' when write_address = n2159 else '0';
-  n2162 <= n2209 when n2165 = '0' else '1';
-  n2164 <= n2210 when rd = '0' else '0';
-  n2165 <= n2160 and rd;
-  n2167 <= std_logic_vector (unsigned (write_address) + unsigned'("001"));
-  n2168 <= '1' when read_address = n2167 else '0';
-  n2170 <= n2164 when n2171 = '0' else '1';
-  n2171 <= n2168 and wr;
-  n2173 <= n2162 when wr = '0' else '0';
-  n2179 <= not n2210;
-  n2181 <= not n2186;
-  n2182 <= n2181 or n2179;
-  n2183: postponed assert n2203 = '1' severity error; --  assert
-  n2186 <= '0' when wr = '0' else '1';
-  n2187 <= not n2209;
-  n2189 <= not n2194;
-  n2190 <= n2189 or n2187;
-  n2191: postponed assert n2205 = '1' severity error; --  assert
-  n2194 <= '0' when rd = '0' else '1';
+  n2100 <= not res_n;
+  n2123 <= not n2209;
+  n2124 <= n2123 and wr;
+  n2126 <= std_logic_vector (unsigned (write_address) + unsigned'("001"));
+  n2127 <= write_address when n2124 = '0' else n2126;
+  n2130 <= '0' when n2124 = '0' else '1';
+  n2132 <= not n2208;
+  n2133 <= n2132 and rd;
+  n2135 <= std_logic_vector (unsigned (read_address) + unsigned'("001"));
+  n2136 <= read_address when n2133 = '0' else n2135;
+  n2139 <= '0' when n2133 = '0' else '1';
+  n2141 <= not rd;
+  n2142 <= n2141 and wr;
+  n2144 <= std_logic_vector (unsigned (pointer_diff) + unsigned'("00000000000000000000000000000001"));
+  n2145 <= not wr;
+  n2146 <= n2145 and rd;
+  n2148 <= std_logic_vector (unsigned (pointer_diff) - unsigned'("00000000000000000000000000000001"));
+  n2149 <= pointer_diff when n2146 = '0' else n2148;
+  n2150 <= n2149 when n2142 = '0' else n2144;
+  n2152 <= '1' when signed (n2150) >= signed'("00000000000000000000000000000100") else '0';
+  n2155 <= '0' when n2152 = '0' else '1';
+  n2158 <= std_logic_vector (unsigned (read_address) + unsigned'("001"));
+  n2159 <= '1' when write_address = n2158 else '0';
+  n2161 <= n2208 when n2164 = '0' else '1';
+  n2163 <= n2209 when rd = '0' else '0';
+  n2164 <= n2159 and rd;
+  n2166 <= std_logic_vector (unsigned (write_address) + unsigned'("001"));
+  n2167 <= '1' when read_address = n2166 else '0';
+  n2169 <= n2163 when n2170 = '0' else '1';
+  n2170 <= n2167 and wr;
+  n2172 <= n2161 when wr = '0' else '0';
+  n2178 <= not n2209;
+  n2180 <= not n2185;
+  n2181 <= n2180 or n2178;
+  n2182: postponed assert n2202 = '1' severity error; --  assert
+  n2185 <= '0' when wr = '0' else '1';
+  n2186 <= not n2208;
+  n2188 <= not n2193;
+  n2189 <= n2188 or n2186;
+  n2190: postponed assert n2204 = '1' severity error; --  assert
+  n2193 <= '0' when rd = '0' else '1';
   process (clk)
   begin
     if rising_edge (clk) then
-      n2203 <= n2182;
+      n2202 <= n2181;
     end if;
   end process;
   process (clk)
   begin
     if rising_edge (clk) then
-      n2205 <= n2190;
+      n2204 <= n2189;
     end if;
   end process;
-  process (clk, n2101)
+  process (clk, n2100)
   begin
-    if n2101 = '1' then
+    if n2100 = '1' then
+      n2205 <= "000";
+    elsif rising_edge (clk) then
+      n2205 <= read_address_next;
+    end if;
+  end process;
+  process (clk, n2100)
+  begin
+    if n2100 = '1' then
       n2206 <= "000";
     elsif rising_edge (clk) then
-      n2206 <= read_address_next;
+      n2206 <= write_address_next;
     end if;
   end process;
-  process (clk, n2101)
+  process (clk, n2100)
   begin
-    if n2101 = '1' then
-      n2207 <= "000";
+    if n2100 = '1' then
+      n2207 <= "00000000000000000000000000000000";
     elsif rising_edge (clk) then
-      n2207 <= write_address_next;
+      n2207 <= pointer_diff_next;
     end if;
   end process;
-  process (clk, n2101)
+  process (clk, n2100)
   begin
-    if n2101 = '1' then
-      n2208 <= "00000000000000000000000000000000";
+    if n2100 = '1' then
+      n2208 <= '1';
     elsif rising_edge (clk) then
-      n2208 <= pointer_diff_next;
+      n2208 <= empty_next;
     end if;
   end process;
-  process (clk, n2101)
+  process (clk, n2100)
   begin
-    if n2101 = '1' then
-      n2209 <= '1';
+    if n2100 = '1' then
+      n2209 <= '0';
     elsif rising_edge (clk) then
-      n2209 <= empty_next;
+      n2209 <= full_next;
     end if;
   end process;
-  process (clk, n2101)
+  process (clk, n2100)
   begin
-    if n2101 = '1' then
+    if n2100 = '1' then
       n2210 <= '0';
     elsif rising_edge (clk) then
-      n2210 <= full_next;
-    end if;
-  end process;
-  process (clk, n2101)
-  begin
-    if n2101 = '1' then
-      n2211 <= '0';
-    elsif rising_edge (clk) then
-      n2211 <= half_full_next;
+      n2210 <= half_full_next;
     end if;
   end process;
 end architecture;
@@ -265,35 +265,35 @@ architecture ref of fifo_1c1r1w_fwft_8_8 is
   signal rd : std_logic;
   signal empty : std_logic;
   signal not_empty : std_logic;
-  signal fifo_inst_n2062 : std_logic_vector (7 downto 0);
+  signal fifo_inst_n2061 : std_logic_vector (7 downto 0);
+  signal fifo_inst_n2062 : std_logic;
   signal fifo_inst_n2063 : std_logic;
   signal fifo_inst_n2064 : std_logic;
-  signal fifo_inst_n2065 : std_logic;
   signal fifo_inst_c_rd_data : std_logic_vector (7 downto 0);
   signal fifo_inst_c_empty : std_logic;
   signal fifo_inst_c_full : std_logic;
   signal fifo_inst_c_half_full : std_logic;
+  signal n2073 : std_logic;
   signal n2074 : std_logic;
   signal n2075 : std_logic;
   signal n2076 : std_logic;
   signal n2077 : std_logic;
-  signal n2078 : std_logic;
-  signal n2080 : std_logic;
-  signal n2082 : std_logic;
+  signal n2079 : std_logic;
+  signal n2081 : std_logic;
+  signal n2087 : std_logic;
   signal n2088 : std_logic;
-  signal n2089 : std_logic;
 begin
-  rd_data <= fifo_inst_n2062;
-  rd_valid <= n2089;
-  full <= fifo_inst_n2064;
-  half_full <= fifo_inst_n2065;
-  rd <= n2078; -- (signal)
-  empty <= fifo_inst_n2063; -- (signal)
-  not_empty <= n2074; -- (signal)
-  fifo_inst_n2062 <= fifo_inst_c_rd_data; -- (signal)
-  fifo_inst_n2063 <= fifo_inst_c_empty; -- (signal)
-  fifo_inst_n2064 <= fifo_inst_c_full; -- (signal)
-  fifo_inst_n2065 <= fifo_inst_c_half_full; -- (signal)
+  rd_data <= fifo_inst_n2061;
+  rd_valid <= n2088;
+  full <= fifo_inst_n2063;
+  half_full <= fifo_inst_n2064;
+  rd <= n2077; -- (signal)
+  empty <= fifo_inst_n2062; -- (signal)
+  not_empty <= n2073; -- (signal)
+  fifo_inst_n2061 <= fifo_inst_c_rd_data; -- (signal)
+  fifo_inst_n2062 <= fifo_inst_c_empty; -- (signal)
+  fifo_inst_n2063 <= fifo_inst_c_full; -- (signal)
+  fifo_inst_n2064 <= fifo_inst_c_half_full; -- (signal)
   fifo_inst : entity work.fifo_1c1r1w_8_8 port map (
     clk => clk,
     res_n => res_n,
@@ -304,20 +304,20 @@ begin
     empty => fifo_inst_c_empty,
     full => fifo_inst_c_full,
     half_full => fifo_inst_c_half_full);
-  n2074 <= not empty;
-  n2075 <= rd_ack and not_empty;
-  n2076 <= not n2089;
-  n2077 <= not_empty and n2076;
-  n2078 <= n2075 or n2077;
-  n2080 <= not res_n;
-  n2082 <= rd or rd_ack;
-  n2088 <= n2089 when n2082 = '0' else not_empty;
-  process (clk, n2080)
+  n2073 <= not empty;
+  n2074 <= rd_ack and not_empty;
+  n2075 <= not n2088;
+  n2076 <= not_empty and n2075;
+  n2077 <= n2074 or n2076;
+  n2079 <= not res_n;
+  n2081 <= rd or rd_ack;
+  n2087 <= n2088 when n2081 = '0' else not_empty;
+  process (clk, n2079)
   begin
-    if n2080 = '1' then
-      n2089 <= '0';
+    if n2079 = '1' then
+      n2088 <= '0';
     elsif rising_edge (clk) then
-      n2089 <= n2088;
+      n2088 <= n2087;
     end if;
   end process;
 end architecture;
@@ -347,264 +347,264 @@ entity pixel_reader_21_16 is
     vram_rd_access_mode : out std_logic);
 end entity pixel_reader_21_16;
 architecture ref of pixel_reader_21_16 is
-  signal n1904 : std_logic_vector (61 downto 0);
-  signal n1905 : std_logic_vector (59 downto 0);
+  signal n1903 : std_logic_vector (61 downto 0);
+  signal n1904 : std_logic_vector (59 downto 0);
   signal state : std_logic_vector (55 downto 0);
   signal state_nxt : std_logic_vector (55 downto 0);
   signal pixbuf_half_full : std_logic;
   signal fifo_wr : std_logic;
-  signal n1912 : std_logic;
-  signal n1920 : std_logic_vector (20 downto 0);
-  signal n1921 : std_logic_vector (1 downto 0);
+  signal n1911 : std_logic;
+  signal n1919 : std_logic_vector (20 downto 0);
+  signal n1920 : std_logic_vector (1 downto 0);
+  signal n1921 : std_logic_vector (14 downto 0);
   signal n1922 : std_logic_vector (14 downto 0);
-  signal n1923 : std_logic_vector (14 downto 0);
+  signal n1924 : std_logic_vector (31 downto 0);
   signal n1925 : std_logic_vector (31 downto 0);
   signal n1926 : std_logic_vector (31 downto 0);
-  signal n1927 : std_logic_vector (31 downto 0);
-  signal n1929 : std_logic;
-  signal n1930 : std_logic_vector (31 downto 0);
-  signal n1931 : std_logic_vector (14 downto 0);
+  signal n1928 : std_logic;
+  signal n1929 : std_logic_vector (31 downto 0);
+  signal n1930 : std_logic_vector (14 downto 0);
+  signal n1931 : std_logic_vector (31 downto 0);
   signal n1932 : std_logic_vector (31 downto 0);
-  signal n1933 : std_logic_vector (31 downto 0);
+  signal n1933 : std_logic_vector (14 downto 0);
   signal n1934 : std_logic_vector (14 downto 0);
-  signal n1935 : std_logic_vector (14 downto 0);
+  signal n1935 : std_logic_vector (29 downto 0);
   signal n1936 : std_logic_vector (29 downto 0);
   signal n1937 : std_logic_vector (29 downto 0);
-  signal n1938 : std_logic_vector (29 downto 0);
+  signal n1938 : std_logic_vector (31 downto 0);
   signal n1939 : std_logic_vector (31 downto 0);
-  signal n1940 : std_logic_vector (31 downto 0);
-  signal n1941 : std_logic_vector (20 downto 0);
-  signal n1942 : std_logic;
+  signal n1940 : std_logic_vector (20 downto 0);
+  signal n1941 : std_logic;
+  signal n1943 : std_logic_vector (1 downto 0);
   signal n1944 : std_logic_vector (1 downto 0);
-  signal n1945 : std_logic_vector (1 downto 0);
+  signal n1946 : std_logic;
   signal n1947 : std_logic;
-  signal n1948 : std_logic;
+  signal n1949 : std_logic_vector (14 downto 0);
   signal n1950 : std_logic_vector (14 downto 0);
   signal n1951 : std_logic_vector (14 downto 0);
   signal n1952 : std_logic_vector (14 downto 0);
-  signal n1953 : std_logic_vector (14 downto 0);
-  signal n1955 : std_logic_vector (14 downto 0);
-  signal n1956 : std_logic;
+  signal n1954 : std_logic_vector (14 downto 0);
+  signal n1955 : std_logic;
+  signal n1956 : std_logic_vector (14 downto 0);
   signal n1957 : std_logic_vector (14 downto 0);
   signal n1958 : std_logic_vector (14 downto 0);
   signal n1959 : std_logic_vector (14 downto 0);
   signal n1960 : std_logic_vector (14 downto 0);
-  signal n1961 : std_logic_vector (14 downto 0);
-  signal n1963 : std_logic_vector (14 downto 0);
-  signal n1964 : std_logic;
-  signal n1966 : std_logic_vector (14 downto 0);
-  signal n1968 : std_logic_vector (14 downto 0);
-  signal n1969 : std_logic_vector (1 downto 0);
+  signal n1962 : std_logic_vector (14 downto 0);
+  signal n1963 : std_logic;
+  signal n1965 : std_logic_vector (14 downto 0);
+  signal n1967 : std_logic_vector (14 downto 0);
+  signal n1968 : std_logic_vector (1 downto 0);
+  signal n1969 : std_logic_vector (14 downto 0);
   signal n1970 : std_logic_vector (14 downto 0);
   signal n1971 : std_logic_vector (14 downto 0);
-  signal n1972 : std_logic_vector (14 downto 0);
-  signal n1974 : std_logic_vector (14 downto 0);
-  signal n1975 : std_logic_vector (31 downto 0);
+  signal n1973 : std_logic_vector (14 downto 0);
+  signal n1974 : std_logic_vector (31 downto 0);
+  signal n1975 : std_logic_vector (1 downto 0);
   signal n1976 : std_logic_vector (1 downto 0);
-  signal n1977 : std_logic_vector (1 downto 0);
+  signal n1977 : std_logic_vector (14 downto 0);
   signal n1978 : std_logic_vector (14 downto 0);
   signal n1979 : std_logic_vector (14 downto 0);
   signal n1980 : std_logic_vector (14 downto 0);
   signal n1981 : std_logic_vector (14 downto 0);
-  signal n1982 : std_logic_vector (14 downto 0);
-  signal n1985 : std_logic;
+  signal n1984 : std_logic;
+  signal n1985 : std_logic_vector (31 downto 0);
   signal n1986 : std_logic_vector (31 downto 0);
   signal n1987 : std_logic_vector (31 downto 0);
-  signal n1988 : std_logic_vector (31 downto 0);
-  signal n1990 : std_logic;
-  signal n1991 : std_logic_vector (2 downto 0);
-  signal n1993 : std_logic;
+  signal n1989 : std_logic;
+  signal n1990 : std_logic_vector (2 downto 0);
+  signal n1992 : std_logic;
+  signal n1994 : std_logic_vector (1 downto 0);
   signal n1995 : std_logic_vector (1 downto 0);
-  signal n1996 : std_logic_vector (1 downto 0);
-  signal n1998 : std_logic;
-  signal n1999 : std_logic_vector (3 downto 0);
-  signal n2002 : std_logic;
+  signal n1997 : std_logic;
+  signal n1998 : std_logic_vector (3 downto 0);
+  signal n2001 : std_logic;
+  signal n2003 : std_logic_vector (1 downto 0);
   signal n2004 : std_logic_vector (1 downto 0);
-  signal n2005 : std_logic_vector (1 downto 0);
-  signal n2007 : std_logic_vector (1 downto 0);
+  signal n2006 : std_logic_vector (1 downto 0);
+  signal n2007 : std_logic_vector (29 downto 0);
   signal n2008 : std_logic_vector (29 downto 0);
   signal n2009 : std_logic_vector (29 downto 0);
-  signal n2010 : std_logic_vector (29 downto 0);
-  signal n2012 : std_logic_vector (29 downto 0);
-  signal n2013 : std_logic_vector (20 downto 0);
-  signal n2015 : std_logic_vector (20 downto 0);
-  signal n2018 : std_logic_vector (2 downto 0);
-  signal n2019 : std_logic_vector (1 downto 0);
+  signal n2011 : std_logic_vector (29 downto 0);
+  signal n2012 : std_logic_vector (20 downto 0);
+  signal n2014 : std_logic_vector (20 downto 0);
+  signal n2017 : std_logic_vector (2 downto 0);
+  signal n2018 : std_logic_vector (1 downto 0);
+  signal n2020 : std_logic;
   signal n2021 : std_logic;
   signal n2022 : std_logic;
-  signal n2023 : std_logic;
-  signal n2024 : std_logic_vector (2 downto 0);
-  signal n2026 : std_logic_vector (2 downto 0);
+  signal n2023 : std_logic_vector (2 downto 0);
+  signal n2025 : std_logic_vector (2 downto 0);
+  signal n2026 : std_logic;
   signal n2027 : std_logic;
-  signal n2028 : std_logic;
-  signal n2029 : std_logic_vector (2 downto 0);
+  signal n2028 : std_logic_vector (2 downto 0);
+  signal n2030 : std_logic_vector (2 downto 0);
   signal n2031 : std_logic_vector (2 downto 0);
   signal n2032 : std_logic_vector (2 downto 0);
   signal n2033 : std_logic_vector (2 downto 0);
-  signal n2034 : std_logic_vector (2 downto 0);
-  constant n2036 : std_logic := '0';
-  signal n2038 : std_logic_vector (1 downto 0);
+  constant n2035 : std_logic := '0';
+  signal n2037 : std_logic_vector (1 downto 0);
+  signal n2039 : std_logic;
   signal n2040 : std_logic;
   signal n2041 : std_logic;
-  signal n2042 : std_logic;
-  signal pixel_buffer_n2044 : std_logic_vector (7 downto 0);
-  signal pixel_buffer_n2045 : std_logic;
-  signal n2046 : std_logic_vector (7 downto 0);
-  signal pixel_buffer_n2048 : std_logic;
+  signal pixel_buffer_n2043 : std_logic_vector (7 downto 0);
+  signal pixel_buffer_n2044 : std_logic;
+  signal n2045 : std_logic_vector (7 downto 0);
+  signal pixel_buffer_n2047 : std_logic;
   signal pixel_buffer_c_rd_data : std_logic_vector (7 downto 0);
   signal pixel_buffer_c_rd_valid : std_logic;
   signal pixel_buffer_c_full : std_logic;
   signal pixel_buffer_c_half_full : std_logic;
+  signal n2055 : std_logic_vector (55 downto 0);
   signal n2056 : std_logic_vector (55 downto 0);
-  signal n2057 : std_logic_vector (55 downto 0);
 begin
-  color <= pixel_buffer_n2044;
-  color_valid <= pixel_buffer_n2045;
-  vram_rd_addr <= n1920;
-  vram_rd <= n2002;
-  vram_rd_access_mode <= n2036;
-  n1904 <= bd_h & bd_w & bd_b;
-  n1905 <= section_h & section_w & section_y & section_x;
-  state <= n2056; -- (signal)
-  state_nxt <= n2057; -- (signal)
-  pixbuf_half_full <= pixel_buffer_n2048; -- (signal)
-  fifo_wr <= n2042; -- (signal)
-  n1912 <= not res_n;
-  n1920 <= state (52 downto 32);
-  n1921 <= state (1 downto 0);
-  n1922 <= n1905 (14 downto 0);
-  n1923 <= n1905 (29 downto 15);
-  n1925 <= n1923 & n1922 & "10";
-  n1926 <= state (31 downto 0);
-  n1927 <= n1926 when start = '0' else n1925;
-  n1929 <= '1' when n1921 = "00" else '0';
-  n1930 <= n1904 (31 downto 0);
-  n1931 <= state (16 downto 2);
-  n1932 <= "00000000000000000" & n1931;  --  uext
-  n1933 <= std_logic_vector (unsigned (n1930) + unsigned (n1932));
-  n1934 <= state (31 downto 17);
-  n1935 <= n1904 (46 downto 32);
+  color <= pixel_buffer_n2043;
+  color_valid <= pixel_buffer_n2044;
+  vram_rd_addr <= n1919;
+  vram_rd <= n2001;
+  vram_rd_access_mode <= n2035;
+  n1903 <= bd_h & bd_w & bd_b;
+  n1904 <= section_h & section_w & section_y & section_x;
+  state <= n2055; -- (signal)
+  state_nxt <= n2056; -- (signal)
+  pixbuf_half_full <= pixel_buffer_n2047; -- (signal)
+  fifo_wr <= n2041; -- (signal)
+  n1911 <= not res_n;
+  n1919 <= state (52 downto 32);
+  n1920 <= state (1 downto 0);
+  n1921 <= n1904 (14 downto 0);
+  n1922 <= n1904 (29 downto 15);
+  n1924 <= n1922 & n1921 & "10";
+  n1925 <= state (31 downto 0);
+  n1926 <= n1925 when start = '0' else n1924;
+  n1928 <= '1' when n1920 = "00" else '0';
+  n1929 <= n1903 (31 downto 0);
+  n1930 <= state (16 downto 2);
+  n1931 <= "00000000000000000" & n1930;  --  uext
+  n1932 <= std_logic_vector (unsigned (n1929) + unsigned (n1931));
+  n1933 <= state (31 downto 17);
+  n1934 <= n1903 (46 downto 32);
+  n1935 <= "000000000000000" & n1933;  --  uext
   n1936 <= "000000000000000" & n1934;  --  uext
-  n1937 <= "000000000000000" & n1935;  --  uext
-  n1938 <= std_logic_vector (resize (unsigned (n1936) * unsigned (n1937), 30));
-  n1939 <= "00" & n1938;  --  uext
-  n1940 <= std_logic_vector (unsigned (n1933) + unsigned (n1939));
-  n1941 <= n1940 (20 downto 0);  --  trunc
-  n1942 <= not pixbuf_half_full;
-  n1944 <= state (1 downto 0);
-  n1945 <= n1944 when n1942 = '0' else "11";
-  n1947 <= '1' when n1921 = "10" else '0';
-  n1948 <= not vram_rd_busy;
-  n1950 <= state (16 downto 2);
-  n1951 <= n1905 (14 downto 0);
-  n1952 <= n1905 (44 downto 30);
-  n1953 <= std_logic_vector (unsigned (n1951) + unsigned (n1952));
-  n1955 <= std_logic_vector (unsigned (n1953) - unsigned'("000000000000001"));
-  n1956 <= '1' when n1950 = n1955 else '0';
-  n1957 <= n1905 (14 downto 0);
-  n1958 <= state (31 downto 17);
-  n1959 <= n1905 (29 downto 15);
-  n1960 <= n1905 (59 downto 45);
-  n1961 <= std_logic_vector (unsigned (n1959) + unsigned (n1960));
-  n1963 <= std_logic_vector (unsigned (n1961) - unsigned'("000000000000001"));
-  n1964 <= '1' when n1958 = n1963 else '0';
-  n1966 <= state (31 downto 17);
-  n1968 <= std_logic_vector (unsigned (n1966) + unsigned'("000000000000001"));
-  n1969 <= "10" when n1964 = '0' else "01";
-  n1970 <= state (31 downto 17);
-  n1971 <= n1968 when n1964 = '0' else n1970;
-  n1972 <= state (16 downto 2);
-  n1974 <= std_logic_vector (unsigned (n1972) + unsigned'("000000000000001"));
-  n1975 <= n1971 & n1957 & n1969;
-  n1976 <= n1975 (1 downto 0);
-  n1977 <= "10" when n1956 = '0' else n1976;
-  n1978 <= n1975 (16 downto 2);
-  n1979 <= n1974 when n1956 = '0' else n1978;
-  n1980 <= n1975 (31 downto 17);
-  n1981 <= state (31 downto 17);
-  n1982 <= n1981 when n1956 = '0' else n1980;
-  n1985 <= '0' when n1948 = '0' else '1';
-  n1986 <= n1982 & n1979 & n1977;
-  n1987 <= state (31 downto 0);
-  n1988 <= n1987 when n1948 = '0' else n1986;
-  n1990 <= '1' when n1921 = "11" else '0';
-  n1991 <= state (55 downto 53);
-  n1993 <= '1' when n1991 = "000" else '0';
-  n1995 <= state (1 downto 0);
-  n1996 <= n1995 when n1993 = '0' else "00";
-  n1998 <= '1' when n1921 = "01" else '0';
-  n1999 <= n1998 & n1990 & n1947 & n1929;
-  with n1999 select n2002 <=
+  n1937 <= std_logic_vector (resize (unsigned (n1935) * unsigned (n1936), 30));
+  n1938 <= "00" & n1937;  --  uext
+  n1939 <= std_logic_vector (unsigned (n1932) + unsigned (n1938));
+  n1940 <= n1939 (20 downto 0);  --  trunc
+  n1941 <= not pixbuf_half_full;
+  n1943 <= state (1 downto 0);
+  n1944 <= n1943 when n1941 = '0' else "11";
+  n1946 <= '1' when n1920 = "10" else '0';
+  n1947 <= not vram_rd_busy;
+  n1949 <= state (16 downto 2);
+  n1950 <= n1904 (14 downto 0);
+  n1951 <= n1904 (44 downto 30);
+  n1952 <= std_logic_vector (unsigned (n1950) + unsigned (n1951));
+  n1954 <= std_logic_vector (unsigned (n1952) - unsigned'("000000000000001"));
+  n1955 <= '1' when n1949 = n1954 else '0';
+  n1956 <= n1904 (14 downto 0);
+  n1957 <= state (31 downto 17);
+  n1958 <= n1904 (29 downto 15);
+  n1959 <= n1904 (59 downto 45);
+  n1960 <= std_logic_vector (unsigned (n1958) + unsigned (n1959));
+  n1962 <= std_logic_vector (unsigned (n1960) - unsigned'("000000000000001"));
+  n1963 <= '1' when n1957 = n1962 else '0';
+  n1965 <= state (31 downto 17);
+  n1967 <= std_logic_vector (unsigned (n1965) + unsigned'("000000000000001"));
+  n1968 <= "10" when n1963 = '0' else "01";
+  n1969 <= state (31 downto 17);
+  n1970 <= n1967 when n1963 = '0' else n1969;
+  n1971 <= state (16 downto 2);
+  n1973 <= std_logic_vector (unsigned (n1971) + unsigned'("000000000000001"));
+  n1974 <= n1970 & n1956 & n1968;
+  n1975 <= n1974 (1 downto 0);
+  n1976 <= "10" when n1955 = '0' else n1975;
+  n1977 <= n1974 (16 downto 2);
+  n1978 <= n1973 when n1955 = '0' else n1977;
+  n1979 <= n1974 (31 downto 17);
+  n1980 <= state (31 downto 17);
+  n1981 <= n1980 when n1955 = '0' else n1979;
+  n1984 <= '0' when n1947 = '0' else '1';
+  n1985 <= n1981 & n1978 & n1976;
+  n1986 <= state (31 downto 0);
+  n1987 <= n1986 when n1947 = '0' else n1985;
+  n1989 <= '1' when n1920 = "11" else '0';
+  n1990 <= state (55 downto 53);
+  n1992 <= '1' when n1990 = "000" else '0';
+  n1994 <= state (1 downto 0);
+  n1995 <= n1994 when n1992 = '0' else "00";
+  n1997 <= '1' when n1920 = "01" else '0';
+  n1998 <= n1997 & n1989 & n1946 & n1928;
+  with n1998 select n2001 <=
     '0' when "1000",
-    n1985 when "0100",
+    n1984 when "0100",
     '0' when "0010",
     '0' when "0001",
     'X' when others;
-  n2004 <= n1927 (1 downto 0);
-  n2005 <= n1988 (1 downto 0);
-  with n1999 select n2007 <=
-    n1996 when "1000",
-    n2005 when "0100",
-    n1945 when "0010",
-    n2004 when "0001",
+  n2003 <= n1926 (1 downto 0);
+  n2004 <= n1987 (1 downto 0);
+  with n1998 select n2006 <=
+    n1995 when "1000",
+    n2004 when "0100",
+    n1944 when "0010",
+    n2003 when "0001",
     "XX" when others;
-  n2008 <= n1927 (31 downto 2);
-  n2009 <= n1988 (31 downto 2);
-  n2010 <= state (31 downto 2);
-  with n1999 select n2012 <=
-    n2010 when "1000",
-    n2009 when "0100",
-    n2010 when "0010",
-    n2008 when "0001",
+  n2007 <= n1926 (31 downto 2);
+  n2008 <= n1987 (31 downto 2);
+  n2009 <= state (31 downto 2);
+  with n1998 select n2011 <=
+    n2009 when "1000",
+    n2008 when "0100",
+    n2009 when "0010",
+    n2007 when "0001",
     (29 downto 0 => 'X') when others;
-  n2013 <= state (52 downto 32);
-  with n1999 select n2015 <=
-    n2013 when "1000",
-    n2013 when "0100",
-    n1941 when "0010",
-    n2013 when "0001",
+  n2012 <= state (52 downto 32);
+  with n1998 select n2014 <=
+    n2012 when "1000",
+    n2012 when "0100",
+    n1940 when "0010",
+    n2012 when "0001",
     (20 downto 0 => 'X') when others;
-  n2018 <= state (55 downto 53);
-  n2019 <= state (1 downto 0);
-  n2021 <= '1' when n2019 /= "00" else '0';
-  n2022 <= not vram_rd_valid;
-  n2023 <= n2022 and n2002;
-  n2024 <= state (55 downto 53);
-  n2026 <= std_logic_vector (unsigned (n2024) + unsigned'("001"));
-  n2027 <= not n2002;
-  n2028 <= vram_rd_valid and n2027;
-  n2029 <= state (55 downto 53);
-  n2031 <= std_logic_vector (unsigned (n2029) - unsigned'("001"));
-  n2032 <= n2018 when n2028 = '0' else n2031;
-  n2033 <= n2032 when n2023 = '0' else n2026;
-  n2034 <= n2018 when n2021 = '0' else n2033;
-  n2038 <= state (1 downto 0);
-  n2040 <= '1' when n2038 /= "00" else '0';
-  n2041 <= n2040 and vram_rd_valid;
-  n2042 <= '0' when n2041 = '0' else '1';
-  pixel_buffer_n2044 <= pixel_buffer_c_rd_data; -- (signal)
-  pixel_buffer_n2045 <= pixel_buffer_c_rd_valid; -- (signal)
-  n2046 <= vram_rd_data (7 downto 0);
-  pixel_buffer_n2048 <= pixel_buffer_c_half_full; -- (signal)
+  n2017 <= state (55 downto 53);
+  n2018 <= state (1 downto 0);
+  n2020 <= '1' when n2018 /= "00" else '0';
+  n2021 <= not vram_rd_valid;
+  n2022 <= n2021 and n2001;
+  n2023 <= state (55 downto 53);
+  n2025 <= std_logic_vector (unsigned (n2023) + unsigned'("001"));
+  n2026 <= not n2001;
+  n2027 <= vram_rd_valid and n2026;
+  n2028 <= state (55 downto 53);
+  n2030 <= std_logic_vector (unsigned (n2028) - unsigned'("001"));
+  n2031 <= n2017 when n2027 = '0' else n2030;
+  n2032 <= n2031 when n2022 = '0' else n2025;
+  n2033 <= n2017 when n2020 = '0' else n2032;
+  n2037 <= state (1 downto 0);
+  n2039 <= '1' when n2037 /= "00" else '0';
+  n2040 <= n2039 and vram_rd_valid;
+  n2041 <= '0' when n2040 = '0' else '1';
+  pixel_buffer_n2043 <= pixel_buffer_c_rd_data; -- (signal)
+  pixel_buffer_n2044 <= pixel_buffer_c_rd_valid; -- (signal)
+  n2045 <= vram_rd_data (7 downto 0);
+  pixel_buffer_n2047 <= pixel_buffer_c_half_full; -- (signal)
   pixel_buffer : entity work.fifo_1c1r1w_fwft_8_8 port map (
     clk => clk,
     res_n => res_n,
     rd_ack => color_ack,
-    wr_data => n2046,
+    wr_data => n2045,
     wr => fifo_wr,
     rd_data => pixel_buffer_c_rd_data,
     rd_valid => pixel_buffer_c_rd_valid,
     full => open,
     half_full => pixel_buffer_c_half_full);
-  process (clk, n1912)
+  process (clk, n1911)
   begin
-    if n1912 = '1' then
-      n2056 <= "00000000000000000000000000000000000000000000000000000000";
+    if n1911 = '1' then
+      n2055 <= "00000000000000000000000000000000000000000000000000000000";
     elsif rising_edge (clk) then
-      n2056 <= state_nxt;
+      n2055 <= state_nxt;
     end if;
   end process;
-  n2057 <= n2034 & n2015 & n2012 & n2007;
+  n2056 <= n2033 & n2014 & n2011 & n2006;
 end architecture;
 library ieee;
 use ieee.std_logic_1164.all;
@@ -632,152 +632,152 @@ entity pixel_writer_21_16 is
     vram_wr_access_mode : out std_logic);
 end entity pixel_writer_21_16;
 architecture ref of pixel_writer_21_16 is
-  signal n1810 : std_logic_vector (61 downto 0);
-  signal n1811 : std_logic_vector (31 downto 0);
+  signal n1809 : std_logic_vector (61 downto 0);
+  signal n1810 : std_logic_vector (31 downto 0);
   signal s1 : std_logic_vector (111 downto 0);
   signal s2 : std_logic_vector (29 downto 0);
   signal s2_nxt : std_logic_vector (29 downto 0);
+  signal n1816 : std_logic;
   signal n1817 : std_logic;
   signal n1818 : std_logic;
-  signal n1819 : std_logic;
-  signal n1821 : std_logic;
-  signal n1823 : std_logic;
+  signal n1820 : std_logic;
+  signal n1822 : std_logic;
+  signal n1823 : std_logic_vector (15 downto 0);
   signal n1824 : std_logic_vector (15 downto 0);
-  signal n1825 : std_logic_vector (15 downto 0);
-  signal n1826 : std_logic_vector (111 downto 0);
-  signal n1837 : std_logic;
-  signal n1838 : std_logic_vector (15 downto 0);
-  signal n1840 : std_logic;
-  signal n1841 : std_logic_vector (15 downto 0);
-  signal n1843 : std_logic_vector (14 downto 0);
-  signal n1845 : std_logic_vector (15 downto 0);
+  signal n1825 : std_logic_vector (111 downto 0);
+  signal n1836 : std_logic;
+  signal n1837 : std_logic_vector (15 downto 0);
+  signal n1839 : std_logic;
+  signal n1840 : std_logic_vector (15 downto 0);
+  signal n1842 : std_logic_vector (14 downto 0);
+  signal n1844 : std_logic_vector (15 downto 0);
+  signal n1845 : std_logic;
   signal n1846 : std_logic;
-  signal n1847 : std_logic;
-  signal n1848 : std_logic_vector (15 downto 0);
+  signal n1847 : std_logic_vector (15 downto 0);
+  signal n1849 : std_logic;
   signal n1850 : std_logic;
-  signal n1851 : std_logic;
-  signal n1852 : std_logic_vector (15 downto 0);
-  signal n1854 : std_logic_vector (14 downto 0);
-  signal n1856 : std_logic_vector (15 downto 0);
+  signal n1851 : std_logic_vector (15 downto 0);
+  signal n1853 : std_logic_vector (14 downto 0);
+  signal n1855 : std_logic_vector (15 downto 0);
+  signal n1856 : std_logic;
   signal n1857 : std_logic;
   signal n1858 : std_logic;
-  signal n1859 : std_logic;
-  signal n1863 : std_logic;
+  signal n1862 : std_logic;
+  signal n1864 : std_logic;
   signal n1865 : std_logic;
-  signal n1866 : std_logic;
+  signal n1866 : std_logic_vector (7 downto 0);
   signal n1867 : std_logic_vector (7 downto 0);
-  signal n1868 : std_logic_vector (7 downto 0);
+  signal n1868 : std_logic;
   signal n1869 : std_logic;
-  signal n1870 : std_logic;
-  signal n1872 : std_logic;
-  signal n1874 : std_logic_vector (31 downto 0);
-  signal n1875 : std_logic_vector (15 downto 0);
+  signal n1871 : std_logic;
+  signal n1873 : std_logic_vector (31 downto 0);
+  signal n1874 : std_logic_vector (15 downto 0);
+  signal n1875 : std_logic_vector (31 downto 0);
   signal n1876 : std_logic_vector (31 downto 0);
-  signal n1877 : std_logic_vector (31 downto 0);
-  signal n1879 : std_logic_vector (14 downto 0);
-  signal n1880 : std_logic_vector (15 downto 0);
+  signal n1878 : std_logic_vector (14 downto 0);
+  signal n1879 : std_logic_vector (15 downto 0);
+  signal n1880 : std_logic_vector (30 downto 0);
   signal n1881 : std_logic_vector (30 downto 0);
   signal n1882 : std_logic_vector (30 downto 0);
-  signal n1883 : std_logic_vector (30 downto 0);
+  signal n1883 : std_logic_vector (31 downto 0);
   signal n1884 : std_logic_vector (31 downto 0);
-  signal n1885 : std_logic_vector (31 downto 0);
-  signal n1886 : std_logic_vector (20 downto 0);
-  signal n1887 : std_logic_vector (7 downto 0);
-  signal n1891 : std_logic_vector (7 downto 0);
-  constant n1892 : std_logic_vector (15 downto 0) := "0000000000000000";
-  signal n1893 : std_logic_vector (7 downto 0);
-  signal n1894 : std_logic_vector (20 downto 0);
-  signal n1895 : std_logic;
-  constant n1897 : std_logic := '0';
+  signal n1885 : std_logic_vector (20 downto 0);
+  signal n1886 : std_logic_vector (7 downto 0);
+  signal n1890 : std_logic_vector (7 downto 0);
+  constant n1891 : std_logic_vector (15 downto 0) := "0000000000000000";
+  signal n1892 : std_logic_vector (7 downto 0);
+  signal n1893 : std_logic_vector (20 downto 0);
+  signal n1894 : std_logic;
+  constant n1896 : std_logic := '0';
+  signal n1897 : std_logic_vector (111 downto 0);
   signal n1898 : std_logic_vector (111 downto 0);
-  signal n1899 : std_logic_vector (111 downto 0);
+  signal n1899 : std_logic_vector (29 downto 0);
   signal n1900 : std_logic_vector (29 downto 0);
   signal n1901 : std_logic_vector (29 downto 0);
-  signal n1902 : std_logic_vector (29 downto 0);
-  signal n1903 : std_logic_vector (15 downto 0);
+  signal n1902 : std_logic_vector (15 downto 0);
 begin
-  wr_in_progress <= n1819;
+  wr_in_progress <= n1818;
   stall <= vram_wr_full;
-  oob <= n1863;
-  vram_wr_addr <= n1894;
-  vram_wr_data <= n1903;
-  vram_wr <= n1895;
-  vram_wr_access_mode <= n1897;
-  n1810 <= bd_h & bd_w & bd_b;
-  n1811 <= position_y & position_x;
-  s1 <= n1899; -- (signal)
-  s2 <= n1901; -- (signal)
-  s2_nxt <= n1902; -- (signal)
-  n1817 <= s1 (0);
-  n1818 <= s2 (0);
-  n1819 <= n1817 or n1818;
-  n1821 <= not res_n;
-  n1823 <= not vram_wr_full;
-  n1824 <= n1811 (31 downto 16);
-  n1825 <= n1811 (15 downto 0);
-  n1826 <= alpha_color & alpha_mode & n1825 & n1824 & color & n1810 & wr;
-  n1837 <= s1 (0);
-  n1838 <= s1 (102 downto 87);
-  n1840 <= '1' when signed (n1838) >= signed'("0000000000000000") else '0';
-  n1841 <= s1 (102 downto 87);
-  n1843 <= s1 (47 downto 33);
-  n1845 <= '0' & n1843;
-  n1846 <= '1' when signed (n1841) < signed (n1845) else '0';
-  n1847 <= n1846 and n1840;
-  n1848 <= s1 (86 downto 71);
-  n1850 <= '1' when signed (n1848) >= signed'("0000000000000000") else '0';
-  n1851 <= n1850 and n1847;
-  n1852 <= s1 (86 downto 71);
-  n1854 <= s1 (62 downto 48);
-  n1856 <= '0' & n1854;
-  n1857 <= '1' when signed (n1852) < signed (n1856) else '0';
-  n1858 <= n1857 and n1851;
-  n1859 <= not n1858;
-  n1863 <= '0' when n1859 = '0' else '1';
-  n1865 <= n1837 when n1859 = '0' else '0';
-  n1866 <= s1 (103);
-  n1867 <= s1 (70 downto 63);
-  n1868 <= s1 (111 downto 104);
-  n1869 <= '1' when n1867 = n1868 else '0';
-  n1870 <= n1869 and n1866;
-  n1872 <= n1865 when n1870 = '0' else '0';
-  n1874 <= s1 (32 downto 1);
-  n1875 <= s1 (102 downto 87);
-  n1876 <= "0000000000000000" & n1875;  --  uext
-  n1877 <= std_logic_vector (unsigned (n1874) + unsigned (n1876));
-  n1879 <= s1 (47 downto 33);
-  n1880 <= s1 (86 downto 71);
-  n1881 <= "0000000000000000" & n1879;  --  uext
-  n1882 <= "000000000000000" & n1880;  --  uext
-  n1883 <= std_logic_vector (resize (unsigned (n1881) * unsigned (n1882), 31));
-  n1884 <= "0" & n1883;  --  uext
-  n1885 <= std_logic_vector (unsigned (n1877) + unsigned (n1884));
-  n1886 <= n1885 (20 downto 0);  --  trunc
-  n1887 <= s1 (70 downto 63);
-  n1891 <= s2 (29 downto 22);
-  n1893 <= n1892 (15 downto 8);
-  n1894 <= s2 (21 downto 1);
-  n1895 <= s2 (0);
-  n1898 <= s1 when n1823 = '0' else n1826;
-  process (clk, n1821)
+  oob <= n1862;
+  vram_wr_addr <= n1893;
+  vram_wr_data <= n1902;
+  vram_wr <= n1894;
+  vram_wr_access_mode <= n1896;
+  n1809 <= bd_h & bd_w & bd_b;
+  n1810 <= position_y & position_x;
+  s1 <= n1898; -- (signal)
+  s2 <= n1900; -- (signal)
+  s2_nxt <= n1901; -- (signal)
+  n1816 <= s1 (0);
+  n1817 <= s2 (0);
+  n1818 <= n1816 or n1817;
+  n1820 <= not res_n;
+  n1822 <= not vram_wr_full;
+  n1823 <= n1810 (31 downto 16);
+  n1824 <= n1810 (15 downto 0);
+  n1825 <= alpha_color & alpha_mode & n1824 & n1823 & color & n1809 & wr;
+  n1836 <= s1 (0);
+  n1837 <= s1 (102 downto 87);
+  n1839 <= '1' when signed (n1837) >= signed'("0000000000000000") else '0';
+  n1840 <= s1 (102 downto 87);
+  n1842 <= s1 (47 downto 33);
+  n1844 <= '0' & n1842;
+  n1845 <= '1' when signed (n1840) < signed (n1844) else '0';
+  n1846 <= n1845 and n1839;
+  n1847 <= s1 (86 downto 71);
+  n1849 <= '1' when signed (n1847) >= signed'("0000000000000000") else '0';
+  n1850 <= n1849 and n1846;
+  n1851 <= s1 (86 downto 71);
+  n1853 <= s1 (62 downto 48);
+  n1855 <= '0' & n1853;
+  n1856 <= '1' when signed (n1851) < signed (n1855) else '0';
+  n1857 <= n1856 and n1850;
+  n1858 <= not n1857;
+  n1862 <= '0' when n1858 = '0' else '1';
+  n1864 <= n1836 when n1858 = '0' else '0';
+  n1865 <= s1 (103);
+  n1866 <= s1 (70 downto 63);
+  n1867 <= s1 (111 downto 104);
+  n1868 <= '1' when n1866 = n1867 else '0';
+  n1869 <= n1868 and n1865;
+  n1871 <= n1864 when n1869 = '0' else '0';
+  n1873 <= s1 (32 downto 1);
+  n1874 <= s1 (102 downto 87);
+  n1875 <= "0000000000000000" & n1874;  --  uext
+  n1876 <= std_logic_vector (unsigned (n1873) + unsigned (n1875));
+  n1878 <= s1 (47 downto 33);
+  n1879 <= s1 (86 downto 71);
+  n1880 <= "0000000000000000" & n1878;  --  uext
+  n1881 <= "000000000000000" & n1879;  --  uext
+  n1882 <= std_logic_vector (resize (unsigned (n1880) * unsigned (n1881), 31));
+  n1883 <= "0" & n1882;  --  uext
+  n1884 <= std_logic_vector (unsigned (n1876) + unsigned (n1883));
+  n1885 <= n1884 (20 downto 0);  --  trunc
+  n1886 <= s1 (70 downto 63);
+  n1890 <= s2 (29 downto 22);
+  n1892 <= n1891 (15 downto 8);
+  n1893 <= s2 (21 downto 1);
+  n1894 <= s2 (0);
+  n1897 <= s1 when n1822 = '0' else n1825;
+  process (clk, n1820)
   begin
-    if n1821 = '1' then
-      n1899 <= "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    if n1820 = '1' then
+      n1898 <= "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
     elsif rising_edge (clk) then
-      n1899 <= n1898;
+      n1898 <= n1897;
     end if;
   end process;
-  n1900 <= s2 when n1823 = '0' else s2_nxt;
-  process (clk, n1821)
+  n1899 <= s2 when n1822 = '0' else s2_nxt;
+  process (clk, n1820)
   begin
-    if n1821 = '1' then
-      n1901 <= "000000000000000000000000000000";
+    if n1820 = '1' then
+      n1900 <= "000000000000000000000000000000";
     elsif rising_edge (clk) then
-      n1901 <= n1900;
+      n1900 <= n1899;
     end if;
   end process;
-  n1902 <= n1887 & n1886 & n1872;
-  n1903 <= n1893 & n1891;
+  n1901 <= n1886 & n1885 & n1871;
+  n1902 <= n1892 & n1890;
 end architecture;
 library ieee;
 use ieee.std_logic_1164.all;
@@ -797,130 +797,131 @@ entity gfx_circle_renamed is
     pixel_y : out std_logic_vector (15 downto 0));
 end entity gfx_circle_renamed;
 architecture ref of gfx_circle_renamed is
-  signal n1538 : std_logic_vector (31 downto 0);
+  signal n1537 : std_logic_vector (31 downto 0);
+  signal n1540 : std_logic_vector (15 downto 0);
   signal n1541 : std_logic_vector (15 downto 0);
-  signal n1542 : std_logic_vector (15 downto 0);
   signal state : std_logic_vector (163 downto 0);
   signal state_nxt : std_logic_vector (163 downto 0);
-  signal n1545 : std_logic;
-  signal n1548 : std_logic;
-  signal n1562 : std_logic_vector (30 downto 0);
-  signal n1563 : std_logic_vector (31 downto 0);
-  signal n1564 : std_logic_vector (15 downto 0);
-  signal n1565 : std_logic_vector (31 downto 0);
-  signal n1566 : std_logic_vector (15 downto 0);
-  signal n1567 : std_logic_vector (31 downto 0);
+  signal n1544 : std_logic;
+  signal n1547 : std_logic;
+  signal n1561 : std_logic_vector (30 downto 0);
+  signal n1562 : std_logic_vector (31 downto 0);
+  signal n1563 : std_logic_vector (15 downto 0);
+  signal n1564 : std_logic_vector (31 downto 0);
+  signal n1565 : std_logic_vector (15 downto 0);
+  signal n1566 : std_logic_vector (31 downto 0);
+  signal n1569 : std_logic_vector (31 downto 0);
   signal n1570 : std_logic_vector (31 downto 0);
   signal n1571 : std_logic_vector (31 downto 0);
-  signal n1572 : std_logic_vector (31 downto 0);
-  signal n1573 : std_logic_vector (3 downto 0);
+  signal n1572 : std_logic_vector (3 downto 0);
+  signal n1574 : std_logic_vector (3 downto 0);
   signal n1575 : std_logic_vector (3 downto 0);
-  signal n1576 : std_logic_vector (3 downto 0);
-  signal n1578 : std_logic;
-  signal n1580 : std_logic_vector (31 downto 0);
+  signal n1577 : std_logic;
+  signal n1579 : std_logic_vector (31 downto 0);
+  signal n1582 : std_logic_vector (31 downto 0);
   signal n1583 : std_logic_vector (31 downto 0);
-  signal n1584 : std_logic_vector (31 downto 0);
-  signal n1588 : std_logic;
-  signal n1590 : std_logic_vector (31 downto 0);
-  signal n1593 : std_logic_vector (15 downto 0);
-  signal n1596 : std_logic;
-  signal n1598 : std_logic_vector (31 downto 0);
-  signal n1601 : std_logic_vector (15 downto 0);
-  signal n1604 : std_logic;
-  signal n1606 : std_logic_vector (31 downto 0);
-  signal n1609 : std_logic_vector (15 downto 0);
-  signal n1612 : std_logic;
-  signal n1614 : std_logic_vector (31 downto 0);
-  signal n1617 : std_logic_vector (15 downto 0);
-  signal n1620 : std_logic;
+  signal n1587 : std_logic;
+  signal n1589 : std_logic_vector (31 downto 0);
+  signal n1592 : std_logic_vector (15 downto 0);
+  signal n1595 : std_logic;
+  signal n1597 : std_logic_vector (31 downto 0);
+  signal n1600 : std_logic_vector (15 downto 0);
+  signal n1603 : std_logic;
+  signal n1605 : std_logic_vector (31 downto 0);
+  signal n1608 : std_logic_vector (15 downto 0);
+  signal n1611 : std_logic;
+  signal n1613 : std_logic_vector (31 downto 0);
+  signal n1616 : std_logic_vector (15 downto 0);
+  signal n1619 : std_logic;
+  signal n1620 : std_logic_vector (31 downto 0);
   signal n1621 : std_logic_vector (31 downto 0);
-  signal n1622 : std_logic_vector (31 downto 0);
-  signal n1623 : std_logic;
-  signal n1624 : std_logic_vector (31 downto 0);
-  signal n1626 : std_logic;
-  signal n1627 : std_logic_vector (31 downto 0);
-  signal n1629 : std_logic_vector (31 downto 0);
+  signal n1622 : std_logic;
+  signal n1623 : std_logic_vector (31 downto 0);
+  signal n1625 : std_logic;
+  signal n1626 : std_logic_vector (31 downto 0);
+  signal n1628 : std_logic_vector (31 downto 0);
+  signal n1630 : std_logic_vector (31 downto 0);
   signal n1631 : std_logic_vector (31 downto 0);
   signal n1632 : std_logic_vector (31 downto 0);
   signal n1633 : std_logic_vector (31 downto 0);
   signal n1634 : std_logic_vector (31 downto 0);
   signal n1635 : std_logic_vector (31 downto 0);
   signal n1636 : std_logic_vector (31 downto 0);
-  signal n1637 : std_logic_vector (31 downto 0);
-  signal n1639 : std_logic_vector (31 downto 0);
+  signal n1638 : std_logic_vector (31 downto 0);
+  signal n1640 : std_logic_vector (31 downto 0);
   signal n1641 : std_logic_vector (31 downto 0);
-  signal n1642 : std_logic_vector (31 downto 0);
-  signal n1644 : std_logic_vector (31 downto 0);
-  signal n1647 : std_logic_vector (163 downto 0);
+  signal n1643 : std_logic_vector (31 downto 0);
+  signal n1646 : std_logic_vector (163 downto 0);
+  signal n1647 : std_logic_vector (3 downto 0);
   signal n1648 : std_logic_vector (3 downto 0);
-  signal n1649 : std_logic_vector (3 downto 0);
+  signal n1649 : std_logic_vector (159 downto 0);
   signal n1650 : std_logic_vector (159 downto 0);
   signal n1651 : std_logic_vector (159 downto 0);
-  signal n1652 : std_logic_vector (159 downto 0);
-  signal n1657 : std_logic;
+  signal n1656 : std_logic;
+  signal n1658 : std_logic_vector (31 downto 0);
   signal n1659 : std_logic_vector (31 downto 0);
   signal n1660 : std_logic_vector (31 downto 0);
   signal n1661 : std_logic_vector (31 downto 0);
-  signal n1662 : std_logic_vector (31 downto 0);
+  signal n1664 : std_logic_vector (15 downto 0);
   signal n1665 : std_logic_vector (15 downto 0);
-  signal n1666 : std_logic_vector (15 downto 0);
-  signal n1669 : std_logic;
+  signal n1668 : std_logic;
+  signal n1670 : std_logic_vector (31 downto 0);
   signal n1671 : std_logic_vector (31 downto 0);
   signal n1672 : std_logic_vector (31 downto 0);
   signal n1673 : std_logic_vector (31 downto 0);
-  signal n1674 : std_logic_vector (31 downto 0);
+  signal n1676 : std_logic_vector (15 downto 0);
   signal n1677 : std_logic_vector (15 downto 0);
-  signal n1678 : std_logic_vector (15 downto 0);
-  signal n1681 : std_logic;
+  signal n1680 : std_logic;
+  signal n1682 : std_logic_vector (31 downto 0);
   signal n1683 : std_logic_vector (31 downto 0);
   signal n1684 : std_logic_vector (31 downto 0);
   signal n1685 : std_logic_vector (31 downto 0);
-  signal n1686 : std_logic_vector (31 downto 0);
+  signal n1688 : std_logic_vector (15 downto 0);
   signal n1689 : std_logic_vector (15 downto 0);
-  signal n1690 : std_logic_vector (15 downto 0);
-  signal n1693 : std_logic;
+  signal n1692 : std_logic;
+  signal n1694 : std_logic_vector (31 downto 0);
   signal n1695 : std_logic_vector (31 downto 0);
   signal n1696 : std_logic_vector (31 downto 0);
   signal n1697 : std_logic_vector (31 downto 0);
-  signal n1698 : std_logic_vector (31 downto 0);
+  signal n1700 : std_logic_vector (15 downto 0);
   signal n1701 : std_logic_vector (15 downto 0);
-  signal n1702 : std_logic_vector (15 downto 0);
-  signal n1705 : std_logic;
+  signal n1704 : std_logic;
+  signal n1706 : std_logic_vector (31 downto 0);
   signal n1707 : std_logic_vector (31 downto 0);
   signal n1708 : std_logic_vector (31 downto 0);
   signal n1709 : std_logic_vector (31 downto 0);
-  signal n1710 : std_logic_vector (31 downto 0);
+  signal n1712 : std_logic_vector (15 downto 0);
   signal n1713 : std_logic_vector (15 downto 0);
-  signal n1714 : std_logic_vector (15 downto 0);
-  signal n1717 : std_logic;
+  signal n1716 : std_logic;
+  signal n1718 : std_logic_vector (31 downto 0);
   signal n1719 : std_logic_vector (31 downto 0);
   signal n1720 : std_logic_vector (31 downto 0);
   signal n1721 : std_logic_vector (31 downto 0);
-  signal n1722 : std_logic_vector (31 downto 0);
+  signal n1724 : std_logic_vector (15 downto 0);
   signal n1725 : std_logic_vector (15 downto 0);
-  signal n1726 : std_logic_vector (15 downto 0);
-  signal n1729 : std_logic;
+  signal n1728 : std_logic;
+  signal n1730 : std_logic_vector (31 downto 0);
   signal n1731 : std_logic_vector (31 downto 0);
   signal n1732 : std_logic_vector (31 downto 0);
   signal n1733 : std_logic_vector (31 downto 0);
-  signal n1734 : std_logic_vector (31 downto 0);
+  signal n1736 : std_logic_vector (15 downto 0);
   signal n1737 : std_logic_vector (15 downto 0);
-  signal n1738 : std_logic_vector (15 downto 0);
-  signal n1741 : std_logic;
+  signal n1740 : std_logic;
+  signal n1742 : std_logic_vector (31 downto 0);
   signal n1743 : std_logic_vector (31 downto 0);
   signal n1744 : std_logic_vector (31 downto 0);
   signal n1745 : std_logic_vector (31 downto 0);
-  signal n1746 : std_logic_vector (31 downto 0);
+  signal n1748 : std_logic_vector (15 downto 0);
   signal n1749 : std_logic_vector (15 downto 0);
-  signal n1750 : std_logic_vector (15 downto 0);
-  signal n1753 : std_logic;
-  signal n1754 : std_logic_vector (14 downto 0);
-  signal n1757 : std_logic;
-  signal n1772 : std_logic;
+  signal n1752 : std_logic;
+  signal n1753 : std_logic_vector (14 downto 0);
+  signal n1756 : std_logic;
+  signal n1771 : std_logic;
+  signal n1773 : std_logic_vector (15 downto 0);
   signal n1774 : std_logic_vector (15 downto 0);
-  signal n1775 : std_logic_vector (15 downto 0);
+  signal n1775 : std_logic_vector (3 downto 0);
   signal n1776 : std_logic_vector (3 downto 0);
-  signal n1777 : std_logic_vector (3 downto 0);
+  signal n1777 : std_logic_vector (31 downto 0);
   signal n1778 : std_logic_vector (31 downto 0);
   signal n1779 : std_logic_vector (31 downto 0);
   signal n1780 : std_logic_vector (31 downto 0);
@@ -935,136 +936,135 @@ architecture ref of gfx_circle_renamed is
   signal n1789 : std_logic_vector (31 downto 0);
   signal n1790 : std_logic_vector (31 downto 0);
   signal n1791 : std_logic_vector (31 downto 0);
-  signal n1792 : std_logic_vector (31 downto 0);
-  signal n1802 : std_logic;
-  signal n1804 : std_logic_vector (163 downto 0);
-  signal n1805 : std_logic_vector (163 downto 0) := "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
-  signal n1806 : std_logic_vector (163 downto 0);
-  signal n1807 : std_logic_vector (31 downto 0);
+  signal n1801 : std_logic;
+  signal n1803 : std_logic_vector (163 downto 0);
+  signal n1804 : std_logic_vector (163 downto 0) := "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+  signal n1805 : std_logic_vector (163 downto 0);
+  signal n1806 : std_logic_vector (31 downto 0);
 begin
-  busy <= n1757;
-  pixel_valid <= n1802;
-  pixel_x <= n1541;
-  pixel_y <= n1542;
-  n1538 <= center_y & center_x;
-  n1541 <= n1807 (15 downto 0);
-  n1542 <= n1807 (31 downto 16);
-  state <= n1805; -- (isignal)
-  state_nxt <= n1806; -- (signal)
-  n1545 <= not res_n;
-  n1548 <= '1' when unsigned'(1 => stall) <= unsigned'("0") else '0';
-  n1562 <= "0000000000000000" & radius;  --  uext
-  n1563 <= "0" & n1562;  --  uext
-  n1564 <= n1538 (15 downto 0);
-  n1565 <= std_logic_vector (resize (signed (n1564), 32));  --  sext
-  n1566 <= n1538 (31 downto 16);
-  n1567 <= std_logic_vector (resize (signed (n1566), 32));  --  sext
-  n1570 <= state (67 downto 36);
-  n1571 <= state (99 downto 68);
-  n1572 <= state (35 downto 4);
-  n1573 <= state (3 downto 0);
-  n1575 <= state (3 downto 0);
-  n1576 <= n1575 when start = '0' else "0001";
-  n1578 <= '1' when n1573 = "0000" else '0';
-  n1580 <= std_logic_vector (unsigned'("00000000000000000000000000000001") - unsigned (n1563));
-  n1583 <= std_logic_vector (resize (signed'("00000000000000000000000000000010") * signed (n1563), 32));
-  n1584 <= std_logic_vector(-signed (n1583));
-  n1588 <= '1' when n1573 = "0001" else '0';
-  n1590 <= std_logic_vector (unsigned (n1567) + unsigned (n1563));
-  n1593 <= n1590 (15 downto 0);  --  trunc
-  n1596 <= '1' when n1573 = "0011" else '0';
-  n1598 <= std_logic_vector (unsigned (n1567) - unsigned (n1563));
-  n1601 <= n1598 (15 downto 0);  --  trunc
-  n1604 <= '1' when n1573 = "0100" else '0';
-  n1606 <= std_logic_vector (unsigned (n1565) + unsigned (n1563));
-  n1609 <= n1606 (15 downto 0);  --  trunc
-  n1612 <= '1' when n1573 = "0101" else '0';
-  n1614 <= std_logic_vector (unsigned (n1565) - unsigned (n1563));
-  n1617 <= n1614 (15 downto 0);  --  trunc
-  n1620 <= '1' when n1573 = "0110" else '0';
-  n1621 <= state (131 downto 100);
-  n1622 <= state (163 downto 132);
-  n1623 <= '1' when signed (n1621) < signed (n1622) else '0';
-  n1624 <= state (35 downto 4);
-  n1626 <= '1' when signed (n1624) >= signed'("00000000000000000000000000000000") else '0';
-  n1627 <= state (163 downto 132);
-  n1629 <= std_logic_vector (unsigned (n1627) - unsigned'("00000000000000000000000000000001"));
-  n1631 <= std_logic_vector (unsigned (n1571) + unsigned'("00000000000000000000000000000010"));
-  n1632 <= std_logic_vector (unsigned (n1572) + unsigned (n1631));
-  n1633 <= state (163 downto 132);
-  n1634 <= n1633 when n1626 = '0' else n1629;
-  n1635 <= n1571 when n1626 = '0' else n1631;
-  n1636 <= n1572 when n1626 = '0' else n1632;
-  n1637 <= state (131 downto 100);
-  n1639 <= std_logic_vector (unsigned (n1637) + unsigned'("00000000000000000000000000000001"));
-  n1641 <= std_logic_vector (unsigned (n1570) + unsigned'("00000000000000000000000000000010"));
-  n1642 <= std_logic_vector (unsigned (n1636) + unsigned (n1641));
-  n1644 <= std_logic_vector (unsigned (n1642) + unsigned'("00000000000000000000000000000001"));
-  n1647 <= n1634 & n1639 & n1635 & n1641 & n1644 & "0111";
-  n1648 <= n1647 (3 downto 0);
-  n1649 <= "0000" when n1623 = '0' else n1648;
-  n1650 <= n1647 (163 downto 4);
-  n1651 <= state (163 downto 4);
-  n1652 <= n1651 when n1623 = '0' else n1650;
-  n1657 <= '1' when n1573 = "0010" else '0';
-  n1659 <= state (131 downto 100);
-  n1660 <= std_logic_vector (unsigned (n1565) + unsigned (n1659));
-  n1661 <= state (163 downto 132);
-  n1662 <= std_logic_vector (unsigned (n1567) + unsigned (n1661));
-  n1665 <= n1660 (15 downto 0);  --  trunc
-  n1666 <= n1662 (15 downto 0);  --  trunc
-  n1669 <= '1' when n1573 = "0111" else '0';
-  n1671 <= state (131 downto 100);
-  n1672 <= std_logic_vector (unsigned (n1565) - unsigned (n1671));
-  n1673 <= state (163 downto 132);
-  n1674 <= std_logic_vector (unsigned (n1567) + unsigned (n1673));
-  n1677 <= n1672 (15 downto 0);  --  trunc
-  n1678 <= n1674 (15 downto 0);  --  trunc
-  n1681 <= '1' when n1573 = "1000" else '0';
-  n1683 <= state (131 downto 100);
-  n1684 <= std_logic_vector (unsigned (n1565) + unsigned (n1683));
-  n1685 <= state (163 downto 132);
-  n1686 <= std_logic_vector (unsigned (n1567) - unsigned (n1685));
-  n1689 <= n1684 (15 downto 0);  --  trunc
-  n1690 <= n1686 (15 downto 0);  --  trunc
-  n1693 <= '1' when n1573 = "1001" else '0';
-  n1695 <= state (131 downto 100);
-  n1696 <= std_logic_vector (unsigned (n1565) - unsigned (n1695));
-  n1697 <= state (163 downto 132);
-  n1698 <= std_logic_vector (unsigned (n1567) - unsigned (n1697));
-  n1701 <= n1696 (15 downto 0);  --  trunc
-  n1702 <= n1698 (15 downto 0);  --  trunc
-  n1705 <= '1' when n1573 = "1010" else '0';
-  n1707 <= state (163 downto 132);
-  n1708 <= std_logic_vector (unsigned (n1565) + unsigned (n1707));
-  n1709 <= state (131 downto 100);
-  n1710 <= std_logic_vector (unsigned (n1567) + unsigned (n1709));
-  n1713 <= n1708 (15 downto 0);  --  trunc
-  n1714 <= n1710 (15 downto 0);  --  trunc
-  n1717 <= '1' when n1573 = "1011" else '0';
-  n1719 <= state (163 downto 132);
-  n1720 <= std_logic_vector (unsigned (n1565) - unsigned (n1719));
-  n1721 <= state (131 downto 100);
-  n1722 <= std_logic_vector (unsigned (n1567) + unsigned (n1721));
-  n1725 <= n1720 (15 downto 0);  --  trunc
-  n1726 <= n1722 (15 downto 0);  --  trunc
-  n1729 <= '1' when n1573 = "1100" else '0';
-  n1731 <= state (163 downto 132);
-  n1732 <= std_logic_vector (unsigned (n1565) + unsigned (n1731));
-  n1733 <= state (131 downto 100);
-  n1734 <= std_logic_vector (unsigned (n1567) - unsigned (n1733));
-  n1737 <= n1732 (15 downto 0);  --  trunc
-  n1738 <= n1734 (15 downto 0);  --  trunc
-  n1741 <= '1' when n1573 = "1101" else '0';
-  n1743 <= state (163 downto 132);
-  n1744 <= std_logic_vector (unsigned (n1565) - unsigned (n1743));
-  n1745 <= state (131 downto 100);
-  n1746 <= std_logic_vector (unsigned (n1567) - unsigned (n1745));
-  n1749 <= n1744 (15 downto 0);  --  trunc
-  n1750 <= n1746 (15 downto 0);  --  trunc
-  n1753 <= '1' when n1573 = "1110" else '0';
-  n1754 <= n1753 & n1741 & n1729 & n1717 & n1705 & n1693 & n1681 & n1669 & n1657 & n1620 & n1612 & n1604 & n1596 & n1588 & n1578;
-  with n1754 select n1757 <=
+  busy <= n1756;
+  pixel_valid <= n1801;
+  pixel_x <= n1540;
+  pixel_y <= n1541;
+  n1537 <= center_y & center_x;
+  n1540 <= n1806 (15 downto 0);
+  n1541 <= n1806 (31 downto 16);
+  state <= n1804; -- (isignal)
+  state_nxt <= n1805; -- (signal)
+  n1544 <= not res_n;
+  n1547 <= '1' when unsigned'(1 => stall) <= unsigned'("0") else '0';
+  n1561 <= "0000000000000000" & radius;  --  uext
+  n1562 <= "0" & n1561;  --  uext
+  n1563 <= n1537 (15 downto 0);
+  n1564 <= std_logic_vector (resize (signed (n1563), 32));  --  sext
+  n1565 <= n1537 (31 downto 16);
+  n1566 <= std_logic_vector (resize (signed (n1565), 32));  --  sext
+  n1569 <= state (67 downto 36);
+  n1570 <= state (99 downto 68);
+  n1571 <= state (35 downto 4);
+  n1572 <= state (3 downto 0);
+  n1574 <= state (3 downto 0);
+  n1575 <= n1574 when start = '0' else "0001";
+  n1577 <= '1' when n1572 = "0000" else '0';
+  n1579 <= std_logic_vector (unsigned'("00000000000000000000000000000001") - unsigned (n1562));
+  n1582 <= std_logic_vector (resize (signed'("00000000000000000000000000000010") * signed (n1562), 32));
+  n1583 <= std_logic_vector(-signed (n1582));
+  n1587 <= '1' when n1572 = "0001" else '0';
+  n1589 <= std_logic_vector (unsigned (n1566) + unsigned (n1562));
+  n1592 <= n1589 (15 downto 0);  --  trunc
+  n1595 <= '1' when n1572 = "0011" else '0';
+  n1597 <= std_logic_vector (unsigned (n1566) - unsigned (n1562));
+  n1600 <= n1597 (15 downto 0);  --  trunc
+  n1603 <= '1' when n1572 = "0100" else '0';
+  n1605 <= std_logic_vector (unsigned (n1564) + unsigned (n1562));
+  n1608 <= n1605 (15 downto 0);  --  trunc
+  n1611 <= '1' when n1572 = "0101" else '0';
+  n1613 <= std_logic_vector (unsigned (n1564) - unsigned (n1562));
+  n1616 <= n1613 (15 downto 0);  --  trunc
+  n1619 <= '1' when n1572 = "0110" else '0';
+  n1620 <= state (131 downto 100);
+  n1621 <= state (163 downto 132);
+  n1622 <= '1' when signed (n1620) < signed (n1621) else '0';
+  n1623 <= state (35 downto 4);
+  n1625 <= '1' when signed (n1623) >= signed'("00000000000000000000000000000000") else '0';
+  n1626 <= state (163 downto 132);
+  n1628 <= std_logic_vector (unsigned (n1626) - unsigned'("00000000000000000000000000000001"));
+  n1630 <= std_logic_vector (unsigned (n1570) + unsigned'("00000000000000000000000000000010"));
+  n1631 <= std_logic_vector (unsigned (n1571) + unsigned (n1630));
+  n1632 <= state (163 downto 132);
+  n1633 <= n1632 when n1625 = '0' else n1628;
+  n1634 <= n1570 when n1625 = '0' else n1630;
+  n1635 <= n1571 when n1625 = '0' else n1631;
+  n1636 <= state (131 downto 100);
+  n1638 <= std_logic_vector (unsigned (n1636) + unsigned'("00000000000000000000000000000001"));
+  n1640 <= std_logic_vector (unsigned (n1569) + unsigned'("00000000000000000000000000000010"));
+  n1641 <= std_logic_vector (unsigned (n1635) + unsigned (n1640));
+  n1643 <= std_logic_vector (unsigned (n1641) + unsigned'("00000000000000000000000000000001"));
+  n1646 <= n1633 & n1638 & n1634 & n1640 & n1643 & "0111";
+  n1647 <= n1646 (3 downto 0);
+  n1648 <= "0000" when n1622 = '0' else n1647;
+  n1649 <= n1646 (163 downto 4);
+  n1650 <= state (163 downto 4);
+  n1651 <= n1650 when n1622 = '0' else n1649;
+  n1656 <= '1' when n1572 = "0010" else '0';
+  n1658 <= state (131 downto 100);
+  n1659 <= std_logic_vector (unsigned (n1564) + unsigned (n1658));
+  n1660 <= state (163 downto 132);
+  n1661 <= std_logic_vector (unsigned (n1566) + unsigned (n1660));
+  n1664 <= n1659 (15 downto 0);  --  trunc
+  n1665 <= n1661 (15 downto 0);  --  trunc
+  n1668 <= '1' when n1572 = "0111" else '0';
+  n1670 <= state (131 downto 100);
+  n1671 <= std_logic_vector (unsigned (n1564) - unsigned (n1670));
+  n1672 <= state (163 downto 132);
+  n1673 <= std_logic_vector (unsigned (n1566) + unsigned (n1672));
+  n1676 <= n1671 (15 downto 0);  --  trunc
+  n1677 <= n1673 (15 downto 0);  --  trunc
+  n1680 <= '1' when n1572 = "1000" else '0';
+  n1682 <= state (131 downto 100);
+  n1683 <= std_logic_vector (unsigned (n1564) + unsigned (n1682));
+  n1684 <= state (163 downto 132);
+  n1685 <= std_logic_vector (unsigned (n1566) - unsigned (n1684));
+  n1688 <= n1683 (15 downto 0);  --  trunc
+  n1689 <= n1685 (15 downto 0);  --  trunc
+  n1692 <= '1' when n1572 = "1001" else '0';
+  n1694 <= state (131 downto 100);
+  n1695 <= std_logic_vector (unsigned (n1564) - unsigned (n1694));
+  n1696 <= state (163 downto 132);
+  n1697 <= std_logic_vector (unsigned (n1566) - unsigned (n1696));
+  n1700 <= n1695 (15 downto 0);  --  trunc
+  n1701 <= n1697 (15 downto 0);  --  trunc
+  n1704 <= '1' when n1572 = "1010" else '0';
+  n1706 <= state (163 downto 132);
+  n1707 <= std_logic_vector (unsigned (n1564) + unsigned (n1706));
+  n1708 <= state (131 downto 100);
+  n1709 <= std_logic_vector (unsigned (n1566) + unsigned (n1708));
+  n1712 <= n1707 (15 downto 0);  --  trunc
+  n1713 <= n1709 (15 downto 0);  --  trunc
+  n1716 <= '1' when n1572 = "1011" else '0';
+  n1718 <= state (163 downto 132);
+  n1719 <= std_logic_vector (unsigned (n1564) - unsigned (n1718));
+  n1720 <= state (131 downto 100);
+  n1721 <= std_logic_vector (unsigned (n1566) + unsigned (n1720));
+  n1724 <= n1719 (15 downto 0);  --  trunc
+  n1725 <= n1721 (15 downto 0);  --  trunc
+  n1728 <= '1' when n1572 = "1100" else '0';
+  n1730 <= state (163 downto 132);
+  n1731 <= std_logic_vector (unsigned (n1564) + unsigned (n1730));
+  n1732 <= state (131 downto 100);
+  n1733 <= std_logic_vector (unsigned (n1566) - unsigned (n1732));
+  n1736 <= n1731 (15 downto 0);  --  trunc
+  n1737 <= n1733 (15 downto 0);  --  trunc
+  n1740 <= '1' when n1572 = "1101" else '0';
+  n1742 <= state (163 downto 132);
+  n1743 <= std_logic_vector (unsigned (n1564) - unsigned (n1742));
+  n1744 <= state (131 downto 100);
+  n1745 <= std_logic_vector (unsigned (n1566) - unsigned (n1744));
+  n1748 <= n1743 (15 downto 0);  --  trunc
+  n1749 <= n1745 (15 downto 0);  --  trunc
+  n1752 <= '1' when n1572 = "1110" else '0';
+  n1753 <= n1752 & n1740 & n1728 & n1716 & n1704 & n1692 & n1680 & n1668 & n1656 & n1619 & n1611 & n1603 & n1595 & n1587 & n1577;
+  with n1753 select n1756 <=
     '1' when "100000000000000",
     '1' when "010000000000000",
     '1' when "001000000000000",
@@ -1081,7 +1081,7 @@ begin
     '1' when "000000000000010",
     '0' when "000000000000001",
     '1' when others;
-  with n1754 select n1772 <=
+  with n1753 select n1771 <=
     '1' when "100000000000000",
     '1' when "010000000000000",
     '1' when "001000000000000",
@@ -1098,7 +1098,24 @@ begin
     '0' when "000000000000010",
     '0' when "000000000000001",
     '0' when others;
-  with n1754 select n1774 <=
+  with n1753 select n1773 <=
+    n1748 when "100000000000000",
+    n1736 when "010000000000000",
+    n1724 when "001000000000000",
+    n1712 when "000100000000000",
+    n1700 when "000010000000000",
+    n1688 when "000001000000000",
+    n1676 when "000000100000000",
+    n1664 when "000000010000000",
+    "0000000000000000" when "000000001000000",
+    n1616 when "000000000100000",
+    n1608 when "000000000010000",
+    n1563 when "000000000001000",
+    n1563 when "000000000000100",
+    "0000000000000000" when "000000000000010",
+    "0000000000000000" when "000000000000001",
+    "0000000000000000" when others;
+  with n1753 select n1774 <=
     n1749 when "100000000000000",
     n1737 when "010000000000000",
     n1725 when "001000000000000",
@@ -1108,32 +1125,15 @@ begin
     n1677 when "000000100000000",
     n1665 when "000000010000000",
     "0000000000000000" when "000000001000000",
-    n1617 when "000000000100000",
-    n1609 when "000000000010000",
-    n1564 when "000000000001000",
-    n1564 when "000000000000100",
+    n1565 when "000000000100000",
+    n1565 when "000000000010000",
+    n1600 when "000000000001000",
+    n1592 when "000000000000100",
     "0000000000000000" when "000000000000010",
     "0000000000000000" when "000000000000001",
     "0000000000000000" when others;
-  with n1754 select n1775 <=
-    n1750 when "100000000000000",
-    n1738 when "010000000000000",
-    n1726 when "001000000000000",
-    n1714 when "000100000000000",
-    n1702 when "000010000000000",
-    n1690 when "000001000000000",
-    n1678 when "000000100000000",
-    n1666 when "000000010000000",
-    "0000000000000000" when "000000001000000",
-    n1566 when "000000000100000",
-    n1566 when "000000000010000",
-    n1601 when "000000000001000",
-    n1593 when "000000000000100",
-    "0000000000000000" when "000000000000010",
-    "0000000000000000" when "000000000000001",
-    "0000000000000000" when others;
-  n1776 <= state (3 downto 0);
-  with n1754 select n1777 <=
+  n1775 <= state (3 downto 0);
+  with n1753 select n1776 <=
     "0010" when "100000000000000",
     "1110" when "010000000000000",
     "1101" when "001000000000000",
@@ -1142,121 +1142,121 @@ begin
     "1010" when "000001000000000",
     "1001" when "000000100000000",
     "1000" when "000000010000000",
-    n1649 when "000000001000000",
+    n1648 when "000000001000000",
     "0010" when "000000000100000",
     "0110" when "000000000010000",
     "0101" when "000000000001000",
     "0100" when "000000000000100",
     "0011" when "000000000000010",
-    n1576 when "000000000000001",
-    n1776 when others;
-  n1778 <= n1652 (31 downto 0);
-  n1779 <= state (35 downto 4);
-  with n1754 select n1780 <=
-    n1779 when "100000000000000",
-    n1779 when "010000000000000",
-    n1779 when "001000000000000",
-    n1779 when "000100000000000",
-    n1779 when "000010000000000",
-    n1779 when "000001000000000",
-    n1779 when "000000100000000",
-    n1779 when "000000010000000",
-    n1778 when "000000001000000",
-    n1779 when "000000000100000",
-    n1779 when "000000000010000",
-    n1779 when "000000000001000",
-    n1779 when "000000000000100",
-    n1580 when "000000000000010",
-    n1779 when "000000000000001",
-    n1779 when others;
-  n1781 <= n1652 (63 downto 32);
-  n1782 <= state (67 downto 36);
-  with n1754 select n1783 <=
-    n1782 when "100000000000000",
-    n1782 when "010000000000000",
-    n1782 when "001000000000000",
-    n1782 when "000100000000000",
-    n1782 when "000010000000000",
-    n1782 when "000001000000000",
-    n1782 when "000000100000000",
-    n1782 when "000000010000000",
-    n1781 when "000000001000000",
-    n1782 when "000000000100000",
-    n1782 when "000000000010000",
-    n1782 when "000000000001000",
-    n1782 when "000000000000100",
+    n1575 when "000000000000001",
+    n1775 when others;
+  n1777 <= n1651 (31 downto 0);
+  n1778 <= state (35 downto 4);
+  with n1753 select n1779 <=
+    n1778 when "100000000000000",
+    n1778 when "010000000000000",
+    n1778 when "001000000000000",
+    n1778 when "000100000000000",
+    n1778 when "000010000000000",
+    n1778 when "000001000000000",
+    n1778 when "000000100000000",
+    n1778 when "000000010000000",
+    n1777 when "000000001000000",
+    n1778 when "000000000100000",
+    n1778 when "000000000010000",
+    n1778 when "000000000001000",
+    n1778 when "000000000000100",
+    n1579 when "000000000000010",
+    n1778 when "000000000000001",
+    n1778 when others;
+  n1780 <= n1651 (63 downto 32);
+  n1781 <= state (67 downto 36);
+  with n1753 select n1782 <=
+    n1781 when "100000000000000",
+    n1781 when "010000000000000",
+    n1781 when "001000000000000",
+    n1781 when "000100000000000",
+    n1781 when "000010000000000",
+    n1781 when "000001000000000",
+    n1781 when "000000100000000",
+    n1781 when "000000010000000",
+    n1780 when "000000001000000",
+    n1781 when "000000000100000",
+    n1781 when "000000000010000",
+    n1781 when "000000000001000",
+    n1781 when "000000000000100",
     "00000000000000000000000000000000" when "000000000000010",
-    n1782 when "000000000000001",
-    n1782 when others;
-  n1784 <= n1652 (95 downto 64);
-  n1785 <= state (99 downto 68);
-  with n1754 select n1786 <=
-    n1785 when "100000000000000",
-    n1785 when "010000000000000",
-    n1785 when "001000000000000",
-    n1785 when "000100000000000",
-    n1785 when "000010000000000",
-    n1785 when "000001000000000",
-    n1785 when "000000100000000",
-    n1785 when "000000010000000",
-    n1784 when "000000001000000",
-    n1785 when "000000000100000",
-    n1785 when "000000000010000",
-    n1785 when "000000000001000",
-    n1785 when "000000000000100",
-    n1584 when "000000000000010",
-    n1785 when "000000000000001",
-    n1785 when others;
-  n1787 <= n1652 (127 downto 96);
-  n1788 <= state (131 downto 100);
-  with n1754 select n1789 <=
-    n1788 when "100000000000000",
-    n1788 when "010000000000000",
-    n1788 when "001000000000000",
-    n1788 when "000100000000000",
-    n1788 when "000010000000000",
-    n1788 when "000001000000000",
-    n1788 when "000000100000000",
-    n1788 when "000000010000000",
-    n1787 when "000000001000000",
-    n1788 when "000000000100000",
-    n1788 when "000000000010000",
-    n1788 when "000000000001000",
-    n1788 when "000000000000100",
+    n1781 when "000000000000001",
+    n1781 when others;
+  n1783 <= n1651 (95 downto 64);
+  n1784 <= state (99 downto 68);
+  with n1753 select n1785 <=
+    n1784 when "100000000000000",
+    n1784 when "010000000000000",
+    n1784 when "001000000000000",
+    n1784 when "000100000000000",
+    n1784 when "000010000000000",
+    n1784 when "000001000000000",
+    n1784 when "000000100000000",
+    n1784 when "000000010000000",
+    n1783 when "000000001000000",
+    n1784 when "000000000100000",
+    n1784 when "000000000010000",
+    n1784 when "000000000001000",
+    n1784 when "000000000000100",
+    n1583 when "000000000000010",
+    n1784 when "000000000000001",
+    n1784 when others;
+  n1786 <= n1651 (127 downto 96);
+  n1787 <= state (131 downto 100);
+  with n1753 select n1788 <=
+    n1787 when "100000000000000",
+    n1787 when "010000000000000",
+    n1787 when "001000000000000",
+    n1787 when "000100000000000",
+    n1787 when "000010000000000",
+    n1787 when "000001000000000",
+    n1787 when "000000100000000",
+    n1787 when "000000010000000",
+    n1786 when "000000001000000",
+    n1787 when "000000000100000",
+    n1787 when "000000000010000",
+    n1787 when "000000000001000",
+    n1787 when "000000000000100",
     "00000000000000000000000000000000" when "000000000000010",
-    n1788 when "000000000000001",
-    n1788 when others;
-  n1790 <= n1652 (159 downto 128);
-  n1791 <= state (163 downto 132);
-  with n1754 select n1792 <=
-    n1791 when "100000000000000",
-    n1791 when "010000000000000",
-    n1791 when "001000000000000",
-    n1791 when "000100000000000",
-    n1791 when "000010000000000",
-    n1791 when "000001000000000",
-    n1791 when "000000100000000",
-    n1791 when "000000010000000",
-    n1790 when "000000001000000",
-    n1791 when "000000000100000",
-    n1791 when "000000000010000",
-    n1791 when "000000000001000",
-    n1791 when "000000000000100",
-    n1563 when "000000000000010",
-    n1791 when "000000000000001",
-    n1791 when others;
-  n1802 <= n1772 when stall = '0' else '0';
-  n1804 <= state when n1548 = '0' else state_nxt;
-  process (clk, n1545)
+    n1787 when "000000000000001",
+    n1787 when others;
+  n1789 <= n1651 (159 downto 128);
+  n1790 <= state (163 downto 132);
+  with n1753 select n1791 <=
+    n1790 when "100000000000000",
+    n1790 when "010000000000000",
+    n1790 when "001000000000000",
+    n1790 when "000100000000000",
+    n1790 when "000010000000000",
+    n1790 when "000001000000000",
+    n1790 when "000000100000000",
+    n1790 when "000000010000000",
+    n1789 when "000000001000000",
+    n1790 when "000000000100000",
+    n1790 when "000000000010000",
+    n1790 when "000000000001000",
+    n1790 when "000000000000100",
+    n1562 when "000000000000010",
+    n1790 when "000000000000001",
+    n1790 when others;
+  n1801 <= n1771 when stall = '0' else '0';
+  n1803 <= state when n1547 = '0' else state_nxt;
+  process (clk, n1544)
   begin
-    if n1545 = '1' then
-      n1805 <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    if n1544 = '1' then
+      n1804 <= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
     elsif rising_edge (clk) then
-      n1805 <= n1804;
+      n1804 <= n1803;
     end if;
   end process;
-  n1806 <= n1792 & n1789 & n1786 & n1783 & n1780 & n1777;
-  n1807 <= n1775 & n1774;
+  n1805 <= n1791 & n1788 & n1785 & n1782 & n1779 & n1776;
+  n1806 <= n1774 & n1773;
 end architecture;
 library ieee;
 use ieee.std_logic_1164.all;
@@ -1272,16 +1272,16 @@ entity dp_ram_1c1r1w_3_62 is
     rd1_data : out std_logic_vector (61 downto 0));
 end entity dp_ram_1c1r1w_3_62;
 architecture ref of dp_ram_1c1r1w_3_62 is
-  signal n1532 : std_logic_vector (61 downto 0);
-  signal n1533 : std_logic_vector (61 downto 0) := "00000000000000000000000000000000000000000000000000000000000000";
-  signal n1535 : std_logic_vector (61 downto 0);
+  signal n1531 : std_logic_vector (61 downto 0);
+  signal n1532 : std_logic_vector (61 downto 0) := "00000000000000000000000000000000000000000000000000000000000000";
+  signal n1534 : std_logic_vector (61 downto 0);
 begin
-  rd1_data <= n1533;
-  n1532 <= n1533 when rd1 = '0' else n1535;
+  rd1_data <= n1532;
+  n1531 <= n1532 when rd1 = '0' else n1534;
   process (clk)
   begin
     if rising_edge (clk) then
-      n1533 <= n1532;
+      n1532 <= n1531;
     end if;
   end process;
   process (rd1_addr, clk) is
@@ -1289,7 +1289,7 @@ begin
       of std_logic_vector (61 downto 0);
     variable ram : ram_type := (others => (others => '0'));
   begin
-    n1535 <= ram(to_integer (unsigned (rd1_addr)));
+    n1534 <= ram(to_integer (unsigned (rd1_addr)));
     if rising_edge (clk) and (wr2 = '1') then
       ram (to_integer (unsigned (wr2_addr))) := wr2_data;
     end if;
@@ -1308,9 +1308,9 @@ architecture ref of rasterizer is
   signal wrap_vram_rd_busy: std_logic;
   signal wrap_vram_rd_valid: std_logic;
   signal wrap_fr_base_addr_req: std_logic;
-  subtype typwrap_fifo_gfx_cmd is std_logic_vector (15 downto 0);
-  signal wrap_fifo_gfx_cmd: typwrap_fifo_gfx_cmd;
-  signal wrap_fifo_gfx_cmd_empty: std_logic;
+  subtype typwrap_gcf_data is std_logic_vector (15 downto 0);
+  signal wrap_gcf_data: typwrap_gcf_data;
+  signal wrap_gcf_empty: std_logic;
   subtype typwrap_vram_wr_addr is std_logic_vector (20 downto 0);
   signal wrap_vram_wr_addr: typwrap_vram_wr_addr;
   subtype typwrap_vram_wr_data is std_logic_vector (15 downto 0);
@@ -1323,7 +1323,7 @@ architecture ref of rasterizer is
   signal wrap_vram_rd_access_mode: std_logic;
   subtype typwrap_fr_base_addr is std_logic_vector (20 downto 0);
   signal wrap_fr_base_addr: typwrap_fr_base_addr;
-  signal wrap_fifo_gfx_cmd_rd: std_logic;
+  signal wrap_gcf_rd: std_logic;
   subtype typwrap_rd_data is std_logic_vector (15 downto 0);
   signal wrap_rd_data: typwrap_rd_data;
   signal wrap_rd_valid: std_logic;
@@ -1331,6 +1331,8 @@ architecture ref of rasterizer is
   signal operand_buffer : std_logic_vector (63 downto 0);
   signal state : std_logic_vector (309 downto 0);
   signal state_nxt : std_logic_vector (309 downto 0);
+  signal bdt_wr : std_logic;
+  signal bdt_rd : std_logic;
   signal stall : std_logic;
   signal pw_wr : std_logic;
   signal pw_color : std_logic_vector (7 downto 0);
@@ -1345,8 +1347,6 @@ architecture ref of rasterizer is
   signal direct_vram_wr_addr : std_logic_vector (20 downto 0);
   signal direct_vram_wr_data : std_logic_vector (15 downto 0);
   signal direct_vram_wr_access_mode : std_logic;
-  signal bdt_wr : std_logic;
-  signal bdt_rd : std_logic;
   signal pr_start : std_logic;
   signal pr_color : std_logic_vector (7 downto 0);
   signal pr_color_valid : std_logic;
@@ -2022,20 +2022,20 @@ architecture ref of rasterizer is
   signal n1276 : std_logic_vector (15 downto 0);
   signal n1277 : std_logic_vector (1 downto 0);
   signal n1278 : std_logic_vector (1 downto 0);
-  signal n1279 : std_logic_vector (20 downto 0);
-  signal n1280 : std_logic_vector (20 downto 0);
-  signal n1281 : std_logic_vector (20 downto 0);
-  signal n1282 : std_logic_vector (20 downto 0);
-  signal n1283 : std_logic_vector (15 downto 0);
-  signal n1284 : std_logic_vector (15 downto 0);
+  signal n1279 : std_logic_vector (14 downto 0);
+  signal n1280 : std_logic_vector (14 downto 0);
+  signal n1281 : std_logic_vector (14 downto 0);
+  signal n1282 : std_logic_vector (14 downto 0);
+  signal n1283 : std_logic_vector (14 downto 0);
+  signal n1284 : std_logic_vector (14 downto 0);
   signal n1285 : std_logic_vector (14 downto 0);
   signal n1286 : std_logic_vector (14 downto 0);
-  signal n1287 : std_logic_vector (14 downto 0);
-  signal n1288 : std_logic_vector (14 downto 0);
-  signal n1289 : std_logic_vector (14 downto 0);
-  signal n1290 : std_logic_vector (14 downto 0);
-  signal n1291 : std_logic_vector (14 downto 0);
-  signal n1292 : std_logic_vector (14 downto 0);
+  signal n1287 : std_logic_vector (20 downto 0);
+  signal n1288 : std_logic_vector (20 downto 0);
+  signal n1289 : std_logic_vector (15 downto 0);
+  signal n1290 : std_logic_vector (15 downto 0);
+  signal n1291 : std_logic_vector (20 downto 0);
+  signal n1292 : std_logic_vector (20 downto 0);
   signal n1293 : std_logic_vector (15 downto 0);
   signal n1294 : std_logic_vector (15 downto 0);
   signal n1295 : std_logic_vector (15 downto 0);
@@ -2074,31 +2074,31 @@ architecture ref of rasterizer is
   signal n1328 : std_logic_vector (1 downto 0);
   signal n1329 : std_logic_vector (1 downto 0);
   signal n1350 : std_logic;
-  signal n1353 : std_logic_vector (7 downto 0);
-  signal n1355 : std_logic_vector (15 downto 0);
-  signal n1356 : std_logic_vector (15 downto 0);
-  signal n1357 : std_logic_vector (15 downto 0);
-  signal n1358 : std_logic_vector (15 downto 0);
-  signal n1359 : std_logic_vector (15 downto 0);
-  signal n1360 : std_logic_vector (15 downto 0);
+  signal n1353 : std_logic;
+  signal n1356 : std_logic;
+  signal n1359 : std_logic_vector (7 downto 0);
   signal n1361 : std_logic_vector (15 downto 0);
   signal n1362 : std_logic_vector (15 downto 0);
+  signal n1363 : std_logic_vector (15 downto 0);
   signal n1364 : std_logic_vector (15 downto 0);
   signal n1365 : std_logic_vector (15 downto 0);
   signal n1366 : std_logic_vector (15 downto 0);
   signal n1367 : std_logic_vector (15 downto 0);
   signal n1368 : std_logic_vector (15 downto 0);
-  signal n1369 : std_logic_vector (15 downto 0);
   signal n1370 : std_logic_vector (15 downto 0);
   signal n1371 : std_logic_vector (15 downto 0);
   signal n1372 : std_logic_vector (15 downto 0);
+  signal n1373 : std_logic_vector (15 downto 0);
   signal n1374 : std_logic_vector (15 downto 0);
-  signal n1382 : std_logic;
-  signal n1385 : std_logic;
-  signal n1388 : std_logic_vector (20 downto 0);
-  signal n1391 : std_logic_vector (15 downto 0);
-  signal n1394 : std_logic;
-  signal n1397 : std_logic;
+  signal n1375 : std_logic_vector (15 downto 0);
+  signal n1376 : std_logic_vector (15 downto 0);
+  signal n1377 : std_logic_vector (15 downto 0);
+  signal n1378 : std_logic_vector (15 downto 0);
+  signal n1380 : std_logic_vector (15 downto 0);
+  signal n1388 : std_logic;
+  signal n1391 : std_logic;
+  signal n1394 : std_logic_vector (20 downto 0);
+  signal n1397 : std_logic_vector (15 downto 0);
   signal n1400 : std_logic;
   signal n1404 : std_logic;
   signal n1407 : std_logic;
@@ -2126,44 +2126,44 @@ architecture ref of rasterizer is
   signal pw_c_vram_wr_data : std_logic_vector (15 downto 0);
   signal pw_c_vram_wr : std_logic;
   signal pw_c_vram_wr_access_mode : std_logic;
-  signal n1442 : std_logic_vector (61 downto 0);
-  signal n1443 : std_logic_vector (31 downto 0);
+  signal n1441 : std_logic_vector (61 downto 0);
+  signal n1442 : std_logic_vector (31 downto 0);
+  signal n1443 : std_logic_vector (14 downto 0);
   signal n1444 : std_logic_vector (14 downto 0);
-  signal n1445 : std_logic_vector (14 downto 0);
+  signal n1445 : std_logic_vector (15 downto 0);
   signal n1446 : std_logic_vector (15 downto 0);
-  signal n1447 : std_logic_vector (15 downto 0);
-  signal n1449 : std_logic_vector (7 downto 0);
-  signal n1455 : std_logic_vector (1 downto 0);
+  signal n1448 : std_logic_vector (7 downto 0);
+  signal n1454 : std_logic_vector (1 downto 0);
+  signal n1455 : std_logic_vector (7 downto 0);
   signal n1456 : std_logic_vector (7 downto 0);
-  signal n1457 : std_logic_vector (7 downto 0);
-  signal n1459 : std_logic;
+  signal n1458 : std_logic;
+  signal n1459 : std_logic_vector (7 downto 0);
   signal n1460 : std_logic_vector (7 downto 0);
-  signal n1461 : std_logic_vector (7 downto 0);
-  signal n1463 : std_logic;
+  signal n1462 : std_logic;
+  signal n1463 : std_logic_vector (7 downto 0);
   signal n1464 : std_logic_vector (7 downto 0);
-  signal n1465 : std_logic_vector (7 downto 0);
-  signal n1467 : std_logic;
-  signal n1468 : std_logic_vector (2 downto 0);
-  signal n1473 : std_logic;
-  signal n1481 : std_logic_vector (7 downto 0);
-  signal n1486 : std_logic_vector (7 downto 0);
+  signal n1466 : std_logic;
+  signal n1467 : std_logic_vector (2 downto 0);
+  signal n1472 : std_logic;
+  signal n1480 : std_logic_vector (7 downto 0);
+  signal n1485 : std_logic_vector (7 downto 0);
   signal pr_c_color : std_logic_vector (7 downto 0);
   signal pr_c_color_valid : std_logic;
   signal pr_c_vram_rd_addr : std_logic_vector (20 downto 0);
   signal pr_c_vram_rd : std_logic;
   signal pr_c_vram_rd_access_mode : std_logic;
-  signal n1492 : std_logic_vector (31 downto 0);
+  signal n1491 : std_logic_vector (31 downto 0);
+  signal n1492 : std_logic_vector (14 downto 0);
   signal n1493 : std_logic_vector (14 downto 0);
   signal n1494 : std_logic_vector (14 downto 0);
   signal n1495 : std_logic_vector (14 downto 0);
   signal n1496 : std_logic_vector (14 downto 0);
   signal n1497 : std_logic_vector (14 downto 0);
-  signal n1498 : std_logic_vector (14 downto 0);
-  signal n1504 : std_logic_vector (63 downto 0);
+  signal n1503 : std_logic_vector (63 downto 0);
+  signal n1504 : std_logic_vector (309 downto 0);
   signal n1505 : std_logic_vector (309 downto 0);
-  signal n1506 : std_logic_vector (309 downto 0);
-  signal n1507 : std_logic_vector (31 downto 0);
-  signal n1509 : std_logic_vector (61 downto 0);
+  signal n1506 : std_logic_vector (31 downto 0);
+  signal n1508 : std_logic_vector (61 downto 0);
 begin
   wrap_clk <= clk;
   wrap_res_n <= res_n;
@@ -2173,8 +2173,8 @@ begin
   wrap_vram_rd_busy <= vram_rd_busy;
   wrap_vram_rd_valid <= vram_rd_valid;
   wrap_fr_base_addr_req <= fr_base_addr_req;
-  wrap_fifo_gfx_cmd <= typwrap_fifo_gfx_cmd(fifo_gfx_cmd);
-  wrap_fifo_gfx_cmd_empty <= fifo_gfx_cmd_empty;
+  wrap_gcf_data <= typwrap_gcf_data(gcf_data);
+  wrap_gcf_empty <= gcf_empty;
   vram_wr_addr <= std_ulogic_vector(wrap_vram_wr_addr);
   vram_wr_data <= std_ulogic_vector(wrap_vram_wr_data);
   vram_wr <= wrap_vram_wr;
@@ -2183,7 +2183,7 @@ begin
   vram_rd <= wrap_vram_rd;
   vram_rd_access_mode <= sram_access_mode_t'val (to_integer(unsigned'(0 => wrap_vram_rd_access_mode)));
   fr_base_addr <= std_ulogic_vector(wrap_fr_base_addr);
-  fifo_gfx_cmd_rd <= wrap_fifo_gfx_cmd_rd;
+  gcf_rd <= wrap_gcf_rd;
   rd_data <= gfx_cmd_t(wrap_rd_data);
   rd_valid <= wrap_rd_valid;
   frame_sync <= wrap_frame_sync;
@@ -2195,29 +2195,29 @@ begin
   wrap_vram_rd <= n1257;
   wrap_vram_rd_access_mode <= n1260;
   wrap_fr_base_addr <= n108;
-  wrap_fifo_gfx_cmd_rd <= n1263;
+  wrap_gcf_rd <= n1263;
   wrap_rd_data <= n107;
   wrap_rd_valid <= n1268;
   wrap_frame_sync <= n1271;
-  operand_buffer <= n1504; -- (signal)
-  state <= n1505; -- (signal)
-  state_nxt <= n1506; -- (signal)
+  operand_buffer <= n1503; -- (signal)
+  state <= n1504; -- (signal)
+  state_nxt <= n1505; -- (signal)
+  bdt_wr <= n1350; -- (signal)
+  bdt_rd <= n1353; -- (signal)
   stall <= pw_c_stall; -- (signal)
-  pw_wr <= n1350; -- (signal)
-  pw_color <= n1353; -- (signal)
-  pw_position <= n1507; -- (signal)
-  pw_alpha_mode <= n1382; -- (signal)
+  pw_wr <= n1356; -- (signal)
+  pw_color <= n1359; -- (signal)
+  pw_position <= n1506; -- (signal)
+  pw_alpha_mode <= n1388; -- (signal)
   pw_oob <= pw_c_oob; -- (signal)
   pw_vram_wr_addr <= pw_c_vram_wr_addr; -- (signal)
   pw_vram_wr_data <= pw_c_vram_wr_data; -- (signal)
   pw_vram_wr <= pw_c_vram_wr; -- (signal)
   pw_vram_wr_access_mode <= pw_c_vram_wr_access_mode; -- (signal)
-  direct_vram_wr <= n1385; -- (signal)
-  direct_vram_wr_addr <= n1388; -- (signal)
-  direct_vram_wr_data <= n1391; -- (signal)
-  direct_vram_wr_access_mode <= n1394; -- (signal)
-  bdt_wr <= n1397; -- (signal)
-  bdt_rd <= n1400; -- (signal)
+  direct_vram_wr <= n1391; -- (signal)
+  direct_vram_wr_addr <= n1394; -- (signal)
+  direct_vram_wr_data <= n1397; -- (signal)
+  direct_vram_wr_access_mode <= n1400; -- (signal)
   pr_start <= n1404; -- (signal)
   pr_color <= pr_c_color; -- (signal)
   pr_color_valid <= pr_c_color_valid; -- (signal)
@@ -2231,7 +2231,7 @@ begin
   circle_pixel <= n1438; -- (signal)
   instr_color <= n115; -- (signal)
   current_instr <= n12; -- (signal)
-  bdt_bmpidx <= n1509; -- (signal)
+  bdt_bmpidx <= n1508; -- (signal)
   dx <= n13; -- (signal)
   dy <= n14; -- (signal)
   radius <= n15; -- (signal)
@@ -2244,7 +2244,7 @@ begin
   n13 <= operand_buffer (63 downto 48);
   n14 <= operand_buffer (63 downto 48);
   n15 <= operand_buffer (62 downto 48);
-  n16 <= state (141 downto 82);
+  n16 <= state (83 downto 24);
   n19 <= operand_buffer (63 downto 48);
   n20 <= operand_buffer (52 downto 48);
   n21 <= operand_buffer (63 downto 48);
@@ -2298,7 +2298,7 @@ begin
   n62 <= not wrap_res_n;
   n67 <= operands_buffer_operand_buffer_int (47 downto 32);
   n68 <= operands_buffer_operand_buffer_int (31 downto 16);
-  n69 <= wrap_fifo_gfx_cmd & n67 & n68;
+  n69 <= wrap_gcf_data & n67 & n68;
   n72 <= "0000000000000000" & "0000000000000000" & "0000000000000000";
   n75 <= operands_buffer_operand_buffer_int when n1263 = '0' else n69;
   process (wrap_clk, n62, n72)
@@ -2316,7 +2316,7 @@ begin
   n79 <= n77 & n78;
   n80 <= operand_buffer (46 downto 32);
   n81 <= operand_buffer (62 downto 48);
-  n87 <= wrap_fifo_gfx_cmd (2 downto 0);
+  n87 <= wrap_gcf_data (2 downto 0);
   bdt_block_bitmaps_n88 <= bdt_block_bitmaps_c_rd1_data; -- (signal)
   n95 <= state (8 downto 6);
   n96 <= bdt_block_bdt_wr_data (31 downto 0);
@@ -2336,8 +2336,8 @@ begin
   n104 <= bdt_block_bdt_bmpidx_int (29 downto 15);
   n105 <= bdt_block_bdt_bmpidx_int (14 downto 0);
   n106 <= n81 & n80 & n79;
-  n107 <= state (81 downto 66);
-  n108 <= state (44 downto 24);
+  n107 <= state (120 downto 105);
+  n108 <= state (104 downto 84);
   n111 <= current_instr (10);
   n112 <= not n111;
   n113 <= state (229 downto 222);
@@ -2345,12 +2345,12 @@ begin
   n115 <= n114 when n112 = '0' else n113;
   n118 <= not wrap_res_n;
   n125 <= state (5 downto 0);
-  n126 <= not wrap_fifo_gfx_cmd_empty;
+  n126 <= not wrap_gcf_empty;
   n130 <= '0' when n126 = '0' else '1';
   n131 <= state (5 downto 0);
   n132 <= n131 when n126 = '0' else "000001";
   n134 <= '1' when n125 = "000000" else '0';
-  n142 <= wrap_fifo_gfx_cmd (15 downto 11);
+  n142 <= wrap_gcf_data (15 downto 11);
   n149 <= '1' when n142 = "00000" else '0';
   n152 <= '1' when n142 = "00001" else '0';
   n155 <= '1' when n142 = "00010" else '0';
@@ -2422,16 +2422,16 @@ begin
     n238 when "000010",
     n238 when "000001",
     n238 when others;
-  n245 <= wrap_fifo_gfx_cmd (15 downto 11);
+  n245 <= wrap_gcf_data (15 downto 11);
   n247 <= '1' when n245 = "00000" else '0';
   n250 <= '1' when n245 = "10011" else '0';
   n253 <= '1' when n245 = "10100" else '0';
   n256 <= '1' when n245 = "11111" else '0';
   n259 <= '1' when n245 = "01110" else '0';
-  n260 <= wrap_fifo_gfx_cmd (10);
+  n260 <= wrap_gcf_data (10);
   n261 <= not n260;
-  n262 <= wrap_fifo_gfx_cmd (7 downto 0);
-  n263 <= wrap_fifo_gfx_cmd (7 downto 0);
+  n262 <= wrap_gcf_data (7 downto 0);
+  n263 <= wrap_gcf_data (7 downto 0);
   n264 <= state (229 downto 222);
   n265 <= n264 when n261 = '0' else n262;
   n266 <= state (237 downto 230);
@@ -2439,14 +2439,14 @@ begin
   n270 <= '1' when n245 = "10000" else '0';
   n273 <= '1' when n245 = "00100" else '0';
   n276 <= '1' when n245 = "00101" else '0';
-  n277 <= wrap_fifo_gfx_cmd (10);
+  n277 <= wrap_gcf_data (10);
   n278 <= not n277;
   n280 <= state (205 downto 190);
-  n281 <= wrap_fifo_gfx_cmd (9 downto 0);
+  n281 <= wrap_gcf_data (9 downto 0);
   n282 <= std_logic_vector (resize (signed (n281), 16));  --  sext
   n283 <= std_logic_vector (unsigned (n280) + unsigned (n282));
   n285 <= state (221 downto 206);
-  n286 <= wrap_fifo_gfx_cmd (9 downto 0);
+  n286 <= wrap_gcf_data (9 downto 0);
   n287 <= std_logic_vector (resize (signed (n286), 16));  --  sext
   n288 <= std_logic_vector (unsigned (n285) + unsigned (n287));
   n289 <= state (205 downto 190);
@@ -2455,15 +2455,15 @@ begin
   n292 <= n288 when n278 = '0' else n291;
   n295 <= '1' when n245 = "00010" else '0';
   n298 <= '1' when n245 = "11001" else '0';
-  n299 <= wrap_fifo_gfx_cmd (7 downto 0);
-  n305 <= wrap_fifo_gfx_cmd (9 downto 8);
+  n299 <= wrap_gcf_data (7 downto 0);
+  n305 <= wrap_gcf_data (9 downto 8);
   n308 <= '1' when n245 = "10001" else '0';
   n311 <= '1' when n245 = "01011" else '0';
   n312 <= n311 & n308 & n298 & n295 & n276 & n273 & n270 & n259 & n256 & n253 & n250 & n247;
   with n312 select n313 <=
     "011010" when "100000000000",
     "000000" when "010000000000",
-    "001001" when "001000000000",
+    "000110" when "001000000000",
     "000000" when "000100000000",
     "000100" when "000010000000",
     "010100" when "000001000000",
@@ -2471,7 +2471,7 @@ begin
     "000010" when "000000010000",
     "000000" when "000000001000",
     "010011" when "000000000100",
-    "000101" when "000000000010",
+    "001000" when "000000000010",
     n237 when "000000000001",
     n237 when others;
   with n312 select n314 <=
@@ -2578,7 +2578,7 @@ begin
     n325 when "000000000010",
     n325 when "000000000001",
     n325 when others;
-  n332 <= wrap_fifo_gfx_cmd (15 downto 11);
+  n332 <= wrap_gcf_data (15 downto 11);
   n334 <= '1' when n332 = "11001" else '0';
   n336 <= '1' when n332 = "11000" else '0';
   n337 <= n334 or n336;
@@ -2592,7 +2592,7 @@ begin
     '1' when '1',
     '0' when others;
   n351 <= '1' when n125 = "000001" else '0';
-  n352 <= not wrap_fifo_gfx_cmd_empty;
+  n352 <= not wrap_gcf_empty;
   n353 <= state (23 downto 22);
   n355 <= '1' when n353 = "00" else '0';
   n357 <= state (23 downto 22);
@@ -2634,8 +2634,8 @@ begin
   with n426 select n427 <=
     "000000" when "1000000000",
     "000000" when "0100000000",
-    "001000" when "0010000000",
-    "001010" when "0001000000",
+    "000101" when "0010000000",
+    "000111" when "0001000000",
     "011000" when "0000100000",
     "010110" when "0000010000",
     "001111" when "0000001000",
@@ -2674,7 +2674,7 @@ begin
   n439 <= operand_buffer (53 downto 48);
   n440 <= "000000000" & n439;  --  uext
   n441 <= bdt_bmpidx (61 downto 47);
-  n443 <= '1' when n125 = "001000" else '0';
+  n443 <= '1' when n125 = "000101" else '0';
   n445 <= operand_buffer (15 downto 0);
   n446 <= n445 (14 downto 0);  --  trunc
   n447 <= operand_buffer (31 downto 16);
@@ -2683,11 +2683,11 @@ begin
   n450 <= n449 (14 downto 0);  --  trunc
   n451 <= operand_buffer (63 downto 48);
   n452 <= n451 (14 downto 0);  --  trunc
-  n454 <= '1' when n125 = "001010" else '0';
+  n454 <= '1' when n125 = "000111" else '0';
   n458 <= bdt_bmpidx (46 downto 32);
   n459 <= bdt_bmpidx (61 downto 47);
-  n461 <= '1' when n125 = "001001" else '0';
-  n464 <= '1' when n125 = "000101" else '0';
+  n461 <= '1' when n125 = "000110" else '0';
+  n464 <= '1' when n125 = "001000" else '0';
   n466 <= state (221 downto 190);
   n471 <= not stall;
   n475 <= '0' when n471 = '0' else '1';
@@ -2716,7 +2716,7 @@ begin
   n519 <= '0' when wrap_fr_base_addr_req = '0' else '1';
   n520 <= state (5 downto 0);
   n521 <= n520 when wrap_fr_base_addr_req = '0' else "000000";
-  n522 <= state (44 downto 24);
+  n522 <= state (104 downto 84);
   n523 <= n522 when wrap_fr_base_addr_req = '0' else n515;
   n524 <= bdt_bmpidx (31 downto 0);
   n525 <= n524 (20 downto 0);  --  trunc
@@ -2845,9 +2845,9 @@ begin
   n766 <= '1' when n125 = "011001" else '0';
   n767 <= not stall;
   n769 <= state (5 downto 0);
-  n770 <= n769 when n767 = '0' else "000111";
+  n770 <= n769 when n767 = '0' else "001010";
   n773 <= '0' when n767 = '0' else '1';
-  n775 <= '1' when n125 = "000110" else '0';
+  n775 <= '1' when n125 = "001001" else '0';
   n781 <= not stall;
   n785 <= '0' when n781 = '0' else '1';
   n802 <= '0' when circle_pixel_valid = '0' else n785;
@@ -2871,7 +2871,7 @@ begin
   n827 <= n826 when n807 = '0' else "000000";
   n828 <= state (221 downto 190);
   n829 <= n828 when n807 = '0' else n825;
-  n831 <= '1' when n125 = "000111" else '0';
+  n831 <= '1' when n125 = "001010" else '0';
   n839 <= '1' when n125 = "011111" else '0';
   n853 <= current_instr (9 downto 8);
   n856 <= state (173 downto 158);
@@ -3021,7 +3021,7 @@ begin
   n1115 <= '1' when n125 = "010000" else '0';
   n1116 <= addrhi & addrlo;
   n1119 <= '1' when n125 = "001111" else '0';
-  n1120 <= not wrap_fifo_gfx_cmd_empty;
+  n1120 <= not wrap_gcf_empty;
   n1126 <= current_instr (15 downto 11);
   n1128 <= '1' when n1126 = "01110" else '0';
   n1131 <= '0' when n1128 = '0' else '1';
@@ -3033,15 +3033,15 @@ begin
   n1140 <= state (157 downto 142);
   n1141 <= n1140 when n1120 = '0' else n1134;
   n1143 <= '1' when n125 = "010001" else '0';
-  n1144 <= state (65 downto 45);
+  n1144 <= state (141 downto 121);
   n1150 <= current_instr (15 downto 11);
   n1152 <= '1' when n1150 = "01110" else '0';
-  n1153 <= data when n1152 = '0' else wrap_fifo_gfx_cmd;
+  n1153 <= data when n1152 = '0' else wrap_gcf_data;
   n1154 <= not wrap_vram_wr_full;
   n1155 <= current_instr (0);
-  n1156 <= state (65 downto 45);
+  n1156 <= state (141 downto 121);
   n1158 <= std_logic_vector (unsigned (n1156) + unsigned'("000000000000000000010"));
-  n1159 <= state (65 downto 45);
+  n1159 <= state (141 downto 121);
   n1161 <= std_logic_vector (unsigned (n1159) + unsigned'("000000000000000000001"));
   n1162 <= n1161 when n1155 = '0' else n1158;
   n1165 <= '0' when n1155 = '0' else '1';
@@ -3050,7 +3050,7 @@ begin
   n1171 <= "010001" when n1168 = '0' else "000000";
   n1172 <= state (5 downto 0);
   n1173 <= n1172 when n1154 = '0' else n1171;
-  n1174 <= state (65 downto 45);
+  n1174 <= state (141 downto 121);
   n1175 <= n1174 when n1154 = '0' else n1162;
   n1178 <= '0' when n1154 = '0' else '1';
   n1180 <= '1' when n1154 = '0' else n1165;
@@ -3062,7 +3062,7 @@ begin
   n1193 <= '1' when n125 = "001100" else '0';
   n1195 <= state (5 downto 0);
   n1196 <= n1195 when wrap_vram_rd_valid = '0' else "001110";
-  n1197 <= state (81 downto 66);
+  n1197 <= state (120 downto 105);
   n1198 <= n1197 when wrap_vram_rd_valid = '0' else wrap_vram_rd_data;
   n1200 <= '1' when n125 = "001101" else '0';
   n1203 <= '1' when n125 = "001110" else '0';
@@ -3077,13 +3077,13 @@ begin
   n1219 <= n1218 when wrap_vram_wr_emtpy = '0' else "011101";
   n1223 <= '0' when n1213 = '0' else n1217;
   n1224 <= "011110" when n1213 = '0' else n1219;
-  n1225 <= state (81 downto 66);
+  n1225 <= state (120 downto 105);
   n1226 <= "1111111111111111" when n1213 = '0' else n1225;
   n1228 <= '1' when n125 = "011100" else '0';
   n1229 <= state (221 downto 190);
   n1231 <= state (5 downto 0);
   n1232 <= n1231 when wrap_vram_rd_valid = '0' else "011110";
-  n1233 <= state (81 downto 66);
+  n1233 <= state (120 downto 105);
   n1234 <= n1233 when wrap_vram_rd_valid = '0' else wrap_vram_rd_data;
   n1236 <= '1' when n125 = "011101" else '0';
   n1238 <= current_instr (4);
@@ -3385,7 +3385,7 @@ begin
     n1275 when "0000000000000000000000000000010000",
     n1275 when "0000000000000000000000000000001000",
     n1275 when "0000000000000000000000000000000100",
-    wrap_fifo_gfx_cmd when "0000000000000000000000000000000010",
+    wrap_gcf_data when "0000000000000000000000000000000010",
     n1275 when "0000000000000000000000000000000001",
     n1275 when others;
   n1277 <= state (23 downto 22);
@@ -3425,7 +3425,7 @@ begin
     n314 when "0000000000000000000000000000000010",
     n1277 when "0000000000000000000000000000000001",
     n1277 when others;
-  n1279 <= state (44 downto 24);
+  n1279 <= state (38 downto 24);
   with n1254 select n1280 <=
     n1279 when "1000000000000000000000000000000000",
     n1279 when "0100000000000000000000000000000000",
@@ -3451,18 +3451,18 @@ begin
     n1279 when "0000000000000000000001000000000000",
     n1279 when "0000000000000000000000100000000000",
     n1279 when "0000000000000000000000010000000000",
-    n530 when "0000000000000000000000001000000000",
+    n1279 when "0000000000000000000000001000000000",
     n1279 when "0000000000000000000000000100000000",
     n1279 when "0000000000000000000000000010000000",
-    n1279 when "0000000000000000000000000001000000",
-    n1279 when "0000000000000000000000000000100000",
-    n1279 when "0000000000000000000000000000010000",
+    "000000000000000" when "0000000000000000000000000001000000",
+    n446 when "0000000000000000000000000000100000",
+    n437 when "0000000000000000000000000000010000",
     n1279 when "0000000000000000000000000000001000",
     n1279 when "0000000000000000000000000000000100",
     n1279 when "0000000000000000000000000000000010",
     n1279 when "0000000000000000000000000000000001",
     n1279 when others;
-  n1281 <= state (65 downto 45);
+  n1281 <= state (53 downto 39);
   with n1254 select n1282 <=
     n1281 when "1000000000000000000000000000000000",
     n1281 when "0100000000000000000000000000000000",
@@ -3472,10 +3472,10 @@ begin
     n1281 when "0000010000000000000000000000000000",
     n1281 when "0000001000000000000000000000000000",
     n1281 when "0000000100000000000000000000000000",
-    n1175 when "0000000010000000000000000000000000",
+    n1281 when "0000000010000000000000000000000000",
     n1281 when "0000000001000000000000000000000000",
-    n1116 when "0000000000100000000000000000000000",
-    n1112 when "0000000000010000000000000000000000",
+    n1281 when "0000000000100000000000000000000000",
+    n1281 when "0000000000010000000000000000000000",
     n1281 when "0000000000001000000000000000000000",
     n1281 when "0000000000000100000000000000000000",
     n1281 when "0000000000000010000000000000000000",
@@ -3491,23 +3491,23 @@ begin
     n1281 when "0000000000000000000000001000000000",
     n1281 when "0000000000000000000000000100000000",
     n1281 when "0000000000000000000000000010000000",
-    n1281 when "0000000000000000000000000001000000",
-    n1281 when "0000000000000000000000000000100000",
-    n1281 when "0000000000000000000000000000010000",
+    "000000000000000" when "0000000000000000000000000001000000",
+    n448 when "0000000000000000000000000000100000",
+    "000000000000000" when "0000000000000000000000000000010000",
     n1281 when "0000000000000000000000000000001000",
     n1281 when "0000000000000000000000000000000100",
     n1281 when "0000000000000000000000000000000010",
     n1281 when "0000000000000000000000000000000001",
     n1281 when others;
-  n1283 <= state (81 downto 66);
+  n1283 <= state (68 downto 54);
   with n1254 select n1284 <=
     n1283 when "1000000000000000000000000000000000",
-    n1234 when "0100000000000000000000000000000000",
-    n1226 when "0010000000000000000000000000000000",
+    n1283 when "0100000000000000000000000000000000",
+    n1283 when "0010000000000000000000000000000000",
     n1283 when "0001000000000000000000000000000000",
     n1283 when "0000100000000000000000000000000000",
     n1283 when "0000010000000000000000000000000000",
-    n1198 when "0000001000000000000000000000000000",
+    n1283 when "0000001000000000000000000000000000",
     n1283 when "0000000100000000000000000000000000",
     n1283 when "0000000010000000000000000000000000",
     n1283 when "0000000001000000000000000000000000",
@@ -3528,15 +3528,15 @@ begin
     n1283 when "0000000000000000000000001000000000",
     n1283 when "0000000000000000000000000100000000",
     n1283 when "0000000000000000000000000010000000",
-    n1283 when "0000000000000000000000000001000000",
-    n1283 when "0000000000000000000000000000100000",
-    n1283 when "0000000000000000000000000000010000",
+    n458 when "0000000000000000000000000001000000",
+    n450 when "0000000000000000000000000000100000",
+    n440 when "0000000000000000000000000000010000",
     n1283 when "0000000000000000000000000000001000",
     n1283 when "0000000000000000000000000000000100",
     n1283 when "0000000000000000000000000000000010",
     n1283 when "0000000000000000000000000000000001",
     n1283 when others;
-  n1285 <= state (96 downto 82);
+  n1285 <= state (83 downto 69);
   with n1254 select n1286 <=
     n1285 when "1000000000000000000000000000000000",
     n1285 when "0100000000000000000000000000000000",
@@ -3565,15 +3565,15 @@ begin
     n1285 when "0000000000000000000000001000000000",
     n1285 when "0000000000000000000000000100000000",
     n1285 when "0000000000000000000000000010000000",
-    "000000000000000" when "0000000000000000000000000001000000",
-    n446 when "0000000000000000000000000000100000",
-    n437 when "0000000000000000000000000000010000",
+    n459 when "0000000000000000000000000001000000",
+    n452 when "0000000000000000000000000000100000",
+    n441 when "0000000000000000000000000000010000",
     n1285 when "0000000000000000000000000000001000",
     n1285 when "0000000000000000000000000000000100",
     n1285 when "0000000000000000000000000000000010",
     n1285 when "0000000000000000000000000000000001",
     n1285 when others;
-  n1287 <= state (111 downto 97);
+  n1287 <= state (104 downto 84);
   with n1254 select n1288 <=
     n1287 when "1000000000000000000000000000000000",
     n1287 when "0100000000000000000000000000000000",
@@ -3599,26 +3599,26 @@ begin
     n1287 when "0000000000000000000001000000000000",
     n1287 when "0000000000000000000000100000000000",
     n1287 when "0000000000000000000000010000000000",
-    n1287 when "0000000000000000000000001000000000",
+    n530 when "0000000000000000000000001000000000",
     n1287 when "0000000000000000000000000100000000",
     n1287 when "0000000000000000000000000010000000",
-    "000000000000000" when "0000000000000000000000000001000000",
-    n448 when "0000000000000000000000000000100000",
-    "000000000000000" when "0000000000000000000000000000010000",
+    n1287 when "0000000000000000000000000001000000",
+    n1287 when "0000000000000000000000000000100000",
+    n1287 when "0000000000000000000000000000010000",
     n1287 when "0000000000000000000000000000001000",
     n1287 when "0000000000000000000000000000000100",
     n1287 when "0000000000000000000000000000000010",
     n1287 when "0000000000000000000000000000000001",
     n1287 when others;
-  n1289 <= state (126 downto 112);
+  n1289 <= state (120 downto 105);
   with n1254 select n1290 <=
     n1289 when "1000000000000000000000000000000000",
-    n1289 when "0100000000000000000000000000000000",
-    n1289 when "0010000000000000000000000000000000",
+    n1234 when "0100000000000000000000000000000000",
+    n1226 when "0010000000000000000000000000000000",
     n1289 when "0001000000000000000000000000000000",
     n1289 when "0000100000000000000000000000000000",
     n1289 when "0000010000000000000000000000000000",
-    n1289 when "0000001000000000000000000000000000",
+    n1198 when "0000001000000000000000000000000000",
     n1289 when "0000000100000000000000000000000000",
     n1289 when "0000000010000000000000000000000000",
     n1289 when "0000000001000000000000000000000000",
@@ -3639,15 +3639,15 @@ begin
     n1289 when "0000000000000000000000001000000000",
     n1289 when "0000000000000000000000000100000000",
     n1289 when "0000000000000000000000000010000000",
-    n458 when "0000000000000000000000000001000000",
-    n450 when "0000000000000000000000000000100000",
-    n440 when "0000000000000000000000000000010000",
+    n1289 when "0000000000000000000000000001000000",
+    n1289 when "0000000000000000000000000000100000",
+    n1289 when "0000000000000000000000000000010000",
     n1289 when "0000000000000000000000000000001000",
     n1289 when "0000000000000000000000000000000100",
     n1289 when "0000000000000000000000000000000010",
     n1289 when "0000000000000000000000000000000001",
     n1289 when others;
-  n1291 <= state (141 downto 127);
+  n1291 <= state (141 downto 121);
   with n1254 select n1292 <=
     n1291 when "1000000000000000000000000000000000",
     n1291 when "0100000000000000000000000000000000",
@@ -3657,10 +3657,10 @@ begin
     n1291 when "0000010000000000000000000000000000",
     n1291 when "0000001000000000000000000000000000",
     n1291 when "0000000100000000000000000000000000",
-    n1291 when "0000000010000000000000000000000000",
+    n1175 when "0000000010000000000000000000000000",
     n1291 when "0000000001000000000000000000000000",
-    n1291 when "0000000000100000000000000000000000",
-    n1291 when "0000000000010000000000000000000000",
+    n1116 when "0000000000100000000000000000000000",
+    n1112 when "0000000000010000000000000000000000",
     n1291 when "0000000000001000000000000000000000",
     n1291 when "0000000000000100000000000000000000",
     n1291 when "0000000000000010000000000000000000",
@@ -3676,9 +3676,9 @@ begin
     n1291 when "0000000000000000000000001000000000",
     n1291 when "0000000000000000000000000100000000",
     n1291 when "0000000000000000000000000010000000",
-    n459 when "0000000000000000000000000001000000",
-    n452 when "0000000000000000000000000000100000",
-    n441 when "0000000000000000000000000000010000",
+    n1291 when "0000000000000000000000000001000000",
+    n1291 when "0000000000000000000000000000100000",
+    n1291 when "0000000000000000000000000000010000",
     n1291 when "0000000000000000000000000000001000",
     n1291 when "0000000000000000000000000000000100",
     n1291 when "0000000000000000000000000000000010",
@@ -4086,346 +4086,6 @@ begin
     '0' when "0000000000010000000000000000000000",
     '0' when "0000000000001000000000000000000000",
     '0' when "0000000000000100000000000000000000",
-    n1023 when "0000000000000010000000000000000000",
-    '0' when "0000000000000001000000000000000000",
-    n802 when "0000000000000000100000000000000000",
-    '0' when "0000000000000000010000000000000000",
-    n706 when "0000000000000000001000000000000000",
-    '0' when "0000000000000000000100000000000000",
-    n626 when "0000000000000000000010000000000000",
-    '0' when "0000000000000000000001000000000000",
-    n547 when "0000000000000000000000100000000000",
-    '0' when "0000000000000000000000010000000000",
-    '0' when "0000000000000000000000001000000000",
-    n475 when "0000000000000000000000000100000000",
-    '0' when "0000000000000000000000000010000000",
-    '0' when "0000000000000000000000000001000000",
-    '0' when "0000000000000000000000000000100000",
-    '0' when "0000000000000000000000000000010000",
-    '0' when "0000000000000000000000000000001000",
-    '0' when "0000000000000000000000000000000100",
-    '0' when "0000000000000000000000000000000010",
-    '0' when "0000000000000000000000000000000001",
-    '0' when others;
-  with n1254 select n1353 <=
-    "00000000" when "1000000000000000000000000000000000",
-    "00000000" when "0100000000000000000000000000000000",
-    "00000000" when "0010000000000000000000000000000000",
-    "00000000" when "0001000000000000000000000000000000",
-    "00000000" when "0000100000000000000000000000000000",
-    "00000000" when "0000010000000000000000000000000000",
-    "00000000" when "0000001000000000000000000000000000",
-    "00000000" when "0000000100000000000000000000000000",
-    "00000000" when "0000000010000000000000000000000000",
-    "00000000" when "0000000001000000000000000000000000",
-    "00000000" when "0000000000100000000000000000000000",
-    "00000000" when "0000000000010000000000000000000000",
-    "00000000" when "0000000000001000000000000000000000",
-    "00000000" when "0000000000000100000000000000000000",
-    n1025 when "0000000000000010000000000000000000",
-    "00000000" when "0000000000000001000000000000000000",
-    n804 when "0000000000000000100000000000000000",
-    "00000000" when "0000000000000000010000000000000000",
-    instr_color when "0000000000000000001000000000000000",
-    "00000000" when "0000000000000000000100000000000000",
-    instr_color when "0000000000000000000010000000000000",
-    "00000000" when "0000000000000000000001000000000000",
-    instr_color when "0000000000000000000000100000000000",
-    "00000000" when "0000000000000000000000010000000000",
-    "00000000" when "0000000000000000000000001000000000",
-    instr_color when "0000000000000000000000000100000000",
-    "00000000" when "0000000000000000000000000010000000",
-    "00000000" when "0000000000000000000000000001000000",
-    "00000000" when "0000000000000000000000000000100000",
-    "00000000" when "0000000000000000000000000000010000",
-    "00000000" when "0000000000000000000000000000001000",
-    "00000000" when "0000000000000000000000000000000100",
-    "00000000" when "0000000000000000000000000000000010",
-    "00000000" when "0000000000000000000000000000000001",
-    "00000000" when others;
-  n1355 <= n466 (15 downto 0);
-  n1356 <= n538 (15 downto 0);
-  n1357 <= n806 (15 downto 0);
-  n1358 <= n1028 (15 downto 0);
-  n1359 <= n1205 (15 downto 0);
-  n1360 <= n1209 (15 downto 0);
-  n1361 <= n1212 (15 downto 0);
-  n1362 <= n1229 (15 downto 0);
-  with n1254 select n1364 <=
-    "0000000000000000" when "1000000000000000000000000000000000",
-    n1362 when "0100000000000000000000000000000000",
-    n1361 when "0010000000000000000000000000000000",
-    n1360 when "0001000000000000000000000000000000",
-    n1359 when "0000100000000000000000000000000000",
-    "0000000000000000" when "0000010000000000000000000000000000",
-    "0000000000000000" when "0000001000000000000000000000000000",
-    "0000000000000000" when "0000000100000000000000000000000000",
-    "0000000000000000" when "0000000010000000000000000000000000",
-    "0000000000000000" when "0000000001000000000000000000000000",
-    "0000000000000000" when "0000000000100000000000000000000000",
-    "0000000000000000" when "0000000000010000000000000000000000",
-    "0000000000000000" when "0000000000001000000000000000000000",
-    "0000000000000000" when "0000000000000100000000000000000000",
-    n1358 when "0000000000000010000000000000000000",
-    "0000000000000000" when "0000000000000001000000000000000000",
-    n1357 when "0000000000000000100000000000000000",
-    "0000000000000000" when "0000000000000000010000000000000000",
-    n695 when "0000000000000000001000000000000000",
-    "0000000000000000" when "0000000000000000000100000000000000",
-    n615 when "0000000000000000000010000000000000",
-    "0000000000000000" when "0000000000000000000001000000000000",
-    n1356 when "0000000000000000000000100000000000",
-    "0000000000000000" when "0000000000000000000000010000000000",
-    "0000000000000000" when "0000000000000000000000001000000000",
-    n1355 when "0000000000000000000000000100000000",
-    "0000000000000000" when "0000000000000000000000000010000000",
-    "0000000000000000" when "0000000000000000000000000001000000",
-    "0000000000000000" when "0000000000000000000000000000100000",
-    "0000000000000000" when "0000000000000000000000000000010000",
-    "0000000000000000" when "0000000000000000000000000000001000",
-    "0000000000000000" when "0000000000000000000000000000000100",
-    "0000000000000000" when "0000000000000000000000000000000010",
-    "0000000000000000" when "0000000000000000000000000000000001",
-    "0000000000000000" when others;
-  n1365 <= n466 (31 downto 16);
-  n1366 <= n538 (31 downto 16);
-  n1367 <= n806 (31 downto 16);
-  n1368 <= n1028 (31 downto 16);
-  n1369 <= n1205 (31 downto 16);
-  n1370 <= n1209 (31 downto 16);
-  n1371 <= n1212 (31 downto 16);
-  n1372 <= n1229 (31 downto 16);
-  with n1254 select n1374 <=
-    "0000000000000000" when "1000000000000000000000000000000000",
-    n1372 when "0100000000000000000000000000000000",
-    n1371 when "0010000000000000000000000000000000",
-    n1370 when "0001000000000000000000000000000000",
-    n1369 when "0000100000000000000000000000000000",
-    "0000000000000000" when "0000010000000000000000000000000000",
-    "0000000000000000" when "0000001000000000000000000000000000",
-    "0000000000000000" when "0000000100000000000000000000000000",
-    "0000000000000000" when "0000000010000000000000000000000000",
-    "0000000000000000" when "0000000001000000000000000000000000",
-    "0000000000000000" when "0000000000100000000000000000000000",
-    "0000000000000000" when "0000000000010000000000000000000000",
-    "0000000000000000" when "0000000000001000000000000000000000",
-    "0000000000000000" when "0000000000000100000000000000000000",
-    n1368 when "0000000000000010000000000000000000",
-    "0000000000000000" when "0000000000000001000000000000000000",
-    n1367 when "0000000000000000100000000000000000",
-    "0000000000000000" when "0000000000000000010000000000000000",
-    n697 when "0000000000000000001000000000000000",
-    "0000000000000000" when "0000000000000000000100000000000000",
-    n617 when "0000000000000000000010000000000000",
-    "0000000000000000" when "0000000000000000000001000000000000",
-    n1366 when "0000000000000000000000100000000000",
-    "0000000000000000" when "0000000000000000000000010000000000",
-    "0000000000000000" when "0000000000000000000000001000000000",
-    n1365 when "0000000000000000000000000100000000",
-    "0000000000000000" when "0000000000000000000000000010000000",
-    "0000000000000000" when "0000000000000000000000000001000000",
-    "0000000000000000" when "0000000000000000000000000000100000",
-    "0000000000000000" when "0000000000000000000000000000010000",
-    "0000000000000000" when "0000000000000000000000000000001000",
-    "0000000000000000" when "0000000000000000000000000000000100",
-    "0000000000000000" when "0000000000000000000000000000000010",
-    "0000000000000000" when "0000000000000000000000000000000001",
-    "0000000000000000" when others;
-  with n1254 select n1382 <=
-    '0' when "1000000000000000000000000000000000",
-    '0' when "0100000000000000000000000000000000",
-    '0' when "0010000000000000000000000000000000",
-    '0' when "0001000000000000000000000000000000",
-    '0' when "0000100000000000000000000000000000",
-    '0' when "0000010000000000000000000000000000",
-    '0' when "0000001000000000000000000000000000",
-    '0' when "0000000100000000000000000000000000",
-    '0' when "0000000010000000000000000000000000",
-    '0' when "0000000001000000000000000000000000",
-    '0' when "0000000000100000000000000000000000",
-    '0' when "0000000000010000000000000000000000",
-    '0' when "0000000000001000000000000000000000",
-    '0' when "0000000000000100000000000000000000",
-    n1030 when "0000000000000010000000000000000000",
-    '0' when "0000000000000001000000000000000000",
-    '0' when "0000000000000000100000000000000000",
-    '0' when "0000000000000000010000000000000000",
-    '0' when "0000000000000000001000000000000000",
-    '0' when "0000000000000000000100000000000000",
-    '0' when "0000000000000000000010000000000000",
-    '0' when "0000000000000000000001000000000000",
-    '0' when "0000000000000000000000100000000000",
-    '0' when "0000000000000000000000010000000000",
-    '0' when "0000000000000000000000001000000000",
-    '0' when "0000000000000000000000000100000000",
-    '0' when "0000000000000000000000000010000000",
-    '0' when "0000000000000000000000000001000000",
-    '0' when "0000000000000000000000000000100000",
-    '0' when "0000000000000000000000000000010000",
-    '0' when "0000000000000000000000000000001000",
-    '0' when "0000000000000000000000000000000100",
-    '0' when "0000000000000000000000000000000010",
-    '0' when "0000000000000000000000000000000001",
-    '0' when others;
-  with n1254 select n1385 <=
-    '0' when "1000000000000000000000000000000000",
-    '0' when "0100000000000000000000000000000000",
-    '0' when "0010000000000000000000000000000000",
-    '0' when "0001000000000000000000000000000000",
-    '0' when "0000100000000000000000000000000000",
-    '0' when "0000010000000000000000000000000000",
-    '0' when "0000001000000000000000000000000000",
-    '0' when "0000000100000000000000000000000000",
-    n1178 when "0000000010000000000000000000000000",
-    '0' when "0000000001000000000000000000000000",
-    '0' when "0000000000100000000000000000000000",
-    '0' when "0000000000010000000000000000000000",
-    n1103 when "0000000000001000000000000000000000",
-    '0' when "0000000000000100000000000000000000",
-    '0' when "0000000000000010000000000000000000",
-    '0' when "0000000000000001000000000000000000",
-    '0' when "0000000000000000100000000000000000",
-    '0' when "0000000000000000010000000000000000",
-    '0' when "0000000000000000001000000000000000",
-    '0' when "0000000000000000000100000000000000",
-    '0' when "0000000000000000000010000000000000",
-    '0' when "0000000000000000000001000000000000",
-    '0' when "0000000000000000000000100000000000",
-    '0' when "0000000000000000000000010000000000",
-    '0' when "0000000000000000000000001000000000",
-    '0' when "0000000000000000000000000100000000",
-    '0' when "0000000000000000000000000010000000",
-    '0' when "0000000000000000000000000001000000",
-    '0' when "0000000000000000000000000000100000",
-    '0' when "0000000000000000000000000000010000",
-    '0' when "0000000000000000000000000000001000",
-    '0' when "0000000000000000000000000000000100",
-    '0' when "0000000000000000000000000000000010",
-    '0' when "0000000000000000000000000000000001",
-    '0' when others;
-  with n1254 select n1388 <=
-    "000000000000000000000" when "1000000000000000000000000000000000",
-    "000000000000000000000" when "0100000000000000000000000000000000",
-    "000000000000000000000" when "0010000000000000000000000000000000",
-    "000000000000000000000" when "0001000000000000000000000000000000",
-    "000000000000000000000" when "0000100000000000000000000000000000",
-    "000000000000000000000" when "0000010000000000000000000000000000",
-    "000000000000000000000" when "0000001000000000000000000000000000",
-    "000000000000000000000" when "0000000100000000000000000000000000",
-    n1144 when "0000000010000000000000000000000000",
-    "000000000000000000000" when "0000000001000000000000000000000000",
-    "000000000000000000000" when "0000000000100000000000000000000000",
-    "000000000000000000000" when "0000000000010000000000000000000000",
-    n1105 when "0000000000001000000000000000000000",
-    "000000000000000000000" when "0000000000000100000000000000000000",
-    "000000000000000000000" when "0000000000000010000000000000000000",
-    "000000000000000000000" when "0000000000000001000000000000000000",
-    "000000000000000000000" when "0000000000000000100000000000000000",
-    "000000000000000000000" when "0000000000000000010000000000000000",
-    "000000000000000000000" when "0000000000000000001000000000000000",
-    "000000000000000000000" when "0000000000000000000100000000000000",
-    "000000000000000000000" when "0000000000000000000010000000000000",
-    "000000000000000000000" when "0000000000000000000001000000000000",
-    "000000000000000000000" when "0000000000000000000000100000000000",
-    "000000000000000000000" when "0000000000000000000000010000000000",
-    "000000000000000000000" when "0000000000000000000000001000000000",
-    "000000000000000000000" when "0000000000000000000000000100000000",
-    "000000000000000000000" when "0000000000000000000000000010000000",
-    "000000000000000000000" when "0000000000000000000000000001000000",
-    "000000000000000000000" when "0000000000000000000000000000100000",
-    "000000000000000000000" when "0000000000000000000000000000010000",
-    "000000000000000000000" when "0000000000000000000000000000001000",
-    "000000000000000000000" when "0000000000000000000000000000000100",
-    "000000000000000000000" when "0000000000000000000000000000000010",
-    "000000000000000000000" when "0000000000000000000000000000000001",
-    "000000000000000000000" when others;
-  with n1254 select n1391 <=
-    "0000000000000000" when "1000000000000000000000000000000000",
-    "0000000000000000" when "0100000000000000000000000000000000",
-    "0000000000000000" when "0010000000000000000000000000000000",
-    "0000000000000000" when "0001000000000000000000000000000000",
-    "0000000000000000" when "0000100000000000000000000000000000",
-    "0000000000000000" when "0000010000000000000000000000000000",
-    "0000000000000000" when "0000001000000000000000000000000000",
-    "0000000000000000" when "0000000100000000000000000000000000",
-    n1153 when "0000000010000000000000000000000000",
-    "0000000000000000" when "0000000001000000000000000000000000",
-    "0000000000000000" when "0000000000100000000000000000000000",
-    "0000000000000000" when "0000000000010000000000000000000000",
-    n1107 when "0000000000001000000000000000000000",
-    "0000000000000000" when "0000000000000100000000000000000000",
-    "0000000000000000" when "0000000000000010000000000000000000",
-    "0000000000000000" when "0000000000000001000000000000000000",
-    "0000000000000000" when "0000000000000000100000000000000000",
-    "0000000000000000" when "0000000000000000010000000000000000",
-    "0000000000000000" when "0000000000000000001000000000000000",
-    "0000000000000000" when "0000000000000000000100000000000000",
-    "0000000000000000" when "0000000000000000000010000000000000",
-    "0000000000000000" when "0000000000000000000001000000000000",
-    "0000000000000000" when "0000000000000000000000100000000000",
-    "0000000000000000" when "0000000000000000000000010000000000",
-    "0000000000000000" when "0000000000000000000000001000000000",
-    "0000000000000000" when "0000000000000000000000000100000000",
-    "0000000000000000" when "0000000000000000000000000010000000",
-    "0000000000000000" when "0000000000000000000000000001000000",
-    "0000000000000000" when "0000000000000000000000000000100000",
-    "0000000000000000" when "0000000000000000000000000000010000",
-    "0000000000000000" when "0000000000000000000000000000001000",
-    "0000000000000000" when "0000000000000000000000000000000100",
-    "0000000000000000" when "0000000000000000000000000000000010",
-    "0000000000000000" when "0000000000000000000000000000000001",
-    "0000000000000000" when others;
-  with n1254 select n1394 <=
-    '1' when "1000000000000000000000000000000000",
-    '1' when "0100000000000000000000000000000000",
-    '1' when "0010000000000000000000000000000000",
-    '1' when "0001000000000000000000000000000000",
-    '1' when "0000100000000000000000000000000000",
-    '1' when "0000010000000000000000000000000000",
-    '1' when "0000001000000000000000000000000000",
-    '1' when "0000000100000000000000000000000000",
-    n1180 when "0000000010000000000000000000000000",
-    '1' when "0000000001000000000000000000000000",
-    '1' when "0000000000100000000000000000000000",
-    '1' when "0000000000010000000000000000000000",
-    n1109 when "0000000000001000000000000000000000",
-    '1' when "0000000000000100000000000000000000",
-    '1' when "0000000000000010000000000000000000",
-    '1' when "0000000000000001000000000000000000",
-    '1' when "0000000000000000100000000000000000",
-    '1' when "0000000000000000010000000000000000",
-    '1' when "0000000000000000001000000000000000",
-    '1' when "0000000000000000000100000000000000",
-    '1' when "0000000000000000000010000000000000",
-    '1' when "0000000000000000000001000000000000",
-    '1' when "0000000000000000000000100000000000",
-    '1' when "0000000000000000000000010000000000",
-    '1' when "0000000000000000000000001000000000",
-    '1' when "0000000000000000000000000100000000",
-    '1' when "0000000000000000000000000010000000",
-    '1' when "0000000000000000000000000001000000",
-    '1' when "0000000000000000000000000000100000",
-    '1' when "0000000000000000000000000000010000",
-    '1' when "0000000000000000000000000000001000",
-    '1' when "0000000000000000000000000000000100",
-    '1' when "0000000000000000000000000000000010",
-    '1' when "0000000000000000000000000000000001",
-    '1' when others;
-  with n1254 select n1397 <=
-    '0' when "1000000000000000000000000000000000",
-    '0' when "0100000000000000000000000000000000",
-    '0' when "0010000000000000000000000000000000",
-    '0' when "0001000000000000000000000000000000",
-    '0' when "0000100000000000000000000000000000",
-    '0' when "0000010000000000000000000000000000",
-    '0' when "0000001000000000000000000000000000",
-    '0' when "0000000100000000000000000000000000",
-    '0' when "0000000010000000000000000000000000",
-    '0' when "0000000001000000000000000000000000",
-    '0' when "0000000000100000000000000000000000",
-    '0' when "0000000000010000000000000000000000",
-    '0' when "0000000000001000000000000000000000",
-    '0' when "0000000000000100000000000000000000",
     '0' when "0000000000000010000000000000000000",
     '0' when "0000000000000001000000000000000000",
     '0' when "0000000000000000100000000000000000",
@@ -4447,7 +4107,7 @@ begin
     '0' when "0000000000000000000000000000000010",
     '0' when "0000000000000000000000000000000001",
     '0' when others;
-  with n1254 select n1400 <=
+  with n1254 select n1353 <=
     '0' when "1000000000000000000000000000000000",
     '0' when "0100000000000000000000000000000000",
     '0' when "0010000000000000000000000000000000",
@@ -4483,6 +4143,346 @@ begin
     n349 when "0000000000000000000000000000000010",
     '0' when "0000000000000000000000000000000001",
     '0' when others;
+  with n1254 select n1356 <=
+    '0' when "1000000000000000000000000000000000",
+    '0' when "0100000000000000000000000000000000",
+    '0' when "0010000000000000000000000000000000",
+    '0' when "0001000000000000000000000000000000",
+    '0' when "0000100000000000000000000000000000",
+    '0' when "0000010000000000000000000000000000",
+    '0' when "0000001000000000000000000000000000",
+    '0' when "0000000100000000000000000000000000",
+    '0' when "0000000010000000000000000000000000",
+    '0' when "0000000001000000000000000000000000",
+    '0' when "0000000000100000000000000000000000",
+    '0' when "0000000000010000000000000000000000",
+    '0' when "0000000000001000000000000000000000",
+    '0' when "0000000000000100000000000000000000",
+    n1023 when "0000000000000010000000000000000000",
+    '0' when "0000000000000001000000000000000000",
+    n802 when "0000000000000000100000000000000000",
+    '0' when "0000000000000000010000000000000000",
+    n706 when "0000000000000000001000000000000000",
+    '0' when "0000000000000000000100000000000000",
+    n626 when "0000000000000000000010000000000000",
+    '0' when "0000000000000000000001000000000000",
+    n547 when "0000000000000000000000100000000000",
+    '0' when "0000000000000000000000010000000000",
+    '0' when "0000000000000000000000001000000000",
+    n475 when "0000000000000000000000000100000000",
+    '0' when "0000000000000000000000000010000000",
+    '0' when "0000000000000000000000000001000000",
+    '0' when "0000000000000000000000000000100000",
+    '0' when "0000000000000000000000000000010000",
+    '0' when "0000000000000000000000000000001000",
+    '0' when "0000000000000000000000000000000100",
+    '0' when "0000000000000000000000000000000010",
+    '0' when "0000000000000000000000000000000001",
+    '0' when others;
+  with n1254 select n1359 <=
+    "00000000" when "1000000000000000000000000000000000",
+    "00000000" when "0100000000000000000000000000000000",
+    "00000000" when "0010000000000000000000000000000000",
+    "00000000" when "0001000000000000000000000000000000",
+    "00000000" when "0000100000000000000000000000000000",
+    "00000000" when "0000010000000000000000000000000000",
+    "00000000" when "0000001000000000000000000000000000",
+    "00000000" when "0000000100000000000000000000000000",
+    "00000000" when "0000000010000000000000000000000000",
+    "00000000" when "0000000001000000000000000000000000",
+    "00000000" when "0000000000100000000000000000000000",
+    "00000000" when "0000000000010000000000000000000000",
+    "00000000" when "0000000000001000000000000000000000",
+    "00000000" when "0000000000000100000000000000000000",
+    n1025 when "0000000000000010000000000000000000",
+    "00000000" when "0000000000000001000000000000000000",
+    n804 when "0000000000000000100000000000000000",
+    "00000000" when "0000000000000000010000000000000000",
+    instr_color when "0000000000000000001000000000000000",
+    "00000000" when "0000000000000000000100000000000000",
+    instr_color when "0000000000000000000010000000000000",
+    "00000000" when "0000000000000000000001000000000000",
+    instr_color when "0000000000000000000000100000000000",
+    "00000000" when "0000000000000000000000010000000000",
+    "00000000" when "0000000000000000000000001000000000",
+    instr_color when "0000000000000000000000000100000000",
+    "00000000" when "0000000000000000000000000010000000",
+    "00000000" when "0000000000000000000000000001000000",
+    "00000000" when "0000000000000000000000000000100000",
+    "00000000" when "0000000000000000000000000000010000",
+    "00000000" when "0000000000000000000000000000001000",
+    "00000000" when "0000000000000000000000000000000100",
+    "00000000" when "0000000000000000000000000000000010",
+    "00000000" when "0000000000000000000000000000000001",
+    "00000000" when others;
+  n1361 <= n466 (15 downto 0);
+  n1362 <= n538 (15 downto 0);
+  n1363 <= n806 (15 downto 0);
+  n1364 <= n1028 (15 downto 0);
+  n1365 <= n1205 (15 downto 0);
+  n1366 <= n1209 (15 downto 0);
+  n1367 <= n1212 (15 downto 0);
+  n1368 <= n1229 (15 downto 0);
+  with n1254 select n1370 <=
+    "0000000000000000" when "1000000000000000000000000000000000",
+    n1368 when "0100000000000000000000000000000000",
+    n1367 when "0010000000000000000000000000000000",
+    n1366 when "0001000000000000000000000000000000",
+    n1365 when "0000100000000000000000000000000000",
+    "0000000000000000" when "0000010000000000000000000000000000",
+    "0000000000000000" when "0000001000000000000000000000000000",
+    "0000000000000000" when "0000000100000000000000000000000000",
+    "0000000000000000" when "0000000010000000000000000000000000",
+    "0000000000000000" when "0000000001000000000000000000000000",
+    "0000000000000000" when "0000000000100000000000000000000000",
+    "0000000000000000" when "0000000000010000000000000000000000",
+    "0000000000000000" when "0000000000001000000000000000000000",
+    "0000000000000000" when "0000000000000100000000000000000000",
+    n1364 when "0000000000000010000000000000000000",
+    "0000000000000000" when "0000000000000001000000000000000000",
+    n1363 when "0000000000000000100000000000000000",
+    "0000000000000000" when "0000000000000000010000000000000000",
+    n695 when "0000000000000000001000000000000000",
+    "0000000000000000" when "0000000000000000000100000000000000",
+    n615 when "0000000000000000000010000000000000",
+    "0000000000000000" when "0000000000000000000001000000000000",
+    n1362 when "0000000000000000000000100000000000",
+    "0000000000000000" when "0000000000000000000000010000000000",
+    "0000000000000000" when "0000000000000000000000001000000000",
+    n1361 when "0000000000000000000000000100000000",
+    "0000000000000000" when "0000000000000000000000000010000000",
+    "0000000000000000" when "0000000000000000000000000001000000",
+    "0000000000000000" when "0000000000000000000000000000100000",
+    "0000000000000000" when "0000000000000000000000000000010000",
+    "0000000000000000" when "0000000000000000000000000000001000",
+    "0000000000000000" when "0000000000000000000000000000000100",
+    "0000000000000000" when "0000000000000000000000000000000010",
+    "0000000000000000" when "0000000000000000000000000000000001",
+    "0000000000000000" when others;
+  n1371 <= n466 (31 downto 16);
+  n1372 <= n538 (31 downto 16);
+  n1373 <= n806 (31 downto 16);
+  n1374 <= n1028 (31 downto 16);
+  n1375 <= n1205 (31 downto 16);
+  n1376 <= n1209 (31 downto 16);
+  n1377 <= n1212 (31 downto 16);
+  n1378 <= n1229 (31 downto 16);
+  with n1254 select n1380 <=
+    "0000000000000000" when "1000000000000000000000000000000000",
+    n1378 when "0100000000000000000000000000000000",
+    n1377 when "0010000000000000000000000000000000",
+    n1376 when "0001000000000000000000000000000000",
+    n1375 when "0000100000000000000000000000000000",
+    "0000000000000000" when "0000010000000000000000000000000000",
+    "0000000000000000" when "0000001000000000000000000000000000",
+    "0000000000000000" when "0000000100000000000000000000000000",
+    "0000000000000000" when "0000000010000000000000000000000000",
+    "0000000000000000" when "0000000001000000000000000000000000",
+    "0000000000000000" when "0000000000100000000000000000000000",
+    "0000000000000000" when "0000000000010000000000000000000000",
+    "0000000000000000" when "0000000000001000000000000000000000",
+    "0000000000000000" when "0000000000000100000000000000000000",
+    n1374 when "0000000000000010000000000000000000",
+    "0000000000000000" when "0000000000000001000000000000000000",
+    n1373 when "0000000000000000100000000000000000",
+    "0000000000000000" when "0000000000000000010000000000000000",
+    n697 when "0000000000000000001000000000000000",
+    "0000000000000000" when "0000000000000000000100000000000000",
+    n617 when "0000000000000000000010000000000000",
+    "0000000000000000" when "0000000000000000000001000000000000",
+    n1372 when "0000000000000000000000100000000000",
+    "0000000000000000" when "0000000000000000000000010000000000",
+    "0000000000000000" when "0000000000000000000000001000000000",
+    n1371 when "0000000000000000000000000100000000",
+    "0000000000000000" when "0000000000000000000000000010000000",
+    "0000000000000000" when "0000000000000000000000000001000000",
+    "0000000000000000" when "0000000000000000000000000000100000",
+    "0000000000000000" when "0000000000000000000000000000010000",
+    "0000000000000000" when "0000000000000000000000000000001000",
+    "0000000000000000" when "0000000000000000000000000000000100",
+    "0000000000000000" when "0000000000000000000000000000000010",
+    "0000000000000000" when "0000000000000000000000000000000001",
+    "0000000000000000" when others;
+  with n1254 select n1388 <=
+    '0' when "1000000000000000000000000000000000",
+    '0' when "0100000000000000000000000000000000",
+    '0' when "0010000000000000000000000000000000",
+    '0' when "0001000000000000000000000000000000",
+    '0' when "0000100000000000000000000000000000",
+    '0' when "0000010000000000000000000000000000",
+    '0' when "0000001000000000000000000000000000",
+    '0' when "0000000100000000000000000000000000",
+    '0' when "0000000010000000000000000000000000",
+    '0' when "0000000001000000000000000000000000",
+    '0' when "0000000000100000000000000000000000",
+    '0' when "0000000000010000000000000000000000",
+    '0' when "0000000000001000000000000000000000",
+    '0' when "0000000000000100000000000000000000",
+    n1030 when "0000000000000010000000000000000000",
+    '0' when "0000000000000001000000000000000000",
+    '0' when "0000000000000000100000000000000000",
+    '0' when "0000000000000000010000000000000000",
+    '0' when "0000000000000000001000000000000000",
+    '0' when "0000000000000000000100000000000000",
+    '0' when "0000000000000000000010000000000000",
+    '0' when "0000000000000000000001000000000000",
+    '0' when "0000000000000000000000100000000000",
+    '0' when "0000000000000000000000010000000000",
+    '0' when "0000000000000000000000001000000000",
+    '0' when "0000000000000000000000000100000000",
+    '0' when "0000000000000000000000000010000000",
+    '0' when "0000000000000000000000000001000000",
+    '0' when "0000000000000000000000000000100000",
+    '0' when "0000000000000000000000000000010000",
+    '0' when "0000000000000000000000000000001000",
+    '0' when "0000000000000000000000000000000100",
+    '0' when "0000000000000000000000000000000010",
+    '0' when "0000000000000000000000000000000001",
+    '0' when others;
+  with n1254 select n1391 <=
+    '0' when "1000000000000000000000000000000000",
+    '0' when "0100000000000000000000000000000000",
+    '0' when "0010000000000000000000000000000000",
+    '0' when "0001000000000000000000000000000000",
+    '0' when "0000100000000000000000000000000000",
+    '0' when "0000010000000000000000000000000000",
+    '0' when "0000001000000000000000000000000000",
+    '0' when "0000000100000000000000000000000000",
+    n1178 when "0000000010000000000000000000000000",
+    '0' when "0000000001000000000000000000000000",
+    '0' when "0000000000100000000000000000000000",
+    '0' when "0000000000010000000000000000000000",
+    n1103 when "0000000000001000000000000000000000",
+    '0' when "0000000000000100000000000000000000",
+    '0' when "0000000000000010000000000000000000",
+    '0' when "0000000000000001000000000000000000",
+    '0' when "0000000000000000100000000000000000",
+    '0' when "0000000000000000010000000000000000",
+    '0' when "0000000000000000001000000000000000",
+    '0' when "0000000000000000000100000000000000",
+    '0' when "0000000000000000000010000000000000",
+    '0' when "0000000000000000000001000000000000",
+    '0' when "0000000000000000000000100000000000",
+    '0' when "0000000000000000000000010000000000",
+    '0' when "0000000000000000000000001000000000",
+    '0' when "0000000000000000000000000100000000",
+    '0' when "0000000000000000000000000010000000",
+    '0' when "0000000000000000000000000001000000",
+    '0' when "0000000000000000000000000000100000",
+    '0' when "0000000000000000000000000000010000",
+    '0' when "0000000000000000000000000000001000",
+    '0' when "0000000000000000000000000000000100",
+    '0' when "0000000000000000000000000000000010",
+    '0' when "0000000000000000000000000000000001",
+    '0' when others;
+  with n1254 select n1394 <=
+    "000000000000000000000" when "1000000000000000000000000000000000",
+    "000000000000000000000" when "0100000000000000000000000000000000",
+    "000000000000000000000" when "0010000000000000000000000000000000",
+    "000000000000000000000" when "0001000000000000000000000000000000",
+    "000000000000000000000" when "0000100000000000000000000000000000",
+    "000000000000000000000" when "0000010000000000000000000000000000",
+    "000000000000000000000" when "0000001000000000000000000000000000",
+    "000000000000000000000" when "0000000100000000000000000000000000",
+    n1144 when "0000000010000000000000000000000000",
+    "000000000000000000000" when "0000000001000000000000000000000000",
+    "000000000000000000000" when "0000000000100000000000000000000000",
+    "000000000000000000000" when "0000000000010000000000000000000000",
+    n1105 when "0000000000001000000000000000000000",
+    "000000000000000000000" when "0000000000000100000000000000000000",
+    "000000000000000000000" when "0000000000000010000000000000000000",
+    "000000000000000000000" when "0000000000000001000000000000000000",
+    "000000000000000000000" when "0000000000000000100000000000000000",
+    "000000000000000000000" when "0000000000000000010000000000000000",
+    "000000000000000000000" when "0000000000000000001000000000000000",
+    "000000000000000000000" when "0000000000000000000100000000000000",
+    "000000000000000000000" when "0000000000000000000010000000000000",
+    "000000000000000000000" when "0000000000000000000001000000000000",
+    "000000000000000000000" when "0000000000000000000000100000000000",
+    "000000000000000000000" when "0000000000000000000000010000000000",
+    "000000000000000000000" when "0000000000000000000000001000000000",
+    "000000000000000000000" when "0000000000000000000000000100000000",
+    "000000000000000000000" when "0000000000000000000000000010000000",
+    "000000000000000000000" when "0000000000000000000000000001000000",
+    "000000000000000000000" when "0000000000000000000000000000100000",
+    "000000000000000000000" when "0000000000000000000000000000010000",
+    "000000000000000000000" when "0000000000000000000000000000001000",
+    "000000000000000000000" when "0000000000000000000000000000000100",
+    "000000000000000000000" when "0000000000000000000000000000000010",
+    "000000000000000000000" when "0000000000000000000000000000000001",
+    "000000000000000000000" when others;
+  with n1254 select n1397 <=
+    "0000000000000000" when "1000000000000000000000000000000000",
+    "0000000000000000" when "0100000000000000000000000000000000",
+    "0000000000000000" when "0010000000000000000000000000000000",
+    "0000000000000000" when "0001000000000000000000000000000000",
+    "0000000000000000" when "0000100000000000000000000000000000",
+    "0000000000000000" when "0000010000000000000000000000000000",
+    "0000000000000000" when "0000001000000000000000000000000000",
+    "0000000000000000" when "0000000100000000000000000000000000",
+    n1153 when "0000000010000000000000000000000000",
+    "0000000000000000" when "0000000001000000000000000000000000",
+    "0000000000000000" when "0000000000100000000000000000000000",
+    "0000000000000000" when "0000000000010000000000000000000000",
+    n1107 when "0000000000001000000000000000000000",
+    "0000000000000000" when "0000000000000100000000000000000000",
+    "0000000000000000" when "0000000000000010000000000000000000",
+    "0000000000000000" when "0000000000000001000000000000000000",
+    "0000000000000000" when "0000000000000000100000000000000000",
+    "0000000000000000" when "0000000000000000010000000000000000",
+    "0000000000000000" when "0000000000000000001000000000000000",
+    "0000000000000000" when "0000000000000000000100000000000000",
+    "0000000000000000" when "0000000000000000000010000000000000",
+    "0000000000000000" when "0000000000000000000001000000000000",
+    "0000000000000000" when "0000000000000000000000100000000000",
+    "0000000000000000" when "0000000000000000000000010000000000",
+    "0000000000000000" when "0000000000000000000000001000000000",
+    "0000000000000000" when "0000000000000000000000000100000000",
+    "0000000000000000" when "0000000000000000000000000010000000",
+    "0000000000000000" when "0000000000000000000000000001000000",
+    "0000000000000000" when "0000000000000000000000000000100000",
+    "0000000000000000" when "0000000000000000000000000000010000",
+    "0000000000000000" when "0000000000000000000000000000001000",
+    "0000000000000000" when "0000000000000000000000000000000100",
+    "0000000000000000" when "0000000000000000000000000000000010",
+    "0000000000000000" when "0000000000000000000000000000000001",
+    "0000000000000000" when others;
+  with n1254 select n1400 <=
+    '1' when "1000000000000000000000000000000000",
+    '1' when "0100000000000000000000000000000000",
+    '1' when "0010000000000000000000000000000000",
+    '1' when "0001000000000000000000000000000000",
+    '1' when "0000100000000000000000000000000000",
+    '1' when "0000010000000000000000000000000000",
+    '1' when "0000001000000000000000000000000000",
+    '1' when "0000000100000000000000000000000000",
+    n1180 when "0000000010000000000000000000000000",
+    '1' when "0000000001000000000000000000000000",
+    '1' when "0000000000100000000000000000000000",
+    '1' when "0000000000010000000000000000000000",
+    n1109 when "0000000000001000000000000000000000",
+    '1' when "0000000000000100000000000000000000",
+    '1' when "0000000000000010000000000000000000",
+    '1' when "0000000000000001000000000000000000",
+    '1' when "0000000000000000100000000000000000",
+    '1' when "0000000000000000010000000000000000",
+    '1' when "0000000000000000001000000000000000",
+    '1' when "0000000000000000000100000000000000",
+    '1' when "0000000000000000000010000000000000",
+    '1' when "0000000000000000000001000000000000",
+    '1' when "0000000000000000000000100000000000",
+    '1' when "0000000000000000000000010000000000",
+    '1' when "0000000000000000000000001000000000",
+    '1' when "0000000000000000000000000100000000",
+    '1' when "0000000000000000000000000010000000",
+    '1' when "0000000000000000000000000001000000",
+    '1' when "0000000000000000000000000000100000",
+    '1' when "0000000000000000000000000000010000",
+    '1' when "0000000000000000000000000000001000",
+    '1' when "0000000000000000000000000000000100",
+    '1' when "0000000000000000000000000000000010",
+    '1' when "0000000000000000000000000000000001",
+    '1' when others;
   with n1254 select n1404 <=
     '0' when "1000000000000000000000000000000000",
     '0' when "0100000000000000000000000000000000",
@@ -4619,14 +4619,14 @@ begin
     clk => wrap_clk,
     res_n => wrap_res_n,
     wr => pw_wr,
-    bd_b => n1443,
-    bd_w => n1444,
-    bd_h => n1445,
+    bd_b => n1442,
+    bd_w => n1443,
+    bd_h => n1444,
     color => pw_color,
-    position_x => n1446,
-    position_y => n1447,
+    position_x => n1445,
+    position_y => n1446,
     alpha_mode => pw_alpha_mode,
-    alpha_color => n1486,
+    alpha_color => n1485,
     vram_wr_full => wrap_vram_wr_full,
     wr_in_progress => open,
     stall => pw_c_stall,
@@ -4635,46 +4635,46 @@ begin
     vram_wr_data => pw_c_vram_wr_data,
     vram_wr => pw_c_vram_wr,
     vram_wr_access_mode => pw_c_vram_wr_access_mode);
-  n1442 <= state (299 downto 238);
-  n1443 <= n1442 (31 downto 0);
-  n1444 <= n1442 (46 downto 32);
-  n1445 <= n1442 (61 downto 47);
-  n1446 <= pw_position (15 downto 0);
-  n1447 <= pw_position (31 downto 16);
-  n1449 <= state (237 downto 230);
-  n1455 <= state (309 downto 308);
-  n1456 <= state (307 downto 300);
-  n1457 <= n1449 and n1456;
-  n1459 <= '1' when n1455 = "01" else '0';
-  n1460 <= state (307 downto 300);
-  n1461 <= n1449 or n1460;
-  n1463 <= '1' when n1455 = "10" else '0';
-  n1464 <= state (307 downto 300);
-  n1465 <= n1449 xor n1464;
-  n1467 <= '1' when n1455 = "11" else '0';
-  n1468 <= n1467 & n1463 & n1459;
-  with n1468 select n1473 <=
+  n1441 <= state (299 downto 238);
+  n1442 <= n1441 (31 downto 0);
+  n1443 <= n1441 (46 downto 32);
+  n1444 <= n1441 (61 downto 47);
+  n1445 <= pw_position (15 downto 0);
+  n1446 <= pw_position (31 downto 16);
+  n1448 <= state (237 downto 230);
+  n1454 <= state (309 downto 308);
+  n1455 <= state (307 downto 300);
+  n1456 <= n1448 and n1455;
+  n1458 <= '1' when n1454 = "01" else '0';
+  n1459 <= state (307 downto 300);
+  n1460 <= n1448 or n1459;
+  n1462 <= '1' when n1454 = "10" else '0';
+  n1463 <= state (307 downto 300);
+  n1464 <= n1448 xor n1463;
+  n1466 <= '1' when n1454 = "11" else '0';
+  n1467 <= n1466 & n1462 & n1458;
+  with n1467 select n1472 <=
     '0' when "100",
     '0' when "010",
     '0' when "001",
     '1' when others;
-  with n1468 select n1481 <=
-    n1465 when "100",
-    n1461 when "010",
-    n1457 when "001",
+  with n1467 select n1480 <=
+    n1464 when "100",
+    n1460 when "010",
+    n1456 when "001",
     "XXXXXXXX" when others;
-  n1486 <= n1481 when n1473 = '0' else n1449;
+  n1485 <= n1480 when n1472 = '0' else n1448;
   pr : entity work.pixel_reader_21_16 port map (
     clk => wrap_clk,
     res_n => wrap_res_n,
     start => pr_start,
-    bd_b => n1492,
-    bd_w => n1493,
-    bd_h => n1494,
-    section_x => n1495,
-    section_y => n1496,
-    section_w => n1497,
-    section_h => n1498,
+    bd_b => n1491,
+    bd_w => n1492,
+    bd_h => n1493,
+    section_x => n1494,
+    section_y => n1495,
+    section_w => n1496,
+    section_h => n1497,
     color_ack => pr_color_ack,
     vram_rd_data => wrap_vram_rd_data,
     vram_rd_busy => wrap_vram_rd_busy,
@@ -4684,25 +4684,25 @@ begin
     vram_rd_addr => pr_c_vram_rd_addr,
     vram_rd => pr_c_vram_rd,
     vram_rd_access_mode => pr_c_vram_rd_access_mode);
-  n1492 <= bdt_bmpidx (31 downto 0);
-  n1493 <= bdt_bmpidx (46 downto 32);
-  n1494 <= bdt_bmpidx (61 downto 47);
-  n1495 <= bb_section (14 downto 0);
-  n1496 <= bb_section (29 downto 15);
-  n1497 <= bb_section (44 downto 30);
-  n1498 <= bb_section (59 downto 45);
-  n1504 <= wrap_fifo_gfx_cmd & n57 & n58 & n59;
+  n1491 <= bdt_bmpidx (31 downto 0);
+  n1492 <= bdt_bmpidx (46 downto 32);
+  n1493 <= bdt_bmpidx (61 downto 47);
+  n1494 <= bb_section (14 downto 0);
+  n1495 <= bb_section (29 downto 15);
+  n1496 <= bb_section (44 downto 30);
+  n1497 <= bb_section (59 downto 45);
+  n1503 <= wrap_gcf_data & n57 & n58 & n59;
   process (wrap_clk, n118)
   begin
     if n118 = '1' then
-      n1505 <= "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+      n1504 <= "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
     elsif rising_edge (wrap_clk) then
-      n1505 <= state_nxt;
+      n1504 <= state_nxt;
     end if;
   end process;
-  n1506 <= n1329 & n1327 & n1325 & n1323 & n1321 & n1319 & n1312 & n1305 & n1299 & n1294 & n1292 & n1290 & n1288 & n1286 & n1284 & n1282 & n1280 & n1278 & n1276 & n1274;
-  n1507 <= n1374 & n1364;
-  n1509 <= n105 & n104 & n103;
+  n1505 <= n1329 & n1327 & n1325 & n1323 & n1321 & n1319 & n1312 & n1305 & n1299 & n1294 & n1292 & n1290 & n1288 & n1286 & n1284 & n1282 & n1280 & n1278 & n1276 & n1274;
+  n1506 <= n1380 & n1370;
+  n1508 <= n105 & n104 & n103;
   assert vram_addr_width = 21 report "Unsupported generic value! vram_addr_width must be 21." severity failure;
   assert vram_data_width = 16 report "Unsupported generic value! vram_data_width must be 16." severity failure;
 end architecture;

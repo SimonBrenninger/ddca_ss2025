@@ -1,6 +1,6 @@
 
 # VGA Graphics Controller Package
-Comming Soon
+The `vga_gfx_ctrl_pkg` package provides a single core that implements a GCI and outputs images using a VGA port. External SRAM is used as video RAM.
 
 
 [[_TOC_]]
@@ -11,11 +11,7 @@ Comming Soon
 
 - [vga_gfx_ctrl_pkg.vhd](src/vga_gfx_ctrl_pkg.vhd)
 
-- [vga_gfx_ctrl.vhd](src/vga_gfx_ctrl.vhd)
-
 - [gfx_circle.vhd](src/gfx_circle.vhd)
-
-- [rasterizer.vhd](src/rasterizer.vhd)
 
 - [gfx_util_pkg.vhd](src/gfx_util_pkg.vhd)
 
@@ -23,12 +19,16 @@ Comming Soon
 
 - [pixel_writer.vhd](src/pixel_writer.vhd)
 
+- [rasterizer.vhd](src/rasterizer.vhd)
+
+- [vga_gfx_ctrl.vhd](src/vga_gfx_ctrl.vhd)
+
 - [rasterizer_arch_ref.vhd](src/rasterizer_arch_ref.vhd)
 
 ## Components
 
 ### vga_gfx_ctrl
-...
+The `vga_gfx_ctrl` implements a GCI (sink), uses 2 MB of external SRAM as Video RAM and outputs a VGA signal.
 
 
 ```vhdl
@@ -66,7 +66,51 @@ end entity;
 
 #### Interface
 
-Coming soon
+The `vga_gfx_ctrl` implements the GCI as specified in the [`gfx_core`](../gfx_core/doc.md) package.
+There are only two noteworthy remarks regarding this interface:
+
+  - The `DISPLAY_BMP` only supports bitmaps with a resolution of 320x240 pixels. In fact the command simply assumes that this is the case and does not even check the resolution of the supplied bitmap descriptor (via the `bmpidx` field), it simply treats all bitmaps as if they had this single supported resolution. Hence, if `DISPLAY_BMP` is supplied with a bitmap of a different resolution the output image will be wrong.
+  - `DISPLAY_BMP` commands with `fs=1` are only executed when a new VGA output frame is output. This enables the core to synchronize fframe buffer switches to the VGA output signal.
+
+The `vga_dac_*` output signals are intended to interface with a ADV7123 DAC, such as the one found on the [DE2-115 FPGA board](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=502)
+Note that altough the only supported output resolution is 320x240 the core produces a VGA signal with a resolution of 640x480.
+This is done for the sake of compatibility, since not all monitors support resolutions lower than 640x480. The output image is upscaled internally.
+
+The core is designed to interface with the 2 MB of external SRAM (IS61WV102416BLL) of the [DE2-115 FPGA board](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=502).
+
+The clock signals supplied to `clk` and `display_clk` must have frequencies of 50 and 25 MHz, respectively.
+Moreover, their phase relation must be fixed at 0 degrees (i.e., they should be generated from a common source by a PLL).
+
+
+
+
+#### Implementation
+
+The figure below shows an overview of the internal structure of the core:
+
+
+![Internal structure of the VGA Graphics Controller](.mdata/core_overview.svg)
+
+Incoming graphics commands are written to the *Graphics Command FIFO* (provided by the [`mem`](../lib/mem/doc.md) package), which buffers them until they are executed.
+The *Rasterizer* then fetches instructions and their associated operands from this FIFO via the FIFO's read port (`gcf_*` signals).
+It executes them by reading and writing pixel data from and to bitmaps in VRAM (physically located in the external SRAM) or altering its internal state (e.g., changing the drawing color, configuring the bitmap descriptor table, setting the graphics pointer etc.).
+Communication with the SRAM is handled by the *SRAM Controller* provided by [`sram_ctrl`](../lib/sram_ctrl/doc.md) package.
+This controller implements an abstraction-layer over the low-level physical interface of the SRAM and provides three separate ports (2 read ports, 1 write port) that can be operated more or less independently.
+Because the actual SRAM chip can only handle one read or write operation at any given time the SRAM controller has to stall individual ports if necessary.
+It does that based on a priority scheme (1 = highest priority):
+
+  1. read port 1 (connected to the *Frame Reader*)
+  2. read port 2 (connected to the *Rasterizer*)
+  3. write port (connected to the *Rasterizer*)
+
+The *Frame Reader* needs the highest priority access, since it constantly reads (60 times per second) the current frame buffer and forwards that data the *VGA Controller*.
+If it would not provide the required in time, the output image would be missaliged leading to visual artifacts.
+The *Rasterizer* controls the which loction in VRAM, from which the *Frame Reader* fetches the data via the `fr_base_addr` signal.
+Whenever the *Frame Reader* is about to fetch a new frame it asserts the `fr_base_addr_req` signal to allow the *Rasterizer* to change the base address.
+This is how the frame synchronization (`DISPLAY_BMP` with `fs=1`) is implemented.
+
+The *VGA Controller* itself is provided by the [`vga_ctrl`](../lib/vga_ctrl/doc.md) package.
+
 
 
 

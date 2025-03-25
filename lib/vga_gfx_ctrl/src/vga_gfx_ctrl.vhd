@@ -39,7 +39,7 @@ end entity;
 
 architecture arch of vga_gfx_ctrl is
 	constant INSTR_FIFO_DEPTH : integer := 32;
-	
+
 	constant SRAM_ADDR_WIDTH : integer := 21;
 	constant SRAM_DATA_WIDTH : integer := 16;
 
@@ -70,14 +70,15 @@ architecture arch of vga_gfx_ctrl is
 	signal pix_ack : std_ulogic;
 	signal pix_color    : vga_pixel_color_t;
 
-	signal fifo_gfx_cmd_rd : std_ulogic;
-	signal fifo_gfx_cmd_empty : std_ulogic;
-	signal fifo_gfx_cmd : gfx_cmd_t;
+	signal gcf_rd : std_ulogic;
+	signal gcf_empty : std_ulogic;
+	signal gcf_data : gfx_cmd_t;
 
 	signal frame_start : std_ulogic;
 begin
 
-	cmd_fifo : fifo_1c1r1w
+	-- graphics command FIFO
+	gcf : fifo_1c1r1w
 	generic map (
 		DEPTH => INSTR_FIFO_DEPTH,
 		DATA_WIDTH => GFX_CMD_WIDTH
@@ -88,9 +89,9 @@ begin
 		wr_data   => gci_in.wr_data,
 		wr        => gci_in.wr,
 		full      => gci_out.full,
-		rd        => fifo_gfx_cmd_rd,
-		rd_data   => fifo_gfx_cmd,
-		empty     => fifo_gfx_cmd_empty
+		rd        => gcf_rd,
+		rd_data   => gcf_data,
+		empty     => gcf_empty
 	);
 
 	rasterizer_inst : entity work.rasterizer
@@ -99,25 +100,30 @@ begin
 		VRAM_DATA_WIDTH => SRAM_DATA_WIDTH
 	)
 	port map (
-		clk                    => clk,
-		res_n                  => res_n,
-		vram_wr_addr           => vram_wr_addr,
-		vram_wr_data           => vram_wr_data,
-		vram_wr_full           => vram_wr_full,
-		vram_wr_emtpy          => vram_wr_emtpy,
-		vram_wr                => vram_wr,
-		vram_wr_access_mode    => vram_wr_access_mode,
-		vram_rd_addr           => vram_rd_addr,
-		vram_rd_data           => vram_rd_data,
-		vram_rd_busy           => vram_rd_busy,
-		vram_rd_valid          => vram_rd_valid,
-		vram_rd                => vram_rd,
-		vram_rd_access_mode    => vram_rd_access_mode,
-		fr_base_addr           => fr_base_addr,
-		fr_base_addr_req       => fr_base_addr_req,
-		fifo_gfx_cmd_rd => fifo_gfx_cmd_rd,
-		fifo_gfx_cmd => fifo_gfx_cmd,
-		fifo_gfx_cmd_empty => fifo_gfx_cmd_empty,
+		clk   => clk,
+		res_n => res_n,
+		-- VRAM write port
+		vram_wr_addr        => vram_wr_addr,
+		vram_wr_data        => vram_wr_data,
+		vram_wr_full        => vram_wr_full,
+		vram_wr_emtpy       => vram_wr_emtpy,
+		vram_wr             => vram_wr,
+		vram_wr_access_mode => vram_wr_access_mode,
+		-- VRAM read port
+		vram_rd_addr        => vram_rd_addr,
+		vram_rd_data        => vram_rd_data,
+		vram_rd_busy        => vram_rd_busy,
+		vram_rd_valid       => vram_rd_valid,
+		vram_rd             => vram_rd,
+		vram_rd_access_mode => vram_rd_access_mode,
+		-- frame reader base address configuration
+		fr_base_addr     => fr_base_addr,
+		fr_base_addr_req => fr_base_addr_req,
+		-- gfx command FIFO read port
+		gcf_rd    => gcf_rd,
+		gcf_data  => gcf_data,
+		gcf_empty => gcf_empty,
+		-- gci_out signals
 		rd_data    => gci_out.rd_data,
 		rd_valid   => gci_out.rd_valid,
 		frame_sync => gci_out.frame_sync
