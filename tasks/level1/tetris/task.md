@@ -1,7 +1,7 @@
 
 # Tetris
 
-**Points:** 25 `|` **Keywords**: fsm, specifiacations, filling gaps, reading code
+**Points:** 25 `|` **Keywords**: fsm, specifications, filling gaps, reading code
 
 [[_TOC_]]
 
@@ -76,7 +76,7 @@ end record;
 
 
 This type is used for the `gamepad` input.
-You can simply connect the buttons of the SNES (and lkater the Gamecube) gamepad to the appropriate signals of this record in the top-level architecture.
+You can simply connect the buttons of the SNES (and later the Gamecube) gamepad to the appropriate signals of this record in the top-level architecture.
 
 The controls for the game are as follows:
 
@@ -110,8 +110,8 @@ Furthermore, the bitmaps at indices 2 and 3 in the BDT are initialized to the fo
 The first bitmap contains a font with 8x8 pixel characters, that can be used to print text via the `BB_CHAR` command.
 The second bitmap contains a series of 12x12 pixel game tiles for drawing the tetrominoes and game field borders.
 
-To draw tetrominoes, use the `tetromino_drawer` module provided by the [`tetris_util_pkg`](../../../doc/tetris_util/doc.md) package.
-The `decimal_printer` provided by the [`decimal_printer_pkg`](../../../doc/decimal_printer/doc.md) package can be used to draw the game score and the number of lines.
+To draw tetrominoes, use the `tetromino_drawer` module provided by the [`tetris_util_pkg`](../../../lib/tetris_util/doc.md) package.
+The `decimal_printer` provided by the [`decimal_printer_pkg`](../../../lib/decimal_printer/doc.md) package can be used to draw the game score and the number of lines.
 
 
 
@@ -119,11 +119,11 @@ The `decimal_printer` provided by the [`decimal_printer_pkg`](../../../doc/decim
 ### Collision Detection
 
 The game field (i.e., the current map of tetrominoes) shall be represented by an on-chip RAM.
-To assist you with the implementation of the collision detection between the currently "falling" tetromino and the blocks on the map as well as the walls, the [`tetris_util`](../../../doc/tetris_util/doc.md) package provides the `tetromino_collider`.
+To assist you with the implementation of the collision detection between the currently "falling" tetromino and the blocks on the map as well as the walls, the [`tetris_util`](../../../lib/tetris_util/doc.md) package provides the `tetromino_collider`.
 The template architecture already contains an example demonstrating how to use it.
 
 When you detect a collision between the current tetromino and the map, you will have to convert the current tetromino to solid blocks on the map (i.e., set certain locations in the on-chip memory that represents the map to a value that indicates that the respective position is solid).
-Here the function `is_tetromino_solid_at` provided by the [`tetris_util`](../../../doc/tetris_util/doc.md) package will be useful.
+Here the function `is_tetromino_solid_at` provided by the [`tetris_util`](../../../lib/tetris_util/doc.md) package will be useful.
 Whenever a tetromino is placed on the map, you need to check if lines are complete and remove them if necessary.
 Placing a tetromino on the map can lead to the removal of up to four rows.
 
