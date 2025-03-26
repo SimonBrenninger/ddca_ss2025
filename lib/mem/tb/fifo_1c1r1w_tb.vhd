@@ -67,7 +67,7 @@ begin
 			wr_data <= (others=>'0');
 			wr <= '0';
 			rd <= '0';
-			
+
 			wait until rising_edge(clk);
 			wait until rising_edge(clk);
 			wait until rising_edge(clk);
@@ -77,8 +77,7 @@ begin
 		report "starting simulation" severity note;
 
 		reset;
-		
-		
+
 		-- test reading and writing on the same cycle
 		-- (1) put 0xaa into the FIFO
 		-- (2) read a value and put 0x55 into the FIFO
@@ -89,12 +88,12 @@ begin
 		wait until rising_edge(clk);
 		wr <= '0';
 		wr_data <= x"00";
-		
+
 		wait until rising_edge(clk);
 		wait until rising_edge(clk);
 		wait until rising_edge(clk);
 		wait until rising_edge(clk);
-		
+
 		rd <= '1';
 		wr <= '1';
 		wr_data <= x"55";
@@ -102,10 +101,10 @@ begin
 		rd <= '0';
 		wr <= '0';
 		wr_data <= x"00";
-		
+
 		assert empty = '0' report "empty is not 0, altough the FIFO should contain data!" severity error;
 		assert half_full = '0' report "half_full signal is assert altough there is only one data element in the FIFO" severity error;
-		
+
 		wait until rising_edge(clk);
 		wait until rising_edge(clk);
 		rd <= '1';
@@ -113,9 +112,9 @@ begin
 		rd <= '0';
 		wait until rising_edge(clk);
 		wait until rising_edge(clk);
-		
+
 		reset;
-		
+
 		wr <= '1';
 		for i in 0 to DEPTH-1 loop
 			assert full = '0' report "FIFO should not be full at this point" severity error;
@@ -123,9 +122,9 @@ begin
 			wr_data <= std_ulogic_vector(to_unsigned(i,DATA_WIDTH) + 1);
 		end loop;
 		wr <= '0';
-		
+
 		assert empty = '0' report "Empty flag is asserted altough the FIFO should contain data" severity error;
-		
+
 		rd <= '1';
 		wait until rising_edge(clk);
 		for i in 0 to DEPTH-1 loop
@@ -137,8 +136,26 @@ begin
 				rd <= '0';
 			end if;
 		end loop;
-		
-		
+
+		reset;
+		wait for 1 ns;
+
+		for i in 0 to DATA_WIDTH-2 loop
+			wr      <= '1';
+			wr_data <= std_ulogic_vector(to_unsigned(2*(i+1), DATA_WIDTH));
+			WAIT for CLK_PERIOD;
+			wr <= '0';
+		end loop;
+		wr <= '1';
+		rd <= '1';
+		wr_data <= std_ulogic_vector(to_unsigned(2*DATA_WIDTH, DATA_WIDTH));
+		wait for CLK_PERIOD;
+		rd <= '0';
+		wr <= '0';
+		wr_data <= std_ulogic_vector(to_unsigned(2*(DATA_WIDTH+1), DATA_WIDTH));
+		assert full='0' report "full is 1, altough the FIFO is not full (simultaneous read and write at almost full FIFO)!" severity error;
+		wait for 5*CLK_PERIOD;
+
 		report "simulation done" severity note;
 		stop_clock <= true;
 		wait;

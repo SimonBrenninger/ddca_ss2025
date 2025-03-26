@@ -9,9 +9,6 @@ VHDL_FILES = \
 	./src/fifo_1c1r1w_fwft.vhd\
 	./tb/fifo_1c1r1w_tb.vhd
 
-# the list of VHDL files must come before this include!
-include ../../util/simple_flow.mk
-
 # Here we don't use the default 'sim' target, but special 'sim_fifo' tragets to
 # indicate that only the FIFO is simulated. For that pupose, we need to set
 # required variable (i.e., TB and WAVE_FILE) for these targets.
@@ -25,4 +22,6 @@ sim_fifo_gui: sim_gui
 gsim_fifo: TB=fifo_1c1r1w_tb
 gsim_fifo: gsim
 
+# the list of VHDL files must come before this include!
+include ../../util/simple_flow.mk
 

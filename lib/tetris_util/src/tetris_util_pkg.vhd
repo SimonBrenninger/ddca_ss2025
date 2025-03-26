@@ -14,16 +14,16 @@ package tetris_util_pkg is
 	constant TET_Z : tetromino_t := "100";
 	constant TET_J : tetromino_t := "101";
 	constant TET_L : tetromino_t := "110";
-	
+
 	subtype rotation_t is std_ulogic_vector(1 downto 0);
 	constant ROT_0   : rotation_t := "00";
 	constant ROT_90  : rotation_t := "01";
 	constant ROT_180 : rotation_t := "10";
 	constant ROT_270 : rotation_t := "11";
-	
+
 	subtype tetromino_blocks_t is std_ulogic_vector(15 downto 0);
-	
-	
+
+
 	-- Example: get_blocks(TET_Z, ROT_0) = 0x4c80
 	--  ┌──┬──┬──┬──┐
 	--  │  │██│  │  │ 0x4
@@ -36,10 +36,10 @@ package tetris_util_pkg is
 	--  └──┴──┴──┴──┘
 	--     0x4c80
 	function get_blocks(tetromino : tetromino_t; rotation : rotation_t) return std_ulogic_vector;
-	
+
 	-- Examples:
-	--   get_blocks(TET_Z, ROT_0, 0, 2) = true
-	--   get_blocks(TET_Z, ROT_0, 2, 0) = false
+	--   is_tetromino_solid_at(TET_Z, ROT_0, 0, 2) = true
+	--   is_tetromino_solid_at(TET_Z, ROT_0, 2, 0) = false
 	--
 	-- tetromio coordinate system
 	--     0  1  2  3
@@ -55,7 +55,7 @@ package tetris_util_pkg is
 	--   ▼
 	--   y
 	function is_tetromino_solid_at(tetromino : tetromino_t; rotation : rotation_t; x, y : std_ulogic_vector(1 downto 0)) return boolean;
-	
+
 	component tetromino_collider is
 		generic (
 			BLOCKS_X : integer;
@@ -77,7 +77,7 @@ package tetris_util_pkg is
 			block_map_solid : in std_ulogic
 		);
 	end component;
-	
+
 	component tetromino_drawer is
 		generic (
 			BLOCK_SIZE : integer
@@ -107,7 +107,7 @@ package body tetris_util_pkg is
 		tetromino_blocks := get_blocks(tetromino, rotation);
 		return tetromino_blocks(to_integer(unsigned((not y) & (not x)))) = '1';
 	end function;
-	
+
 	function get_blocks(tetromino : tetromino_t; rotation : rotation_t) return std_ulogic_vector is
 		variable ret_val : std_ulogic_vector(15 downto 0);
 	begin
