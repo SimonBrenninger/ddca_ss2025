@@ -1,1 +1,1 @@
-{"points": 10, "sublevel": "Commitment", "files": {"src/rasterizer_arch.vhd": {"Type": "COMPLETE", "Lines": 599}, "tb/rasterizer_tb.vhd": {"Type": "COMPLETE", "Lines": 192}, "Makefile": {"Type": "DONT CARE"}}, "checks": []}
+{"points": 10, "sublevel": "Commitment", "files": {"src/rasterizer_arch.vhd": {"Type": "COMPLETE", "Lines": 603}, "tb/rasterizer_tb.vhd": {"Type": "COMPLETE", "Lines": 192}, "Makefile": {"Type": "DONT CARE"}}, "checks": []}

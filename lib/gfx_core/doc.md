@@ -218,7 +218,7 @@ In such a scenario the behavior of the core becomes **undefined**.
 
 ![Image Caption](.mdata/nop.svg)
 
-**Format**:
+**Description**:
 
 Do nothing.
 
@@ -230,7 +230,7 @@ Do nothing.
 
 ![Image Caption](.mdata/move_gp.svg)
 
-**Format**:
+**Description**:
 
 
 Sets the `gp` to (`x`,`y`).
@@ -246,7 +246,7 @@ The operands `x` and `y` are signed 16-bit values.
 
 ![Image Caption](.mdata/inc_gp.svg)
 
-**Format**:
+**Description**:
 
 
 Adds the signed 10 bit integer in `incvalue` to either `gp.y` (`dir`=1) or `gp.x` (`dir`=0).
@@ -261,7 +261,7 @@ For that purpose `incvalue` is sign-extended.
 
 ![Image Caption](.mdata/clear.svg)
 
-**Format**:
+**Description**:
 
 
 Sets every pixel in active bitmap to the color specified by `cs`.
@@ -276,7 +276,7 @@ Does not change the `gp`.
 
 ![Image Caption](.mdata/set_pixel.svg)
 
-**Format**:
+**Description**:
 
 
 Sets the pixel in the active bitmap the `gp` currently points at to the color specified by `cs`.
@@ -292,13 +292,23 @@ After that `gp.x` (`gp.y`) is incremented by one if `mx` (`my`) is set.
 
 ![Image Caption](.mdata/draw_hline.svg)
 
-**Format**:
+**Description**:
 
 
-Draws a horizontal line between the `gp` and the destination coordinate at (`gp.x` + `dx`, `gp.y`) using the color specified by `cs`.
-The operand `dx` is a signed 16-bit value.
-After the line has been drawn `gp.x` is set to the destination *x* coordinate of the line if `mx` is set.
-If `my` is set `gp.y` is incremented by one.
+Draws a horizontal line from the `gp` to (*x*, `gp.y`) using the color specified by `cs`.
+The operand `dx` is a signed 16-bit value and must not be zero.
+The destination *x* coordinate is given by
+
+```math
+  x =
+  \begin{cases}
+    \text{\texttt{gp.x}} + \text{\texttt{dx}} - 1 & \text{if \text{\texttt{dx}} > 0}\\
+    \text{\texttt{gp.x}} + \text{\texttt{dx}} + 1 & \text{if \text{\texttt{dx}} < 0}\\
+  \end{cases}
+```
+
+After the line has been drawn the value of `dx` is added to `gp.x` if `mx` is set.
+If `my` is set, `gp.y` is incremented by one.
 
 
 
@@ -309,13 +319,23 @@ If `my` is set `gp.y` is incremented by one.
 
 ![Image Caption](.mdata/draw_vline.svg)
 
-**Format**:
+**Description**:
 
 
-Draws a vertical line between the `gp` and the destination coordinate at (`gp.x`, `gp.y` + `dy`) using the color specified by `cs`.
-The operand `dy` is a signed 16-bit value.
-After the line has been drawn `gp.y` is set to the destination *y* coordinate of the line if `my` is set.
-If `mx` is set `gp.x` is incremented by one.
+Draws a vertical line from the `gp` to (`gp.x`, *y*) using the color specified by `cs`.
+The operand `dy` is a signed 16-bit value and must not be zero.
+The destination *y* coordinate is given by
+
+```math
+  y =
+  \begin{cases}
+    \text{\texttt{gp.y}} + \text{\texttt{dy}} - 1 & \text{if \text{\texttt{dy}} > 0}\\
+    \text{\texttt{gp.y}} + \text{\texttt{dy}} + 1 & \text{if \text{\texttt{dy}} < 0}\\
+  \end{cases}
+```
+
+After the line has been drawn the value of `dy` is added to `gp.y` if `my` is set.
+If `mx` is set, `gp.x` is incremented by one.
 
 
 
@@ -326,7 +346,7 @@ If `mx` is set `gp.x` is incremented by one.
 
 ![Image Caption](.mdata/draw_circle.svg)
 
-**Format**:
+**Description**:
 
 
 Draws a circle with a radius specified by the operand `radius` and its center at the `gp` using the color specified by `cs`.
@@ -342,7 +362,7 @@ After the circle has been drawn `gp.x` (`gp.y`) is incremented by `radius` if `m
 
 ![Image Caption](.mdata/get_pixel.svg)
 
-**Format**:
+**Description**:
 
 
 Reads the color of the pixel in the active bitmap the `gp` currently points to and outputs it using `rd_data`/`rd_valid`.
@@ -360,7 +380,7 @@ After that `gp.x` (`gp.y`) is incremented by one if `mx` (`my`) is set.
 
 ![Image Caption](.mdata/vram_read.svg)
 
-**Format**:
+**Description**:
 
 
 Performs a read operation on the VRAM address `addrhi` & `addrlo` and outputs the result using `rd_data`/`rd_valid`.
@@ -378,7 +398,7 @@ A memory access outside of the physcial bounds of the VRAM is **undefined**.
 
 ![Image Caption](.mdata/vram_write.svg)
 
-**Format**:
+**Description**:
 
 
 Writes a single byte (`m`=0) or word (`m`=1) to VRAM.
@@ -394,7 +414,7 @@ A memory access outside of the physcial bounds of the VRAM is **undefined**.
 
 ![Image Caption](.mdata/vram_write_seq.svg)
 
-**Format**:
+**Description**:
 
 
 Writes a sequence of bytes (`m`=0) or words (`m`=1) to VRAM starting at the address `addrhi` & `addrlo`.
@@ -411,7 +431,7 @@ A memory access outside of the physcial bounds of the VRAM is **undefined**.
 
 ![Image Caption](.mdata/vram_write_init.svg)
 
-**Format**:
+**Description**:
 
 
 Initializes a range of memory addresses starting at `addrhi & addrlo` to `data`.
@@ -428,7 +448,7 @@ A memory access outside of the physcial bounds of the VRAM is **undefined**.
 
 ![Image Caption](.mdata/set_color.svg)
 
-**Format**:
+**Description**:
 
 
 Sets the primary (secondary) color to `color` if `cs` is 0 (1).
@@ -443,7 +463,7 @@ For the actual color value in `color` the RGB332 format is used.
 
 ![Image Caption](.mdata/set_bb_effect.svg)
 
-**Format**:
+**Description**:
 
 
 Sets the current BB Effect (i.e., the registers `maskop` and `mask`) used by all subsequent `BB_*` commands.
@@ -458,7 +478,7 @@ See the entry for `BB_CLIP` for the purpose of these registers.
 
 ![Image Caption](.mdata/define_bmp.svg)
 
-**Format**:
+**Description**:
 
 
 Writes a Bitmap Descriptor to `bmpidx`.
@@ -474,7 +494,7 @@ This means that the LSB of the low address is assumend to be zero.
 
 ![Image Caption](.mdata/activate_bmp.svg)
 
-**Format**:
+**Description**:
 
 
 Sets the Active Bitmap Descriptor by **copying** `bdt[bmpidx]` to the `abd`.
@@ -490,7 +510,7 @@ Changing `bdt[bmpidx]` with a subsequent `DEFINE_BMP` command does not affect th
 
 ![Image Caption](.mdata/display_bmp.svg)
 
-**Format**:
+**Description**:
 
 
 Displays the bitmap indentified by `bmpidx`.
@@ -509,7 +529,7 @@ If `fs`=1 the `frame_sync` signal is asserted for exactly one clock cycle to ind
 
 ![Image Caption](.mdata/bb_clip.svg)
 
-**Format**:
+**Description**:
 
 
 Performs a bit blit operation by copying (and transforming) the bitmap section defined by `x`, `y`, `width` and `height` of the source bitmap identified by `bmpidx` to the Active Bitmap to the position of the `gp`.
@@ -565,7 +585,7 @@ However, the actual register where the secondary color is stored is not changed.
 
 ![Image Caption](.mdata/bb_full.svg)
 
-**Format**:
+**Description**:
 
 
 This command is equivalent to calling `BB_CLIP` with the operands (0, 0, `bdt[bmpidx].width`, `bdt[bmpidx].height`).
@@ -579,7 +599,7 @@ This command is equivalent to calling `BB_CLIP` with the operands (0, 0, `bdt[bm
 
 ![Image Caption](.mdata/bb_char.svg)
 
-**Format**:
+**Description**:
 
 
 This command is equivalent to calling `BB_CLIP` with the operands (`xoffset`, 0, `charwidth`, `bdt[bmpidx].height`).

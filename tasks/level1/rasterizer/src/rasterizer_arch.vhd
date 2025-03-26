@@ -316,19 +316,21 @@ begin
 				state_nxt.fsm_state <= DRAW_HLINE_LOOP;
 
 			when DRAW_HLINE_LOOP =>
-				if write_pixel(state.tmp_vec.x, state.gp.y, instr_color) then
-					if (state.tmp_vec.x = state.gp.x + dx) then
-						state_nxt.fsm_state <= IDLE;
-						if (current_instr(INDEX_MX) = '1') then
-							state_nxt.gp.x <= state.gp.x + dx;
+				if (state.tmp_vec.x = state.gp.x + dx) then
+					state_nxt.fsm_state <= IDLE;
+					if (current_instr(INDEX_MX) = '1') then
+						state_nxt.gp.x <= state.gp.x + dx;
+					end if;
+					if (current_instr(INDEX_MY) = '1') then
+						state_nxt.gp.y <= state.gp.y + 1;
+					end if;
+				else
+					if write_pixel(state.tmp_vec.x, state.gp.y, instr_color) then
+						if (dx < 0) then
+							state_nxt.tmp_vec.x <= state.tmp_vec.x - 1;
+						else
+							state_nxt.tmp_vec.x <= state.tmp_vec.x + 1;
 						end if;
-						if (current_instr(INDEX_MY) = '1') then
-							state_nxt.gp.y <= state.gp.y + 1;
-						end if;
-					elsif (dx < 0) then
-						state_nxt.tmp_vec.x <= state.tmp_vec.x - 1;
-					else
-						state_nxt.tmp_vec.x <= state.tmp_vec.x + 1;
 					end if;
 				end if;
 
@@ -338,19 +340,21 @@ begin
 				state_nxt.fsm_state <= DRAW_VLINE_LOOP;
 
 			when DRAW_VLINE_LOOP =>
-				if write_pixel(state.gp.x, state.tmp_vec.y, instr_color) then
-					if (state.tmp_vec.y = state.gp.y + dy) then
-						state_nxt.fsm_state <= IDLE;
-						if (current_instr(INDEX_MX) = '1') then
-							state_nxt.gp.x <= state.gp.x + 1;
+				if (state.tmp_vec.y = state.gp.y + dy) then
+					state_nxt.fsm_state <= IDLE;
+					if (current_instr(INDEX_MX) = '1') then
+						state_nxt.gp.x <= state.gp.x + 1;
+					end if;
+					if (current_instr(INDEX_MY) = '1') then
+						state_nxt.gp.y <= state.gp.y + dy;
+					end if;
+				else
+					if write_pixel(state.gp.x, state.tmp_vec.y, instr_color) then
+						if (dy < 0) then
+							state_nxt.tmp_vec.y <= state.tmp_vec.y - 1;
+						else
+							state_nxt.tmp_vec.y <= state.tmp_vec.y + 1;
 						end if;
-						if (current_instr(INDEX_MY) = '1') then
-							state_nxt.gp.y <= state.gp.y + dy;
-						end if;
-					elsif (dy < 0) then
-						state_nxt.tmp_vec.y <= state.tmp_vec.y - 1;
-					else
-						state_nxt.tmp_vec.y <= state.tmp_vec.y + 1;
 					end if;
 				end if;
 
