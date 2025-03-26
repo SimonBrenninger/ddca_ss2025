@@ -6,7 +6,8 @@ VHDL_FILES = \
 	../mem/src/fifo_1c1r1w_fwft.vhd\
 	./src/sram_ctrl_pkg.vhd\
 	./src/sram_ctrl.vhd\
+	./src/IS61WV102416BLL.vhd\
 	./src/sram_ctrl_arch_ref.vhd
 
-include ../../util/simple_flow.mk
 
+include ../../util/simple_flow.mk

@@ -10,6 +10,8 @@ The `sram_ctrl_pkg` provides an interface controller, `sram_ctrl`, to the DE2-11
 
 - [sram_ctrl.vhd](src/sram_ctrl.vhd)
 
+- [IS61WV102416BLL.vhd](src/IS61WV102416BLL.vhd)
+
 - [sram_ctrl_pkg.vhd](src/sram_ctrl_pkg.vhd)
 
 - [sram_ctrl_arch_ref.vhd](src/sram_ctrl_arch_ref.vhd)
@@ -145,6 +147,33 @@ Whenever a `rdX_valid` signal is low, the `sram_ctrl` sets the respective `rdX_d
 
 The `rdX_busy` signals are derived **only** from the internal state of the controller and **not** combinationally from any of its inputs!
 However, the read port priorities / precedence resolve situations where both read ports are active simultaneously due to this fact.
+
+
+
+### IS61WV102416BL
+The `IS61WV102416BLL` is a **simulation** model of the DE2-115's SRAM chip.
+
+
+
+```vhdl
+
+```
+
+
+#### Interface
+
+The interface of the simulation model corresponds to the one of the "real" chip.
+The model can therefore directly be connected to the respective signals of the `sram_ctrl`.
+
+
+
+
+#### Implementation
+
+The model supports the read cycle no.1 and write cycle no.3 of the SRAM's datasheet.
+Internally it adheres to the timing characteristics of the slowest speed grade (-10).
+Since the SRAM itself is essentially a black-box, the model is also very likely not a completely faithful description of the SRAM.
+However, it is still useful as a first check whether an SRAM interface is implemented at least vaguely correct.
 
 
 

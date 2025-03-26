@@ -55,6 +55,18 @@ package sram_ctrl_pkg is
 			sram_oe_n :   out std_ulogic
 		);
 	end component;
+
+	component IS61WV102416BLL is
+		port (
+			a    : in    std_ulogic_vector(19 downto 0);
+			io   : inout std_ulogic_vector(15 downto 0);
+			ce_n : in    std_ulogic;
+			oe_n : in    std_ulogic;
+			we_n : in    std_ulogic;
+			lb_n : in    std_ulogic;
+			ub_n : in    std_ulogic
+		);
+	end component;
 end package;
 
 
