@@ -9,8 +9,6 @@ The `vga_gfx_ctrl_pkg` package provides a single core that implements a GCI and 
 
 - [frame_reader.vhd](src/frame_reader.vhd)
 
-- [vga_gfx_ctrl_pkg.vhd](src/vga_gfx_ctrl_pkg.vhd)
-
 - [gfx_circle.vhd](src/gfx_circle.vhd)
 
 - [gfx_util_pkg.vhd](src/gfx_util_pkg.vhd)
@@ -21,9 +19,11 @@ The `vga_gfx_ctrl_pkg` package provides a single core that implements a GCI and 
 
 - [rasterizer.vhd](src/rasterizer.vhd)
 
+- [rasterizer_arch_ref.vhd](src/rasterizer_arch_ref.vhd)
+
 - [vga_gfx_ctrl.vhd](src/vga_gfx_ctrl.vhd)
 
-- [rasterizer_arch_ref.vhd](src/rasterizer_arch_ref.vhd)
+- [vga_gfx_ctrl_pkg.vhd](src/vga_gfx_ctrl_pkg.vhd)
 
 ## Components
 

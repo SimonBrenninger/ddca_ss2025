@@ -8,13 +8,13 @@ The `sram_ctrl_pkg` provides an interface controller, `sram_ctrl`, to the DE2-11
 
 ## Required Files
 
-- [sram_ctrl.vhd](src/sram_ctrl.vhd)
-
 - [IS61WV102416BLL.vhd](src/IS61WV102416BLL.vhd)
 
-- [sram_ctrl_pkg.vhd](src/sram_ctrl_pkg.vhd)
+- [sram_ctrl.vhd](src/sram_ctrl.vhd)
 
 - [sram_ctrl_arch_ref.vhd](src/sram_ctrl_arch_ref.vhd)
+
+- [sram_ctrl_pkg.vhd](src/sram_ctrl_pkg.vhd)
 
 ## Components
 

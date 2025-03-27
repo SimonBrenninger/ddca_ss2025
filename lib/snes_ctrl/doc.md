@@ -9,9 +9,9 @@ This package provides everything required to interface with a [SNES (Super Ninte
 
 - [snes_ctrl.vhd](src/snes_ctrl.vhd)
 
-- [snes_ctrl_pkg.vhd](src/snes_ctrl_pkg.vhd)
-
 - [snes_ctrl_arch_ref.vhd](src/snes_ctrl_arch_ref.vhd)
+
+- [snes_ctrl_pkg.vhd](src/snes_ctrl_pkg.vhd)
 
 ## Components
 

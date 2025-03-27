@@ -84,13 +84,13 @@ Ask a tutor for help if you are unsure how to proceed!
 
 ## Delieverables
 
+- **Create**: period.png
+
 - **Implement**: [snes_ctrl_arch.vhd](src/snes_ctrl_arch.vhd)
 
 - **Implement**: [snes_ctrl_tb.vhd](tb/snes_ctrl_tb.vhd)
 
 - **Implement**: [top_arch.vhd](top_arch.vhd)
-
-- **Create**: period.png
 
 
 [Return to main page](../../../README.md)

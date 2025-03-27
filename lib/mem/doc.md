@@ -7,8 +7,6 @@ This package provides commonly used on-chip memories in the from of random acces
 
 ## Required Files
 
-- [mem_pkg.vhd](src/mem_pkg.vhd)
-
 - [dp_ram_1c1r1w.vhd](src/dp_ram_1c1r1w.vhd)
 
 - [dp_ram_1c1r1w_rdw.vhd](src/dp_ram_1c1r1w_rdw.vhd)
@@ -20,6 +18,8 @@ This package provides commonly used on-chip memories in the from of random acces
 - [fifo_1c1r1w.vhd](src/fifo_1c1r1w.vhd)
 
 - [fifo_1c1r1w_fwft.vhd](src/fifo_1c1r1w_fwft.vhd)
+
+- [mem_pkg.vhd](src/mem_pkg.vhd)
 
 
 ## Overview

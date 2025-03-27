@@ -128,11 +128,11 @@ Note that the oscilloscope in the TILab is able to write to USB flash drives.
 
 ## Delieverables
 
+- **Create**: oscilloscope.png
+
 - **Implement**: [vga_ctrl_arch.vhd](src/vga_ctrl_arch.vhd)
 
 - **Implement**: [vga_ctrl_tb.vhd](tb/vga_ctrl_tb.vhd)
-
-- **Create**: oscilloscope.png
 
 
 [Return to main page](../../../README.md)

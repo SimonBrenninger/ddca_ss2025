@@ -7,9 +7,9 @@ The `decimal_printer_pkg` provides a single core that can be used to print the d
 
 ## Required Files
 
-- [decimal_printer_pkg.vhd](src/decimal_printer_pkg.vhd)
-
 - [decimal_printer.vhd](src/decimal_printer.vhd)
+
+- [decimal_printer_pkg.vhd](src/decimal_printer_pkg.vhd)
 
 ## Components
 

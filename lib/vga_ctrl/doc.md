@@ -7,15 +7,15 @@ This package provides everything required to interface with the DE2115-2 board's
 
 ## Required Files
 
+- [dac_dump.vhd](src/dac_dump.vhd)
+
 - [tpg.vhd](src/tpg.vhd)
 
 - [vga_ctrl.vhd](src/vga_ctrl.vhd)
 
-- [vga_ctrl_pkg.vhd](src/vga_ctrl_pkg.vhd)
-
-- [dac_dump.vhd](src/dac_dump.vhd)
-
 - [vga_ctrl_arch_ref.vhd](src/vga_ctrl_arch_ref.vhd)
+
+- [vga_ctrl_pkg.vhd](src/vga_ctrl_pkg.vhd)
 
 ## Components
 

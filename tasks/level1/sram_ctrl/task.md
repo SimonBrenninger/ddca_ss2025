@@ -102,11 +102,11 @@ Make sure that your tetris game still works with your SRAM controller in place.
 
 ## Delieverables
 
+- **Create**: signaltap.png
+
 - **Implement**: [sram_ctrl_arch.vhd](src/sram_ctrl_arch.vhd)
 
 - **Implement**: [sram_ctrl_tb.vhd](tb/sram_ctrl_tb.vhd)
-
-- **Create**: signaltap.png
 
 
 [Return to main page](../../../README.md)
