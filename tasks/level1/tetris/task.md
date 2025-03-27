@@ -140,7 +140,7 @@ The score is increased depending on how many rows are removed simultaneously.
 |-|-|
 | 1 | 1 |
 | 2 | 3 |
-| 3 | 7 |
+| 3 | 6 |
 | 4 | 10 |
 
 
@@ -194,9 +194,9 @@ Download and test your game on the hardware.
 
 - **Implement**: [tetris_arch.vhd](src/tetris_arch.vhd)
 
-- **Implement**: [top_arch.vhd](top_arch.vhd)
-
 - **Implement**: [tetris_tb.vhd](tb/tetris_tb.vhd)
+
+- **Implement**: [top_arch.vhd](top_arch.vhd)
 
 
 [Return to main page](../../../README.md)
