@@ -103,7 +103,7 @@ Your login credentials are the same as for the (local) TILab.
 |-|-|----|
 | [snes_ctrl](tasks/level1/snes_ctrl/task.md) | 10 | FSM, External Interface |
 | [gfx_cmd_interpreter](tasks/level1/gfx_cmd_interpreter/task.md) | 15 | Advanced Testbench, Specifications |
-| [tetris](tasks/level1/tetris/task.md) | 25 | FSM, Specifiacations, Filling Gaps, Reading Code |
+| [tetris](tasks/level1/tetris/task.md) | 25 | FSM, Specifications, Filling Gaps, Reading Code |
 | [rasterizer](tasks/level1/rasterizer/task.md) | 10 | Advanced Testbench, Specifications |
 | [vga_ctrl](tasks/level1/vga_ctrl/task.md) | 10 | External Interface, Advanced Testbench, Oscilloscope |
 | [sram_ctrl](tasks/level1/sram_ctrl/task.md) | 5 | External Interface, Datasheets, FSMs |
