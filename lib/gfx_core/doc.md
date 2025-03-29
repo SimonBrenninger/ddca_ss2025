@@ -513,7 +513,7 @@ Changing `bdt[bmpidx]` with a subsequent `DEFINE_BMP` command does not affect th
 **Description**:
 
 
-Displays the bitmap indentified by `bmpidx`.
+Displays the bitmap identified by `bmpidx`.
 An implementation may choose to only support a certain number of width/height configurations for actually displaying bitmaps.
 
 If the frame synchronization flag `fs` is 1, the command blocks the execution of the following graphics commands until the hardware displaying the frame is in a certain state.
@@ -533,8 +533,8 @@ If `fs`=1 the `frame_sync` signal is asserted for exactly one clock cycle to ind
 
 
 Performs a bit blit operation by copying (and transforming) the bitmap section defined by `x`, `y`, `width` and `height` of the source bitmap identified by `bmpidx` to the Active Bitmap to the position of the `gp`.
-If the rectangle defined by unsigned 15-bit operands `x`, `y`, `width` and `height` lies (even only partially) outside of the bound of the source bitmap the behavior of the command is undefined.
-If the bounds of the drawn image section are outside of the bounds of the destination bitmaps (i.e., the Active Bitmap) clipping is performed.
+If the rectangle defined by the unsigned 15-bit operands `x`, `y`, `width` and `height` lies (even only partially) outside of the bound of the source bitmap the behavior of the command is **undefined**.
+If the bounds of the drawn image section are outside of the bounds of the destination bitmaps (i.e., the Active Bitmap idendified by the `abd`) clipping is performed.
 The `rot` field is used to control the rotation of the copied image section and can take the following values:
 
 - 00: no rotation
@@ -558,12 +558,12 @@ After the execution of the command `gp.x` (`gp.y`) is incremented by *dx* (*dy*)
 ```
 
 If the alpha mode (`am`) flag is 1, pixels in the source image that match the secondary color are not copied to the active bitmap.
-The behavior of this command is changed by the registers `mask` and `maskop`.
+The behavior of this command is changed by the values of `mask` and `maskop`.
 Depending on the value of `maskop` the pixels read from the source bitmap are transformed by performing a bitwise Boolean operation with the `mask` register before writing them to the Active Bitmap.
-Let *c* be the pixel color read for some pixel of the source bitmap, then *c'* will be written to the Active Bitmap:
+Let *c* be the pixel color read for some pixel of the source bitmap, then *c'=f(c)* will be written to the Active Bitmap, where *f* is given by:
 
 ```math
-  c' =
+  f(c) =
   \begin{cases}
     c & \text{if \texttt{maskop}\ =00}\\
     c \text{ and \texttt{mask}\ } & \text{if \texttt{maskop}\ =01}\\
@@ -574,7 +574,14 @@ Let *c* be the pixel color read for some pixel of the source bitmap, then *c'* w
 
 When the alpha mode is active (i.e., if `am` is 1) the same transformation is also applied to the secondary color.
 This is done such that the "transparency" of pixels is preserved.
-However, the actual register where the secondary color is stored is not changed.
+However, the actual value of `scol` is not changed.
+
+The whole process of writing the pixels to the Active Bitmap can be summarized as follows:
+  1. Read *c* from the next source location in the source bitmap (if all pixels have been processed terminate).
+  2. Calculate *c'=f(c)*.
+  3. If `am=0`, go to 5.
+  4. Since `am=1`, check if *c'* is equal to *f(*`scol`*)*. If that is the case, the pixel is transparent and **not** written to the destination bitmap, hence, go to 1.
+  5. Write *c'* to the destination location in the Active Bitmap.
 
 
 
