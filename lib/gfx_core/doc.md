@@ -611,7 +611,7 @@ This command is equivalent to calling `BB_CLIP` with the operands (`xoffset`, 0,
 
 Among others, the package contains constants for all supported commands' opcodes (`OPCODE_*`).
 Furthermore, you will find subtypes and constants for the various fields used by the commands (e.g., the `rot_t` type for rotations and the `ROT_R*` constants for its possible values).
-The bit positions and widths (in case of multi-bit filds) of command fields can be accessed via the `INDEX_*` and `WIDTH_*` constants (e.g., `INDEX_OPCODE` and `WIDTH_OPCODE`).
+The bit positions and widths (in case of multi-bit fields) of command fields can be accessed via the `INDEX_*` and `WIDTH_*` constants (e.g., `INDEX_OPCODE` and `WIDTH_OPCODE`).
 
 
 
@@ -620,7 +620,7 @@ The bit positions and widths (in case of multi-bit filds) of command fields can 
 
 For all command field, there exist `get_*` functions that extract and return the respective field out of an instruction.
 The `create_gfx_instr` allows it to create a desired graphics instruction by passing it the required fields as parameters (parameters of unused fields are not required to be set).
-Likewise the `create_bb_char_op` function can be used to create the operand of a `BB_CHAR` command.
+Likewise, the `create_bb_char_op` function can be used to create the operand of a `BB_CHAR` command.
 The `get_operands_count` function returns the amount of operands required by the specified instruction as integer.
 
 
