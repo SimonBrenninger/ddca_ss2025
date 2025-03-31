@@ -161,7 +161,7 @@ Hence for the shown scenario, there are no collisions.
 ![Block map coordinate system](.mdata/block_map.svg)
 
 The figure below shows an example timing diagram that demonstrates how to interface with the `tetromino_collider`.
-The inputs that define the shape and position of the tetromino to be checked are referred to as \emph{input parameters}.
+The inputs that define the shape and position of the tetromino to be checked are referred to as *input parameters*.
 They include the input signals `tetromino_x`, `tetromino_y`, `tetromino` and `rotation`.
 To start a collision check run, the `start` signal must be asserted for exactly one clock cycle.
 The input parameters must be applied at the same time as the `start` signal and must not be changed during the whole run.
