@@ -5,7 +5,7 @@
 
 [[_TOC_]]
 
-Your task is to create the `sram_ctrl` controller for the DE2-115's 2MB [IS61WV102416BLL](https://de.wikipedia.org/wiki/Static_random-access_memory) SRAM.
+Your task is to create the `sram_ctrl` controller for the DE2-115's 2MB [IS61WV102416BLL](https://www.issi.com/WW/pdf/61WV102416ALL.pdf) [SRAM](https://de.wikipedia.org/wiki/Static_random-access_memory).
 Note that an obfuscated reference implementation of the `sram_ctrl`, as well as a package containing related declarations and documentation are available in [lib/sram_ctrl](../../../lib/sram_ctrl/doc.md).
 
 
@@ -31,7 +31,7 @@ Afterwards, create your own implementation in [sram_ctrl_arch.vhd](src/sram_ctrl
 
 For your implementation consider the following remarks and hints:
 
-- Study the SRAM [datasheet](https://de.wikipedia.org/wiki/Static_random-access_memory) (in particular how write and read accesses work and the involved timings).
+- Study the SRAM [datasheet](https://www.issi.com/WW/pdf/61WV102416ALL.pdf) (in particular how write and read accesses work and the involved timings).
 
 - When reading the timing diagrams and tables in the datasheet, always check whether a given parameter is a *maximum* or *minimum* value.
 
@@ -42,7 +42,7 @@ For your implementation consider the following remarks and hints:
   We only target the DE2-115's SRAM though, meaning that you can assume that `ADDR_WIDTH=21` and `DATA_WIDTH=16`.
 
 - As stated in the lib core's documentation, the write port is buffered and features a FIFO-like interface.
-  To implement this behavior you can simply use a suitable FIFO from the provided [mem_pkg](../../../lib/sram_ctrl/doc.md) and set its size according to `WR_BUF_SIZE`.
+  To implement this behavior you can simply use a suitable FIFO from the provided [mem_pkg](../../../lib/mem_pkg/doc.md) and set its size according to `WR_BUF_SIZE`.
 
 - Note that the inputs `rdX_addr` and `wr_addr` specify byte addresses, whereas the SRAM is word-addressed.
   Hence, the `sram_ctrl` is responsible for much of the byte-accessing logic.

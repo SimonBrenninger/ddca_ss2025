@@ -150,7 +150,7 @@ However, the read port priorities / precedence resolve situations where both rea
 
 
 
-### IS61WV102416BL
+### IS61WV102416BLL
 The `IS61WV102416BLL` is a **simulation** model of the DE2-115's SRAM chip.
 
 
