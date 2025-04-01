@@ -415,7 +415,8 @@ begin
 				state_nxt.fsm_state <= VRAM_WRITE_LOOP_LOAD_OPERAND;
 
 			when VRAM_WRITE_LOOP_LOAD_OPERAND =>
-				if (gcf_empty = '0') then
+				-- for VRAM_WRITE_SEQ, data must be in the FIFO to proceed
+				if (gcf_empty = '0' or get_opcode(current_instr) = OPCODE_VRAM_WRITE_INIT) then
 					-- this state is also used by the VRAM_WRITE_INIT command, where the same
 					-- value is written to all memory locations, hence no need to read new operands.
 					if (get_opcode(current_instr) = OPCODE_VRAM_WRITE_SEQ) then
