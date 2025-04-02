@@ -91,10 +91,10 @@ The figure below shows an overview of the internal structure of the core:
 
 ![Internal structure of the VGA Graphics Controller](.mdata/core_overview.svg)
 
-Incoming graphics commands are written to the *Graphics Command FIFO* (provided by the [`mem`](../lib/mem/doc.md) package), which buffers them until they are executed.
+Incoming graphics commands are written to the *Graphics Command FIFO* (provided by the [`mem`](../mem/doc.md) package), which buffers them until they are executed.
 The *Rasterizer* then fetches instructions and their associated operands from this FIFO via the FIFO's read port (`gcf_*` signals).
 It executes them by reading and writing pixel data from and to bitmaps in VRAM (physically located in the external SRAM) or altering its internal state (e.g., changing the drawing color, configuring the bitmap descriptor table, setting the graphics pointer etc.).
-Communication with the SRAM is handled by the *SRAM Controller* provided by [`sram_ctrl`](../lib/sram_ctrl/doc.md) package.
+Communication with the SRAM is handled by the *SRAM Controller* provided by [`sram_ctrl`](../sram_ctrl/doc.md) package.
 This controller implements an abstraction-layer over the low-level physical interface of the SRAM and provides three separate ports (2 read ports, 1 write port) that can be operated more or less independently.
 Because the actual SRAM chip can only handle one read or write operation at any given time the SRAM controller has to stall individual ports if necessary.
 It does that based on a priority scheme (1 = highest priority):
@@ -109,7 +109,7 @@ The *Rasterizer* controls the which loction in VRAM, from which the *Frame Reade
 Whenever the *Frame Reader* is about to fetch a new frame it asserts the `fr_base_addr_req` signal to allow the *Rasterizer* to change the base address.
 This is how the frame synchronization (`DISPLAY_BMP` with `fs=1`) is implemented.
 
-The *VGA Controller* itself is provided by the [`vga_ctrl`](../lib/vga_ctrl/doc.md) package.
+The *VGA Controller* itself is provided by the [`vga_ctrl`](../vga_ctrl/doc.md) package.
 
 
 
