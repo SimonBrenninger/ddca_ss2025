@@ -10,7 +10,7 @@ SIM_TIME = -all
 TIME_RESOLUTION = 1ps
 
 ifdef WAVE_FILE
-	WAVE_OPT_ARG += do $(WAVE_FILE);
+WAVE_OPT_ARG += do $(WAVE_FILE);
 endif
 
 sim_gui: compile
@@ -29,7 +29,7 @@ sim: compile
 ################################################################################
 
 ifdef GHDL_WAVE_OPT
-	GHDL_WAVE_OPT_ARG += --read-wave-opt=$(GHDL_WAVE_OPT)
+GHDL_WAVE_OPT_ARG += --read-wave-opt=$(GHDL_WAVE_OPT)
 endif
 
 ifdef GHDL_USE_ALTERA_LIB

@@ -99,14 +99,14 @@ Your login credentials are the same as for the (local) TILab.
 
 ## Level I
 ![Level 1 Task Dependency Graph](.mdata/level1_graph.svg)
-| task | Points | Keywords (Topics) |
-|-|-|----|
-| [snes_ctrl](tasks/level1/snes_ctrl/task.md) | 10 | FSM, External Interface |
-| [gfx_cmd_interpreter](tasks/level1/gfx_cmd_interpreter/task.md) | 15 | Advanced Testbench, Specifications |
-| [tetris](tasks/level1/tetris/task.md) | 25 | FSM, Specifications, Filling Gaps, Reading Code |
-| [rasterizer](tasks/level1/rasterizer/task.md) | 10 | Advanced Testbench, Specifications |
-| [vga_ctrl](tasks/level1/vga_ctrl/task.md) | 10 | External Interface, Advanced Testbench, Oscilloscope |
-| [sram_ctrl](tasks/level1/sram_ctrl/task.md) | 5 | External Interface, Datasheets, FSMs |
+| task | Points | Keywords (Topics) | TUWEL Submission |
+| ---- | ------ | ----------------- | ---------------- |
+| [snes_ctrl](tasks/level1/snes_ctrl/task.md) | 10 | FSM, External Interface | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604692) |
+| [gfx_cmd_interpreter](tasks/level1/gfx_cmd_interpreter/task.md) | 15 | Advanced Testbench, Specifications | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604695) |
+| [tetris](tasks/level1/tetris/task.md) | 25 | FSM, Specifications, Filling Gaps, Reading Code | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604698) |
+| [rasterizer](tasks/level1/rasterizer/task.md) | 10 | Advanced Testbench, Specifications | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604713) |
+| [vga_ctrl](tasks/level1/vga_ctrl/task.md) | 10 | External Interface, Advanced Testbench, Oscilloscope | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604704) |
+| [sram_ctrl](tasks/level1/sram_ctrl/task.md) | 5 | External Interface, Datasheets, FSMs | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604725) |
 
 
 
