@@ -107,6 +107,7 @@ Your login credentials are the same as for the (local) TILab.
 | [rasterizer](tasks/level1/rasterizer/task.md) | 10 | Advanced Testbench, Specifications | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604713) |
 | [vga_ctrl](tasks/level1/vga_ctrl/task.md) | 10 | External Interface, Advanced Testbench, Oscilloscope | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604704) |
 | [sram_ctrl](tasks/level1/sram_ctrl/task.md) | 5 | External Interface, Datasheets, FSMs | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604725) |
+| [gc_ctrl](tasks/level1/gc_ctrl/task.md) | 5 | FSM, External Interface, 9-Valued Logic | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2604716) |
 
 
 
@@ -131,4 +132,5 @@ Feel free to use them in your designs as you see fit.
 | Tetris Utility Package | [tetris_util](lib/tetris_util/doc.md) |
 | Decimal Printer Package | [decimal_printer](lib/decimal_printer/doc.md) |
 | VGA Graphics Controller Package | [vga_gfx_ctrl](lib/vga_gfx_ctrl/doc.md) |
+| GameCube Controller Package | [gc_ctrl](lib/gc_ctrl/doc.md) |
 

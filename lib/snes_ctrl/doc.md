@@ -49,7 +49,7 @@ The frequency of the `snes_clk` signal shall be `CLK_OUT_FREQ` (in Hz).
 
 
 The `ctrl_state` output (of type `snes_ctrl_state_t`, see details below) provides the most recent state of the SNES gamepad, indicating whether each button was pressed (`'1'`) or not (`'0'`).
-This output is updated every `REFRESH_TIMEOUT` cycles of `clk`, plus the time it takes the `snes_ctrl` to fetch the connected gamepad's current state..
+This output is updated every `REFRESH_TIMEOUT` cycles of `clk`, plus the time it takes the `snes_ctrl` to fetch the connected gamepad's current state.
 
 
 
