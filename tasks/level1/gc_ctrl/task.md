@@ -40,29 +40,10 @@ After sending the polling command, the gamepad immediately answers with a 64-bit
 
 The table below lists the meaning of the individual bits of the controller’s response.
 
-| Bit   | Content            |
-|-------|--------------------|
-| 0-2   | unused (always 0)  |
-| 3     | Start              |
-| 4     | Y                  |
-| 5     | X                  |
-| 6     | B                  |
-| 7     | A                  |
-| 8     | unused (always 1)  |
-| 9     | L                  |
-| 10    | R                  |
-| 11    | Z                  |
-| 12    | Up                 |
-| 13    | Down               |
-| 14    | Right              |
-| 15    | Left               |
-| 16-23 | Joystick X-Axis (MSB @ bit 16)  |
-| 24-31 | Joystick Y-Axis (MSB @ bit 24)  |
-| 32-39 | C Stick X-Axis (MSB @ bit 32)    |
-| 40-47 | C Stick Y-Axis (MSB @ bit 40)    |
-| 48-55 | Left Trigger (MSB @ bit 48)      |
-| 56-63 | Right Trigger (MSB @ bit 56)     |
-| 64    | Stop bit (always 1)              |
+|        | 0-2   | 3     | 4   | 5   | 6   | 7   | 8     | 9   | 10  | 11  | 12  | 13  | 14   | 15   | 16-23                     | 24-31                     | 32-39                      | 40-47                      | 48-55                      | 56-63                      | 64            |
+|--------|-------|-------|-----|-----|-----|-----|-------|-----|-----|-----|-----|-----|-------|-------|--------------------------|--------------------------|----------------------------|----------------------------|----------------------------|----------------------------|----------------|
+| **Bit(s)** | 0-2   | 3     | 4   | 5   | 6   | 7   | 8     | 9   | 10  | 11  | 12  | 13  | 14   | 15   | 16-23                     | 24-31                     | 32-39                      | 40-47                      | 48-55                      | 56-63                      | 64            |
+| **Content** | unused (always 0) | Start | Y   | X   | B   | A   | unused (always 1) | L   | R   | Z   | Up  | Down | Right | Left | Joystick X-Axis (MSB @ bit 16) | Joystick Y-Axis (MSB @ bit 24) | C Stick X-Axis (MSB @ bit 32) | C Stick Y-Axis (MSB @ bit 40) | Left Trigger (MSB @ bit 48) | Right Trigger (MSB @ bit 56) | Stop bit (always 1) |
 
 
 
