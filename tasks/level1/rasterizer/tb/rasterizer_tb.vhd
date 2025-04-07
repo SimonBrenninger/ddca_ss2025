@@ -176,7 +176,7 @@ begin
 	begin
 		if res_n = '0' then
 			vram_wr_full <= '0'; -- never full
-			vram_wr_emtpy <= '0'; -- always empty
+			vram_wr_emtpy <= '1'; -- always empty
 		elsif rising_edge(clk) then
 		end if;
 	end process;
