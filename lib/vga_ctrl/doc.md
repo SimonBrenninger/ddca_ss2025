@@ -143,8 +143,13 @@ The generics `WIDTH`, `HEIGHT` can be used to configure the size of the produced
 
 #### Implementation
 
-For `WIDTH=640` and `HEIGHT=480` the test pattern generator will produce the image shown below.
+The `tpg` will produce a frame comprising the following elements.
+In the top left corner (coordinates `x=0,y=0`), there is a color gradient width a width and height of 255 pixels.
+Below and right of the color gradient there are vertical bars filled with black, white, red, green, respectivly blue (in exactly this order) in case one of the two frame dimensions surpasses 255 pixels.
+The width of the bars is `WIDTH/5` and there height is `HEIGHT` (in pixels).
+Thus, for `WIDTH=640` and `HEIGHT=480` the test pattern generator will produce the image shown below.
 Note that the test pattern has a white frame, i.e., all pixels with an `x` coordinate of `0` or `WIDTH-1`, or a `y` coordinate of `0` or `HEIGHT-1` are white.
+This frame is drawn above the gradient and bars.
 
 
 ![Test Pattern](.mdata/tpg.png)

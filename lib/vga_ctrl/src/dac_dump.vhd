@@ -47,13 +47,13 @@ begin
 		-- add .bmp file header
 		swrite(img_line, "P3");
 		writeline(output_img, img_line);
-		swrite(img_line, to_string(640) & " " & to_string(480));
+		swrite(img_line, to_string(H_VISIBLE_AREA) & " " & to_string(V_VISIBLE_AREA));
 		writeline(output_img, img_line);
 		swrite(img_line, to_string(2**8-1));
 		writeline(output_img, img_line);
 
-		for y in 0 to V_VISIBLE_AREA-1 loop -- for 480 lines
-			for x in 0 to H_VISIBLE_AREA-1 loop -- 640 cycles data
+		for y in 0 to V_VISIBLE_AREA-1 loop
+			for x in 0 to H_VISIBLE_AREA-1 loop
 				if x /= 0 then
 					swrite(img_line, "  ");
 				end if;

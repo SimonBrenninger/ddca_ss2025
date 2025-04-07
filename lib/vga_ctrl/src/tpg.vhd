@@ -58,16 +58,16 @@ begin
 
 				pix_color <= VGA_PIXEL_COLOR_BLACK;
 
-				if (x < 256 and y < 256 ) then
+				if (x < 256 and y < 256) then
 					-- color gradient
 					pix_color <= rgb_to_vga_pixel_color(x, y, 255-x);
-				elsif (x < 128) then
+				elsif (x < WIDTH/5) then
 					pix_color <= VGA_PIXEL_COLOR_BLACK;
-				elsif (x < 128*2) then
+				elsif (x < WIDTH/5*2) then
 					pix_color <= VGA_PIXEL_COLOR_WHITE;
-				elsif (x < 128*3) then
+				elsif (x < WIDTH/5*3) then
 					pix_color <= VGA_PIXEL_COLOR_RED;
-				elsif (x < 128*4) then
+				elsif (x < WIDTH/5*4) then
 					pix_color <= VGA_PIXEL_COLOR_GREEN;
 				else
 					pix_color <= VGA_PIXEL_COLOR_BLUE;
