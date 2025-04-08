@@ -452,7 +452,6 @@ begin
 
 			-- requires: current_instr, addrhi, addrlo
 			when VRAM_READ =>
-				state_nxt.fsm_state <= WAIT_VRAM_READ1;
 				vram_rd_addr <= addrhi & addrlo;
 				if (current_instr(INDEX_M) = M_WORD) then
 					vram_rd_access_mode <= WORD;
@@ -462,6 +461,7 @@ begin
 				-- wait for all writes to complete to avoid memory inconsistencies
 				if (vram_wr_emtpy = '1') then
 					vram_rd <= '1';
+					state_nxt.fsm_state <= WAIT_VRAM_READ1;
 				end if;
 
 			when WAIT_VRAM_READ1 =>
