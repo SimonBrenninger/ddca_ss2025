@@ -70,11 +70,12 @@ begin
 
 	read : process is
 	begin
-		wait on a;
-		if we_n = '1' and we_n'stable(TSA) then
+		wait until a /= (a'range => 'U');
+		while true loop
 			wait for TAA;
 			readdata <= memory(to_integer(unsigned(a)));
-		end if;
+			wait on a;
+		end loop;
 	end process;
 
 	init : process is begin
