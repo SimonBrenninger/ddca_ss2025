@@ -127,7 +127,5 @@ Ask a tutor for help if you are unsure how to proceed!
 
 - **Implement**: [gc_ctrl_tb.vhd](tb/gc_ctrl_tb.vhd)
 
-- **Implement**: [top_arch.vhd](top_arch.vhd)
-
 
 [Return to main page](../../../README.md)
