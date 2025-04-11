@@ -133,4 +133,6 @@ Feel free to use them in your designs as you see fit.
 | Decimal Printer Package | [decimal_printer](lib/decimal_printer/doc.md) |
 | VGA Graphics Controller Package | [vga_gfx_ctrl](lib/vga_gfx_ctrl/doc.md) |
 | GameCube Controller Package | [gc_ctrl](lib/gc_ctrl/doc.md) |
+| RISCV-V Core Package | [rv_core](lib/rv_core/doc.md) |
+| RISCV-V ALU Package | [rv_alu](lib/rv_alu/doc.md) |
 
