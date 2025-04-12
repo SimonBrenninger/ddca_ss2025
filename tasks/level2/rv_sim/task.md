@@ -1,7 +1,7 @@
 
 # RISC-V Simulation Model
 
-**Points:** 10 `|` **Keywords**: simulation, risc-v, specificatins
+**Points:** 15 `|` **Keywords**: simulation, risc-v, specificatins
 
 [[_TOC_]]
 
@@ -13,7 +13,7 @@ The goal of this task is to create a simulation model (`rv_sim`) of the RV32I RI
 ## Description
 
 Start by thoroughly reading the specification of the RV ISA we'll use in DDCA, provided in [`rv_core`](../../../lib/rv_core/doc.md).
-Next, implement this ISA in the `rv_sim` module (a template is already provided in [rv_sim.vhd](src/rv_sim.vhd)).
+Next, implement this ISA in the `rv_sim` module (a template is already provided in [`rv_sim.vhd`](src/rv_sim.vhd)).
 Be aware that this is a **simulation model**.
 Hence, your code is not required to be synthesizable (in fact, there is not even a Quartus project for this task) and you can thus make use VHDL in all its glory.
 
@@ -49,7 +49,7 @@ For your implementation consider the following remarks and hints:
 
 ## Testbench
 
-We already provide you with a testbench in [rv_sim_tb.vhd](tb/rv_sim_tb.vhd) which instantiates the `rv_sim` and connects it to an instance of [`rv_sys`](../../../lib/rv_sys/doc.md).
+We already provide you with a testbench in [`rv_sim_tb.vhd`](tb/rv_sim_tb.vhd) which instantiates the `rv_sim` and connects it to an instance of [`rv_sys`](../../../lib/rv_sys/doc.md).
 You do not have to change anything in testbench, but you can if you want to.
 
 In order to actually test your processor, run programs on it and check if they work as expected (you can observe the register contents, memory interfaces and - if available - UART output).
@@ -88,7 +88,7 @@ Comment out what you don't need or use `grep` on the simulator output (e.g. `mak
 
 ## Delieverables
 
-- **Implement**: [rv_sim.vhd](src/rv_sim.vhd)
+- **Implement**: [`rv_sim.vhd`](src/rv_sim.vhd)
 
 
 [Return to main page](../../../README.md)
