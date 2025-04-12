@@ -8,19 +8,18 @@ The `sram_ctrl_pkg` provides an interface controller, `sram_ctrl`, to the DE2-11
 
 ## Required Files
 
-- [IS61WV102416BLL.vhd](src/IS61WV102416BLL.vhd)
+- [`IS61WV102416BLL.vhd`](src/IS61WV102416BLL.vhd)
 
-- [sram_ctrl.vhd](src/sram_ctrl.vhd)
+- [`sram_ctrl.vhd`](src/sram_ctrl.vhd)
 
-- [sram_ctrl_arch_ref.vhd](src/sram_ctrl_arch_ref.vhd)
+- [`sram_ctrl_arch_ref.vhd`](src/sram_ctrl_arch_ref.vhd)
 
-- [sram_ctrl_pkg.vhd](src/sram_ctrl_pkg.vhd)
+- [`sram_ctrl_pkg.vhd`](src/sram_ctrl_pkg.vhd)
 
 ## Components
 
-### sram_ctrl
+### `sram_ctrl`
 The `sram_ctrl` module abstracts away the hardware details of the IS61WV102416BLL chip and provides two mixed-priority read ports and one buffered write port that are byte-addressable and, to some extent, independent interfaces to this memory.
-
 
 
 ```vhdl
@@ -150,13 +149,22 @@ However, the read port priorities / precedence resolve situations where both rea
 
 
 
-### IS61WV102416BLL
+### `IS61WV102416BLL`
 The `IS61WV102416BLL` is a **simulation** model of the DE2-115's SRAM chip.
 
 
-
 ```vhdl
-
+entity IS61WV102416BLL is
+	port (
+		a    : in    std_ulogic_vector(19 downto 0);
+		io   : inout std_ulogic_vector(15 downto 0);
+		ce_n : in    std_ulogic;
+		oe_n : in    std_ulogic;
+		we_n : in    std_ulogic;
+		lb_n : in    std_ulogic;
+		ub_n : in    std_ulogic
+	);
+end entity;
 ```
 
 
@@ -178,7 +186,6 @@ However, it is still useful as a first check whether an SRAM interface is implem
 
 
 ## Types and Constants
-
 ```vhdl
 type sram_access_mode_t is (BYTE, WORD);
 ```
@@ -186,23 +193,28 @@ type sram_access_mode_t is (BYTE, WORD);
 The `sram_access_mode_t` enumeration type is used to specify the type of memory operation, i.e., whether an access is `BYTE` (8-bit) or `WORD` (16-bit) addressed.
 
 
+
+
+
 ## Subprograms
-
-```vhdl
-function to_sul(x : sram_access_mode_t) return std_ulogic;
-```
-
-This function returns a `std_ulogic` representation of the passed `sram_access_mode_t` value. The value `WORD` is mapped to `'1'`, while `BYTE` is mapped to `'0'`
-
-
+-   ```vhdl
+    function to_sul(x : sram_access_mode_t) return std_ulogic;
+    ```
+    
+    This function returns a `std_ulogic` representation of the passed `sram_access_mode_t` value. The value `WORD` is mapped to `'1'`, while `BYTE` is mapped to `'0'`
+    
 ---
 
 
-```vhdl
-function to_sram_access_mode_t(x : std_ulogic) return sram_access_mode_t;
-```
+-   ```vhdl
+    function to_sram_access_mode_t(x : std_ulogic) return sram_access_mode_t;
+    ```
+    
+    Allow conversion between values of `std_ulogic` and `sram_access_mode_t`. For a parameter value of `'1'` the value `WORD` is returned, otherwise `BYTE`.
+    
 
-Allow conversion between values of `std_ulogic` and `sram_access_mode_t`. For a parameter value of `'1'` the value `WORD` is returned, otherwise `BYTE`.
+
+
 
 
 [Return to main page](../../README.md)

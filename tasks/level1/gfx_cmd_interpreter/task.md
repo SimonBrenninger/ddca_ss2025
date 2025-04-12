@@ -35,7 +35,6 @@ You do not have to use the provided code, but we strongly suggest you to.
 The interface of the `gfx_cmd_interpreter` entity is
 
 
-
 ```vhdl
 entity gfx_cmd_interpreter is
 	generic (
@@ -96,9 +95,9 @@ Use the provided [template](tb/gfx_cmd_interpreter_tb.vhd).
 
 ## Delieverables
 
-- **Implement**: [gfx_cmd_interpreter.vhd](src/gfx_cmd_interpreter.vhd)
+- **Implement**: [`gfx_cmd_interpreter.vhd`](src/gfx_cmd_interpreter.vhd)
 
-- **Implement**: [gfx_cmd_interpreter_tb.vhd](tb/gfx_cmd_interpreter_tb.vhd)
+- **Implement**: [`gfx_cmd_interpreter_tb.vhd`](tb/gfx_cmd_interpreter_tb.vhd)
 
 
 [Return to main page](../../../README.md)

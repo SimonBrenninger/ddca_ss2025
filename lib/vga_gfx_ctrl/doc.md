@@ -7,29 +7,28 @@ The `vga_gfx_ctrl_pkg` package provides a single core that implements a GCI and 
 
 ## Required Files
 
-- [frame_reader.vhd](src/frame_reader.vhd)
+- [`frame_reader.vhd`](src/frame_reader.vhd)
 
-- [gfx_circle.vhd](src/gfx_circle.vhd)
+- [`gfx_circle.vhd`](src/gfx_circle.vhd)
 
-- [gfx_util_pkg.vhd](src/gfx_util_pkg.vhd)
+- [`gfx_util_pkg.vhd`](src/gfx_util_pkg.vhd)
 
-- [pixel_reader.vhd](src/pixel_reader.vhd)
+- [`pixel_reader.vhd`](src/pixel_reader.vhd)
 
-- [pixel_writer.vhd](src/pixel_writer.vhd)
+- [`pixel_writer.vhd`](src/pixel_writer.vhd)
 
-- [rasterizer.vhd](src/rasterizer.vhd)
+- [`rasterizer.vhd`](src/rasterizer.vhd)
 
-- [rasterizer_arch_ref.vhd](src/rasterizer_arch_ref.vhd)
+- [`rasterizer_arch_ref.vhd`](src/rasterizer_arch_ref.vhd)
 
-- [vga_gfx_ctrl.vhd](src/vga_gfx_ctrl.vhd)
+- [`vga_gfx_ctrl.vhd`](src/vga_gfx_ctrl.vhd)
 
-- [vga_gfx_ctrl_pkg.vhd](src/vga_gfx_ctrl_pkg.vhd)
+- [`vga_gfx_ctrl_pkg.vhd`](src/vga_gfx_ctrl_pkg.vhd)
 
 ## Components
 
-### vga_gfx_ctrl
+### `vga_gfx_ctrl`
 The `vga_gfx_ctrl` implements a GCI (sink), uses 2 MB of external SRAM as Video RAM and outputs a VGA signal.
-
 
 ```vhdl
 entity vga_gfx_ctrl is

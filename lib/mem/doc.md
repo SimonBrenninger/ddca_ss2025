@@ -7,19 +7,19 @@ This package provides commonly used on-chip memories in the from of random acces
 
 ## Required Files
 
-- [dp_ram_1c1r1w.vhd](src/dp_ram_1c1r1w.vhd)
+- [`dp_ram_1c1r1w.vhd`](src/dp_ram_1c1r1w.vhd)
 
-- [dp_ram_1c1r1w_rdw.vhd](src/dp_ram_1c1r1w_rdw.vhd)
+- [`dp_ram_1c1r1w_rdw.vhd`](src/dp_ram_1c1r1w_rdw.vhd)
 
-- [dp_ram_2c2rw.vhd](src/dp_ram_2c2rw.vhd)
+- [`dp_ram_2c2rw.vhd`](src/dp_ram_2c2rw.vhd)
 
-- [dp_ram_2c2rw_byteen.vhd](src/dp_ram_2c2rw_byteen.vhd)
+- [`dp_ram_2c2rw_byteen.vhd`](src/dp_ram_2c2rw_byteen.vhd)
 
-- [fifo_1c1r1w.vhd](src/fifo_1c1r1w.vhd)
+- [`fifo_1c1r1w.vhd`](src/fifo_1c1r1w.vhd)
 
-- [fifo_1c1r1w_fwft.vhd](src/fifo_1c1r1w_fwft.vhd)
+- [`fifo_1c1r1w_fwft.vhd`](src/fifo_1c1r1w_fwft.vhd)
 
-- [mem_pkg.vhd](src/mem_pkg.vhd)
+- [`mem_pkg.vhd`](src/mem_pkg.vhd)
 
 
 ## Overview
@@ -41,9 +41,8 @@ This package provides various on-chip memory modules, with different access stra
 
 ## Components
 
-### dp_ram_1c1r1w
+### `dp_ram_1c1r1w`
 The `dp_ram_1c1r1w` (1 clock 1 read 1 write) is a simple dual-port RAM, enabling simultaneous read and write operations with a single clock.
-
 
 ```vhdl
 entity dp_ram_1c1r1w is
@@ -92,9 +91,8 @@ At any rising edge of the `clk` signal, when the `wr2` signal is high, the data 
 The implementation follows the Intel design recommendations for a [Single-Clock Synchronous RAM with Old Data Read-During-Write Behavior](https://www.intel.com/content/www/us/en/docs/programmable/683082/21-3/single-clock-synchronous-ram-with-old.html).
 
 
-### dp_ram_1c1r1w_rdw
+### `dp_ram_1c1r1w_rdw`
 The `dp_ram_1c1r1w_rdw` (1 clock 1 read 1 write) is a single-clock simple dual-port synchronous RAM with New Data Read-During-Write behavior.
-
 
 ```vhdl
 entity dp_ram_1c1r1w_rdw is
@@ -140,9 +138,8 @@ The following timing diagram illustrates this:
 The implementation follows the Intel design recommendations for a [Single-Clock Synchronous RAM with New Data Read-During-Write Behavior](https://www.intel.com/content/www/us/en/docs/programmable/683082/21-3/single-clock-synchronous-ram-with-new.html).
 
 
-### dp_ram_2c2rw
+### `dp_ram_2c2rw`
 The `dp_ram_2c2rw` (2 clocks 2 read/write ) is a dual-clock RAM with two independent read/write ports.
-
 
 ```vhdl
 entity dp_ram_2c2rw is
@@ -192,9 +189,8 @@ Each port supports both reading and writing operations:
 The implementation follows the Intel design recommendations for [True Dual-Port Synchronous RAM](https://www.intel.com/content/www/us/en/docs/programmable/683082/21-3/true-dual-port-synchronous-ram.html).
 
 
-### dp_ram_2c2rw_byteen
+### `dp_ram_2c2rw_byteen`
 The `dp_ram_2c2rw_byteen` (2 clocks 2 read/write with byte enable) is a dual-clock RAM with two independent read/write ports and incorporates byte-enable controls for each data byte.
-
 
 ```vhdl
 entity dp_ram_2c2rw_byteen is
@@ -252,9 +248,8 @@ The `rw{1|2}_wr` signals are logically ANDed with the corresponding `rw{1|2}_wr_
 
 
 
-### fifo_1c1r1w
+### `fifo_1c1r1w`
 The `fifo_1c1r1w` (1 clock 1 read 1 write) is a single-clock FIFO (first-in first-out) that manages data flow with customizable depth and data width.
-
 
 ```vhdl
 entity fifo_1c1r1w is
@@ -324,9 +319,8 @@ Pointer management and status signal updates are handled within synchronous proc
 
 
 
-### fifo_1c1r1w_fwft
+### `fifo_1c1r1w_fwft`
 The `fifo_1c1r1w_fwft` (1 clock 1 read 1 write with First Word Fall Through behavior) is designed to streamline data handling by allowing the first word written to be immediately available at the output.
-
 
 ```vhdl
 entity fifo_1c1r1w_fwft is

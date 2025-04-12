@@ -31,7 +31,7 @@ Below is an example of one complete transmission, meaning that all button states
 ## Description
 
 Start by thoroughly reading the documentation of the [provided `snes_ctrl` core](../../../lib/snes_ctrl/doc.md).
-Afterwards, create your own implementation in [snes_ctrl_arch.vhd](src/snes_ctrl_arch.vhd).
+Afterwards, create your own implementation in [`snes_ctrl_arch.vhd`](src/snes_ctrl_arch.vhd).
 
 For your implementation consider the following remarks and hints:
 
@@ -54,7 +54,7 @@ In the example transmission above these sampling times are marked by the orange 
 
 ## Testbench
 
-Implement a testbench for your `snes_ctrl` in the provided [snes_ctrl_tb.vhd](tb/snes_ctrl_tb.vhd) file.
+Implement a testbench for your `snes_ctrl` in the provided [`snes_ctrl_tb.vhd`](tb/snes_ctrl_tb.vhd) file.
 In particular, you have to do the following steps:
 
 - Implement the already declared `generate_snes_data_input` procedure which shall generate the correct `snes_data` waveform for the respective value of the `snes_ctrl_state_t` input parameter.
@@ -72,7 +72,7 @@ Provide a screenshot (`period.png`), that shows this, including the `CLK_FREQ` a
 
 ## Hardware
 
-Once you have implemented and tested your `snes_ctrl`, use the provided architecture in [top_arch.vhd](top_arch.vhd) to verify its functionality in hardware. To do this, connect each record entry of the `ctrl_state` output to a dedicated LED of `ledr` and verify that your implementation correctly detects each button press on the gamepad.
+Once you have implemented and tested your `snes_ctrl`, use the provided architecture in [`top_arch.vhd`](top_arch.vhd) to verify its functionality in hardware. To do this, connect each record entry of the `ctrl_state` output to a dedicated LED of `ledr` and verify that your implementation correctly detects each button press on the gamepad.
 
 **Important**: The gamepad must be correctly connected to the board's GPIO connector; otherwise the board and/or the gamepad might be damaged.
 The correct way to connect the gamepad is shown below.
@@ -86,11 +86,11 @@ Ask a tutor for help if you are unsure how to proceed!
 
 - **Create**: period.png
 
-- **Implement**: [snes_ctrl_arch.vhd](src/snes_ctrl_arch.vhd)
+- **Implement**: [`snes_ctrl_arch.vhd`](src/snes_ctrl_arch.vhd)
 
-- **Implement**: [snes_ctrl_tb.vhd](tb/snes_ctrl_tb.vhd)
+- **Implement**: [`snes_ctrl_tb.vhd`](tb/snes_ctrl_tb.vhd)
 
-- **Implement**: [top_arch.vhd](top_arch.vhd)
+- **Implement**: [`top_arch.vhd`](top_arch.vhd)
 
 
 [Return to main page](../../../README.md)

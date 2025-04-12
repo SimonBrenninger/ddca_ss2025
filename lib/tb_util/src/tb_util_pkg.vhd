@@ -22,8 +22,8 @@ package tb_util_pkg is
 		procedure dump_bitmap (base_address, width, height : natural; filename : string);
 	end protected;
 
-	procedure uart_receive (signal s: in std_ulogic; baud_rate: integer; data: out std_ulogic_vector(7 downto 0));
-	procedure uart_transmit (signal s: out std_ulogic; baud_rate: integer; data: std_ulogic_vector(7 downto 0));
+	procedure uart_receive (signal rx: in std_ulogic; baud_rate: positive; rx_data: out std_ulogic_vector(7 downto 0));
+	procedure uart_transmit (signal tx: out std_ulogic; baud_rate: positive; tx_data: std_ulogic_vector(7 downto 0));
 	function to_character(b: std_ulogic_vector(7 downto 0)) return character;
 end package;
 
@@ -134,29 +134,28 @@ package body tb_util_pkg is
 		end procedure;
 	end protected body;
 
-	procedure uart_receive (signal s: in std_ulogic; baud_rate: integer; data: out std_ulogic_vector(7 downto 0) ) is
+	procedure uart_receive (signal rx : in std_ulogic; baud_rate: positive; rx_data: out std_ulogic_vector(7 downto 0) ) is
 	begin
-		wait until falling_edge(s);
+		wait until falling_edge(rx);
 		wait for (1000 ms/baud_rate)*0.5;
-		assert s = '0' report "start bit error" severity warning;
+		assert rx = '0' report "start bit error" severity warning;
 		for i in 0 to 7 loop
 			wait for (1000 ms/baud_rate);
-			-- report "sampling bit " & to_string(i);
-			data(i) := s;
+			rx_data(i) := rx;
 		end loop;
 		wait for (1000 ms/baud_rate);
-		assert s = '1' report "stop bit error" severity warning;
+		assert rx = '1' report "stop bit error" severity warning;
 	end procedure;
 
-	procedure uart_transmit (signal s: out std_ulogic; baud_rate: integer; data: std_ulogic_vector(7 downto 0)) is
+	procedure uart_transmit (signal tx : out std_ulogic; baud_rate: positive; tx_data: std_ulogic_vector(7 downto 0)) is
 	begin
-		s <= '0';
+		tx <= '0';
 		wait for (1000 ms/baud_rate);
 		for i in 0 to 7 loop
-			s <= data(i);
+			tx <= tx_data(i);
 			wait for (1000 ms/baud_rate);
 		end loop;
-		s <= '1';
+		tx <= '1';
 		wait for (1000 ms/baud_rate);
 	end procedure;
 

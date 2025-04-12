@@ -7,21 +7,20 @@ This package provides everything required to interface with the DE2115-2 board's
 
 ## Required Files
 
-- [dac_dump.vhd](src/dac_dump.vhd)
+- [`dac_dump.vhd`](src/dac_dump.vhd)
 
-- [tpg.vhd](src/tpg.vhd)
+- [`tpg.vhd`](src/tpg.vhd)
 
-- [vga_ctrl.vhd](src/vga_ctrl.vhd)
+- [`vga_ctrl.vhd`](src/vga_ctrl.vhd)
 
-- [vga_ctrl_arch_ref.vhd](src/vga_ctrl_arch_ref.vhd)
+- [`vga_ctrl_arch_ref.vhd`](src/vga_ctrl_arch_ref.vhd)
 
-- [vga_ctrl_pkg.vhd](src/vga_ctrl_pkg.vhd)
+- [`vga_ctrl_pkg.vhd`](src/vga_ctrl_pkg.vhd)
 
 ## Components
 
-### vga_ctrl
+### `vga_ctrl`
 The self-contained `vga_ctrl` library core can be directly connected to the DE2-115's VGA DAC in order to dislay images on a connected screen.
-
 
 ```vhdl
 entity vga_ctrl is
@@ -109,9 +108,8 @@ This means that each line consists of 800 clock cycles and that there are 525 li
 
 
 
-### tpg
+### `tpg`
 The *synthesizable* test pattern generator (`tpg`) outputs a static test image using an `vga_ctrl`, thus providing a first, simple test for implementations.
-
 
 ```vhdl
 entity tpg is
@@ -154,9 +152,8 @@ This frame is drawn above the gradient and bars.
 
 ![Test Pattern](.mdata/tpg.png)
 
-### dac_dump
+### `dac_dump`
 The *non-synthesizable* `dac_dump` acts as a sink for the `vga_*` signals of a `vga_ctrl` instance and dumps the frames drawn by such an image as bitmaps to the local file system.
-
 
 ```vhdl
 entity dac_dump is
@@ -208,82 +205,65 @@ The resulting files can therefore become quite large.
 
 
 ## Types and Constants
-
-```vhdl
-type vga_pixel_color_t is record
-	r : std_ulogic_vector(7 downto 0);
-	g : std_ulogic_vector(7 downto 0);
-	b : std_ulogic_vector(7 downto 0);
-end record;
-```
-
-
-
-```vhdl
-constant VGA_PIXEL_COLOR_WHITE : vga_pixel_color_t := (others => x"FF");
-```
-
-
-
-```vhdl
-constant VGA_PIXEL_COLOR_BLACK : vga_pixel_color_t := (others => x"00");
-```
-
-
-
-```vhdl
-constant VGA_PIXEL_COLOR_RED   : vga_pixel_color_t := (r => x"FF", others => x"00");
-```
-
-
-
-```vhdl
-constant VGA_PIXEL_COLOR_GREEN : vga_pixel_color_t := (g => x"FF", others => x"00");
-```
-
-
-
-```vhdl
-constant VGA_PIXEL_COLOR_BLUE  : vga_pixel_color_t := (b => x"FF", others => x"00");
-```
-
-The `vga_pixel_color_t` record type captures 24-bit RGB color values, allowing for a simpler interface to the `vga_ctrl` and from the `vga_trl` to the DAC.
-It consists of three 8-bit `std_ulogic_vector` elements, one for each for **r**ed, **g**reen, and **b**lue color channel.
-
-
-## Subprograms
-
-```vhdl
-function rgb_to_vga_pixel_color(r, g, b : std_ulogic_vector(7 downto 0)) return vga_pixel_color_t;
-function rgb_to_vga_pixel_color(r, g, b : unsigned(7 downto 0)) return vga_pixel_color_t;
-function rgb_to_vga_pixel_color(r, g, b : natural) return vga_pixel_color_t;
-```
-
-The different overloads of the `rgb_to_vga_pixel_color` function convert three 8-bit RGB values into an equivalent value of `vga_pixel_color_t`.
-For the overload using parameters of type `natural`, the implementation asserts if the passed values fit within 8-bit.
-
-
-
+-   ```vhdl
+    type vga_pixel_color_t is record
+    	r : std_ulogic_vector(7 downto 0);
+    	g : std_ulogic_vector(7 downto 0);
+    	b : std_ulogic_vector(7 downto 0);
+    end record;
+    ```
+    
+    The `vga_pixel_color_t` record type captures 24-bit RGB color values, allowing for a simpler interface to the `vga_ctrl` and from the `vga_trl` to the DAC.
+    It consists of three 8-bit `std_ulogic_vector` elements, one for each for **r**ed, **g**reen, and **b**lue color channel.
+    
+    
 ---
 
 
-```vhdl
-function rgb_332_to_vga_pixel_color(rgb : std_ulogic_vector(7 downto 0)) return vga_pixel_color_t;
-function rgb_332_to_vga_pixel_color(rgb : unsigned(7 downto 0)) return vga_pixel_color_t;
-function rgb_332_to_vga_pixel_color(rgb : natural) return vga_pixel_color_t;
-```
+-   ```vhdl
+    constant VGA_PIXEL_COLOR_WHITE : vga_pixel_color_t := (others => x"FF");
+    constant VGA_PIXEL_COLOR_BLACK : vga_pixel_color_t := (others => x"00");
+    constant VGA_PIXEL_COLOR_RED   : vga_pixel_color_t := (r => x"FF", others => x"00");
+    constant VGA_PIXEL_COLOR_GREEN : vga_pixel_color_t := (g => x"FF", others => x"00");
+    constant VGA_PIXEL_COLOR_BLUE  : vga_pixel_color_t := (b => x"FF", others => x"00");
+    ```
+    
+    Some pre-defined colors for usage in places where `vga_pixel_color_t` is used.
+    
 
 
 
-```vhdl
-function rgb_565_to_vga_pixel_color(rgb : std_ulogic_vector(15 downto 0)) return vga_pixel_color_t;
-function rgb_565_to_vga_pixel_color(rgb : unsigned(15 downto 0)) return vga_pixel_color_t;
-function rgb_565_to_vga_pixel_color(rgb : natural) return vga_pixel_color_t;
-```
 
-The `rgb_XYZ_to_vga_pixel_color` functions convert a 8- / 16-bit RGB values into an equivalent 24-bit color of type `vga_pixel_color_t`.
-The sequence `XYZ` refers to the amount of bits used for the color chanlles red, green, and blue.
-For example, the function with `XYZ`332` uses 3-bits for red and green and 2 bits for blue.
+## Subprograms
+-   ```vhdl
+    function rgb_to_vga_pixel_color(r, g, b : std_ulogic_vector(7 downto 0)) return vga_pixel_color_t;
+    function rgb_to_vga_pixel_color(r, g, b : unsigned(7 downto 0)) return vga_pixel_color_t;
+    function rgb_to_vga_pixel_color(r, g, b : natural) return vga_pixel_color_t;
+    ```
+    
+    The different overloads of the `rgb_to_vga_pixel_color` function convert three 8-bit RGB values into an equivalent value of `vga_pixel_color_t`.
+    For the overload using parameters of type `natural`, the implementation asserts if the passed values fit within 8-bit.
+    
+    
+---
+
+
+-   ```vhdl
+    function rgb_332_to_vga_pixel_color(rgb : std_ulogic_vector(7 downto 0)) return vga_pixel_color_t;
+    function rgb_332_to_vga_pixel_color(rgb : unsigned(7 downto 0)) return vga_pixel_color_t;
+    function rgb_332_to_vga_pixel_color(rgb : natural) return vga_pixel_color_t;
+    function rgb_565_to_vga_pixel_color(rgb : std_ulogic_vector(15 downto 0)) return vga_pixel_color_t;
+    function rgb_565_to_vga_pixel_color(rgb : unsigned(15 downto 0)) return vga_pixel_color_t;
+    function rgb_565_to_vga_pixel_color(rgb : natural) return vga_pixel_color_t;
+    ```
+    
+    The `rgb_XYZ_to_vga_pixel_color` functions convert a 8- / 16-bit RGB values into an equivalent 24-bit color of type `vga_pixel_color_t`.
+    The sequence `XYZ` refers to the amount of bits used for the color chanlles red, green, and blue.
+    For example, the function with `XYZ`332` uses 3-bits for red and green and 2 bits for blue.
+    
+    
+
+
 
 
 

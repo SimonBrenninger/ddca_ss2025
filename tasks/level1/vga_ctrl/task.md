@@ -65,7 +65,7 @@ This DAC is made for video transmissions in particular and allows us to drive th
 ## Description
 
 Start by thoroughly reading the documentation of the [provided `vga_ctrl` core](../../../lib/vga_ctrl/doc.md).
-Afterwards, create your own implementation in [vga_ctrl_arch.vhd](src/vga_ctrl_arch.vhd).
+Afterwards, create your own implementation in [`vga_ctrl_arch.vhd`](src/vga_ctrl_arch.vhd).
 
 For your implementation consider the following remarks and hints:
 
@@ -77,7 +77,7 @@ For your implementation consider the following remarks and hints:
 
 - Note that our video mode, theoretically requires a clock with a frequency of 27.175 MHz.
   However, for the sake of simplicity we use 25 MHz, as most displays are fine with this slightly off-spec frequency.
-  For that purpose you are already provided with a phase-locked loop (PLL) IP instantiation in [pll.vhd](src/pll.vhd).
+  For that purpose you are already provided with a phase-locked loop (PLL) IP instantiation in [`pll.vhd`](src/pll.vhd).
   This PLL is configured to generate a 25 MHz clock and already properly connected in top_arch.
   I.e., you do not have to do anything to get a 25 MHz clock.
 
@@ -94,7 +94,7 @@ For your implementation consider the following remarks and hints:
 
 ## Testbench
 
-Test your `vga_ctrl` implementation using the provided testbench in [vga_ctrl_tb.vhd](tb/vga_ctrl_tb.vhd).
+Test your `vga_ctrl` implementation using the provided testbench in [`vga_ctrl_tb.vhd`](tb/vga_ctrl_tb.vhd).
 This testbench applies a test pattern to your implementation and dumps the resulting frames as bitmaps to your local file system (for details be referred to the [lib core documentation](../../../lib/vga_ctrl/doc.md).
 
 Modify the testbench to feature assertions that check if all timings of the VGA protocol are satsified for a given set of generics.
@@ -107,7 +107,7 @@ Note that, if required for debugging, the testbench allows you to easily apply m
 
 ## Hardware
 
-Once you have implemented and tested your `vga_ctrl` implementation, use the provided architecture in [top_arch.vhd](top_arch.vhd) to test your implementation on hardware.
+Once you have implemented and tested your `vga_ctrl` implementation, use the provided architecture in [`top_arch.vhd`](top_arch.vhd) to test your implementation on hardware.
 The provided top architecture already connects your implementation to an instance of the test pattern generator.
 I.e., if your implementation works correctly you should see the test pattern image on the VGA screen (or remotely in the respective stream).
 
@@ -130,9 +130,9 @@ Note that the oscilloscope in the TILab is able to write to USB flash drives.
 
 - **Create**: oscilloscope.png
 
-- **Implement**: [vga_ctrl_arch.vhd](src/vga_ctrl_arch.vhd)
+- **Implement**: [`vga_ctrl_arch.vhd`](src/vga_ctrl_arch.vhd)
 
-- **Implement**: [vga_ctrl_tb.vhd](tb/vga_ctrl_tb.vhd)
+- **Implement**: [`vga_ctrl_tb.vhd`](tb/vga_ctrl_tb.vhd)
 
 
 [Return to main page](../../../README.md)

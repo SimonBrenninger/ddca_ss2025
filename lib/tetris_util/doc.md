@@ -8,11 +8,11 @@ The `tetris_util_pkg` package contains some utility functions and modules that d
 
 ## Required Files
 
-- [tetris_util_pkg.vhd](src/tetris_util_pkg.vhd)
+- [`tetris_util_pkg.vhd`](src/tetris_util_pkg.vhd)
 
-- [tetromino_collider.vhd](src/tetromino_collider.vhd)
+- [`tetromino_collider.vhd`](src/tetromino_collider.vhd)
 
-- [tetromino_drawer.vhd](src/tetromino_drawer.vhd)
+- [`tetromino_drawer.vhd`](src/tetromino_drawer.vhd)
 
 
 ## Overview
@@ -71,9 +71,8 @@ assert is_tetromino_solid_at(TET_T, ROT_0, "10", "01") = true;
 
 ## Components
 
-### tetromino_drawer
+### `tetromino_drawer`
 The `tetromino_drawer` allows drawing of tetrominoes to a Graphics Command Interface (GCI).
-
 
 ```vhdl
 component tetromino_drawer is
@@ -119,9 +118,8 @@ As soon as the `busy` signal is deasserted, a new drawing process can be started
 ![Tetromino Drawer example timing diagram](.mdata/tetromino_drawer_timing.svg)
 
 
-### tetromino_collider
+### `tetromino_collider`
 The `tetromino_collider` can be used to check whether a given tetromino collides with a 2D map of blocks or its borders.
-
 
 ```vhdl
 component tetromino_collider is

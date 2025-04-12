@@ -7,17 +7,16 @@ This package provides everything required to interface with a [SNES (Super Ninte
 
 ## Required Files
 
-- [snes_ctrl.vhd](src/snes_ctrl.vhd)
+- [`snes_ctrl.vhd`](src/snes_ctrl.vhd)
 
-- [snes_ctrl_arch_ref.vhd](src/snes_ctrl_arch_ref.vhd)
+- [`snes_ctrl_arch_ref.vhd`](src/snes_ctrl_arch_ref.vhd)
 
-- [snes_ctrl_pkg.vhd](src/snes_ctrl_pkg.vhd)
+- [`snes_ctrl_pkg.vhd`](src/snes_ctrl_pkg.vhd)
 
 ## Components
 
-### snes_ctrl
+### `snes_ctrl`
 The self-contained `snes_ctrl` module can be directly connected to a SNES gamepad and will continuously poll the states of its buttons.
-
 
 ```vhdl
 component snes_ctrl is
@@ -56,7 +55,7 @@ This output is updated every `REFRESH_TIMEOUT` cycles of `clk`, plus the time it
 
 #### Implementation
 
-The implementation of the `snes_ctrl` can be found in [snes_ctrl_arch_ref.vhd](src/snes_ctrl_arch_ref.vhd).
+The implementation of the `snes_ctrl` can be found in [`snes_ctrl_arch_ref.vhd`](src/snes_ctrl_arch_ref.vhd).
 
 This reference architecture implements the SNES protocol and polls the state of a connected controller approximately every 200 us.
 **After** each polling cycle, the `ctrl_state` output is updated (i.e., the states of all buttons in the connected gamepad are always consistent).
@@ -67,51 +66,50 @@ Each pulse on `snes_latch`hast the same pulse width as those on `snes_clk`.
 
 
 ## Types and Constants
-
-```vhdl
-type snes_ctrl_state_t is record
-	btn_up     : std_ulogic;
-	btn_down   : std_ulogic;
-	btn_left   : std_ulogic;
-	btn_right  : std_ulogic;
-	btn_a      : std_ulogic;
-	btn_b      : std_ulogic;
-	btn_x      : std_ulogic;
-	btn_y      : std_ulogic;
-	btn_l      : std_ulogic;
-	btn_r      : std_ulogic;
-	btn_start  : std_ulogic;
-	btn_select : std_ulogic;
-end record;
-```
-
-Represents the state of a SNES gamepad using a single-bit element of each of the twelve buttons, indicating whether a button is pressed or not.
-
-
-
+-   ```vhdl
+    type snes_ctrl_state_t is record
+    	btn_up     : std_ulogic;
+    	btn_down   : std_ulogic;
+    	btn_left   : std_ulogic;
+    	btn_right  : std_ulogic;
+    	btn_a      : std_ulogic;
+    	btn_b      : std_ulogic;
+    	btn_x      : std_ulogic;
+    	btn_y      : std_ulogic;
+    	btn_l      : std_ulogic;
+    	btn_r      : std_ulogic;
+    	btn_start  : std_ulogic;
+    	btn_select : std_ulogic;
+    end record;
+    ```
+    
+    Represents the state of a SNES gamepad using a single-bit element of each of the twelve buttons, indicating whether a button is pressed or not.
+    
+    
 ---
 
 
-```vhdl
-constant SNES_CTRL_STATE_RESET_VALUE : snes_ctrl_state_t := (others=>'0');
-```
+-   ```vhdl
+    constant SNES_CTRL_STATE_RESET_VALUE : snes_ctrl_state_t := (others=>'0');
+    ```
+    
+    The reset value for registers of type `snes_ctrl_state_t` where all buttons are "not pressed" (i.e., reset to `'0'`).
+    
 
-The reset value for registers of type `snes_ctrl_state_t` where all buttons are "not pressed" (i.e., reset to `'0'`).
+
+
 
 ## Subprograms
-
 ```vhdl
 function to_sulv(s : snes_ctrl_state_t) return std_ulogic_vector;
-```
-
-
-
-```vhdl
 function to_snes_ctrl_state(sulv : std_ulogic_vector(11 downto 0)) return snes_ctrl_state_t;
 ```
 
 Conversion functions between a 12-bit `std_ulogic_value` and one of `snes_ctrl_t` and vice versa.
-You can find the respective order of the individual button bits in the function bodies in [snes_ctrl_pkg.vhd](src/snes_ctrl_pkg.vhd).
+You can find the respective order of the individual button bits in the function bodies in [`snes_ctrl_pkg.vhd`](src/snes_ctrl_pkg.vhd).
+
+
+
 
 
 

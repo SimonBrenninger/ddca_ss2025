@@ -7,15 +7,14 @@ The `rv_alu` package, provides an arithmetic logic unit (ALU) that can be used i
 
 ## Required Files
 
-- `rv_alu.vhd`
+- [`rv_alu.vhd`](src/rv_alu.vhd)
 
-- `rv_alu_pkg.vhd`
+- [`rv_alu_pkg.vhd`](src/rv_alu_pkg.vhd)
 
 ## Components
 
 ### `rv_alu`
 ALU implementing the operations required for an RISC-V core compatible with the [rv_core](../rv_core/doc.md) ISA.
-
 
 ```vhdl
 component rv_alu is
@@ -60,7 +59,6 @@ Note that `SLL`, `SRL`, `SRA` are abbreviations for shift left logical, shift ri
 
 
 ## Types and Constants
-
 ```vhdl
 type rv_alu_op_t is (
 	ALU_NOP,
@@ -78,6 +76,9 @@ type rv_alu_op_t is (
 ```
 
 Enumeration type defining the different ALU operations required for implementing the [rv_core](../rv_core/doc.md) ISA.
+
+
+
 
 
 [Return to main page](../../README.md)

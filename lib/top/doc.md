@@ -7,11 +7,11 @@ This library module provides you with the `top` entity declaration for your desi
 
 ## Required Files
 
-- [dbg_core.qxp](src/dbg_core.qxp) (use **only for synthesis** (i.e., in Quartus), not for simulation!)
+- [`dbg_core.qxp`](src/dbg_core.qxp) (use **only for synthesis** (i.e., in Quartus), not for simulation!)
 
-- [dbg_top.vhd](src/dbg_top.vhd)
+- [`dbg_top.vhd`](src/dbg_top.vhd)
 
-- [top.vhd](src/top.vhd)
+- [`top.vhd`](src/top.vhd)
 
 
 ## Overview
@@ -30,9 +30,8 @@ All you need to know is that you need to provide an architecture for `top` if yo
 
 ## Components
 
-### top
+### `top`
 This is the actual `top` entity of all your designs, providing all the signals from / to the outside world.
-
 
 ```vhdl
 entity top is

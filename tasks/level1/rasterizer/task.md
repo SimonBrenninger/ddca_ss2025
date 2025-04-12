@@ -17,7 +17,6 @@ This should give you a good overview of the purpose of the `rasterizer` and the 
 The `rasterizer` has the following interface:
 
 
-
 ```vhdl
 entity rasterizer is
 	generic (
@@ -133,7 +132,7 @@ Your testbench shall produce a single output file called `out.ppm`.
 
 This task does not come with its own quartus project or top-level architecture.
 To test your `rasterizer` use the quartus project of the `tetris` task.
-Remove the file `rasterizer_arch_ref.vhd` from the project and add your own implementation (`rasterizer_arch.vhd`).
+Remove the file `rasterizer_arch_ref.vhd` from the project and add your own implementation ([`rasterizer_arch.vhd`](src/rasterizer_arch.vhd)).
 
 Download and test your game on the hardware.
 
@@ -141,9 +140,9 @@ Download and test your game on the hardware.
 
 ## Delieverables
 
-- **Implement**: [rasterizer_arch.vhd](src/rasterizer_arch.vhd)
+- **Implement**: [`rasterizer_arch.vhd`](src/rasterizer_arch.vhd)
 
-- **Implement**: [rasterizer_tb.vhd](tb/rasterizer_tb.vhd)
+- **Implement**: [`rasterizer_tb.vhd`](tb/rasterizer_tb.vhd)
 
 
 [Return to main page](../../../README.md)

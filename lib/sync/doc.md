@@ -7,15 +7,14 @@ This package provides a synchronizer module that can be used to connect external
 
 ## Required Files
 
-- [sync.vhd](src/sync.vhd)
+- [`sync.vhd`](src/sync.vhd)
 
-- [sync_pkg.vhd](src/sync_pkg.vhd)
+- [`sync_pkg.vhd`](src/sync_pkg.vhd)
 
 ## Components
 
-### sync
+### `sync`
 The `sync` module is a simple shift-register based waiting synchronizer.
-
 
 ```vhdl
 component sync is

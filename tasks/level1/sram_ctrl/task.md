@@ -26,7 +26,7 @@ The purpose of the `sram_ctrl` is to abstract away these hardware details and to
 ## Description
 
 Start by thoroughly reading the documentation of the [provided `sram_ctrl` core](../../../lib/sram_ctrl/doc.md).
-Afterwards, create your own implementation in [sram_ctrl_arch.vhd](src/sram_ctrl_arch.vhd).
+Afterwards, create your own implementation in [`sram_ctrl_arch.vhd`](src/sram_ctrl_arch.vhd).
 
 
 For your implementation consider the following remarks and hints:
@@ -104,9 +104,9 @@ Make sure that your tetris game still works with your SRAM controller in place.
 
 - **Create**: signaltap.png
 
-- **Implement**: [sram_ctrl_arch.vhd](src/sram_ctrl_arch.vhd)
+- **Implement**: [`sram_ctrl_arch.vhd`](src/sram_ctrl_arch.vhd)
 
-- **Implement**: [sram_ctrl_tb.vhd](tb/sram_ctrl_tb.vhd)
+- **Implement**: [`sram_ctrl_tb.vhd`](tb/sram_ctrl_tb.vhd)
 
 
 [Return to main page](../../../README.md)

@@ -8,13 +8,16 @@ package rv_core_pkg is
 	constant BYTE_WIDTH       : positive := 8;
 	-- width of a dataword (multiple of BYTE_WIDTH)
 	constant DATA_WIDTH       : positive := 32;
+	-- width of an instruction word
+	constant WIDTH_INSTRUCTION : natural := 32;
 	-- width of byte enable
 	constant BYTEEN_WIDTH     : positive := DATA_WIDTH/BYTE_WIDTH;
 	-- CPU data type
-	subtype data_t is std_ulogic_vector(DATA_WIDTH-1 downto 0);
+	subtype data_t  is std_ulogic_vector(DATA_WIDTH-1 downto 0);
+	-- CPU instruction type
+	subtype instr_t is std_ulogic_vector(WIDTH_INSTRUCTION-1 downto 0);
 
 	-- constants for RISC-V instruction fields
-	constant WIDTH_INSTRUCTION : natural := 32;
 	constant INDEX_OPCODE      : natural := 0;
 	constant WIDTH_OPCODE      : natural := 7;
 	constant WIDTH_REG_ADDRESS : natural := 5;
@@ -27,7 +30,6 @@ package rv_core_pkg is
 	constant WIDTH_FUNCT7      : natural := 7;
 
 	-- utility subtypes for the RISC-V instruction fields
-	subtype instr_t       is std_ulogic_vector(WIDTH_INSTRUCTION-1 downto 0);
 	subtype opcode_t      is std_ulogic_vector(WIDTH_OPCODE-1 downto 0);
 	subtype reg_address_t is std_ulogic_vector(WIDTH_REG_ADDRESS-1 downto 0);
 	subtype funct3_t      is std_ulogic_vector(WIDTH_FUNCT3-1 downto 0);

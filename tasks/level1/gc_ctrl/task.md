@@ -51,7 +51,7 @@ The table below lists the meaning of the individual bits of the controller’s r
 ## Description
 
 Start by thoroughly reading the documentation of the provided [gc_ctrl](../../../lib/gc_ctrl/doc.md) core.
-Afterwards, create your own implementation in [gc_ctrl_arch.vhd](src/gc_ctrl_arch.vhd).
+Afterwards, create your own implementation in [`gc_ctrl_arch.vhd`](src/gc_ctrl_arch.vhd).
 
 For your implementation consider the following remarks and hints:
 
@@ -102,7 +102,7 @@ Note that for the simulation you may use a small value for `REFRESH_TIMEOUT`.
 
 ## Hardware
 
-Once you have implemented and tested your `gc_ctrl`, use the provided architecture in [top_arch.vhd](top_arch.vhd) to verify its functionality in hardware.
+Once you have implemented and tested your `gc_ctrl`, use the provided architecture in [`top_arch.vhd`](top_arch.vhd) to verify its functionality in hardware.
 This provided architecture already connects all gamepad buttons to the FPGA board's red LEDs, and the analog triggers and joysticks to the hex displays (the idle position of the joysticks is `128` / `x80`).
 Since there is not enough hex display to display all these values at once, the right-most switch can be used to toggle between the (gray) joystick and the (yellow) `C` input being displayed.
 Verify that pressing the buttons / using the triggers and joysticks results in the expected change of these peripherals.
@@ -123,9 +123,9 @@ Ask a tutor for help if you are unsure how to proceed!
 
 - **Create**: period.png
 
-- **Implement**: [gc_ctrl_arch.vhd](src/gc_ctrl_arch.vhd)
+- **Implement**: [`gc_ctrl_arch.vhd`](src/gc_ctrl_arch.vhd)
 
-- **Implement**: [gc_ctrl_tb.vhd](tb/gc_ctrl_tb.vhd)
+- **Implement**: [`gc_ctrl_tb.vhd`](tb/gc_ctrl_tb.vhd)
 
 
 [Return to main page](../../../README.md)

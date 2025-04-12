@@ -7,7 +7,7 @@ The `gfx_core_pkg` package specifies the graphics command interface that can the
 
 ## Required Files
 
-- [gfx_core_pkg.vhd](src/gfx_core_pkg.vhd)
+- [`gfx_core_pkg.vhd`](src/gfx_core_pkg.vhd)
 
 
 ## Overview

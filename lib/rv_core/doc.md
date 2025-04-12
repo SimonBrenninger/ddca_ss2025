@@ -1,5 +1,5 @@
 
-# RISCV-V Core Package
+# RISC-V Core Package
 The `rv_core_pkg` contains useful types, constants and subprograms for implementing processor cores supporting the RISC-V ISA.
 Since all processor cores in this lecture have to support all instructions of the [RV32I Base Integer Instruction Set](https://github.com/riscv/riscv-isa-manual/releases/download/Ratified-IMAFDQC/riscv-spec-20191213.pdf), this package restricts itself to this particular instruction set as well.
 Exceptions are memory ordering instructions (e.g., fence) and environment call and breakpoint instructions, which can be implemented as a *nop* (no operation) are not further supported.
@@ -10,14 +10,14 @@ Exceptions are memory ordering instructions (e.g., fence) and environment call a
 
 ## Required Files
 
-- `rv_core_pkg.vhd`
+- [`rv_core_pkg.vhd`](src/rv_core_pkg.vhd)
 
 
 ## Overview
 
 The RV32I is a 32-bit ISA, where data words consist of four (8-bit) bytes.
 Note that RISC-V is a load-store architecture, where memory is addressed as bytes using little-endian ordering.
-This means that the least significant byte is stored at the lowest memory address (e.g., the hexadecimal number `0x1234` is stored as `0x34 0x12``).
+This means that the least significant byte is stored at the lowest memory address (e.g., the hexadecimal number `0x1234` is stored as `0x34 0x12`).
 However, external memories might use a different type of addressing than the processor does!
 
 
@@ -174,164 +174,139 @@ By convention, it is encoded as an `ADDI x0,x0,0` instruction, which corresponds
 
 
 ## Types and Constants
-
-```vhdl
-constant BYTE_WIDTH       : positive := 8;
-```
-
-
-
-```vhdl
-constant DATA_WIDTH       : positive := 32;
-```
-
-
-
-```vhdl
-constant BYTEEN_WIDTH     : positive := DATA_WIDTH/BYTE_WIDTH;
-```
-
-These constants define some basic bit widths in the context of the RV ISA.
-
-
+-   ```vhdl
+    constant BYTE_WIDTH       : positive := 8;
+    constant DATA_WIDTH       : positive := 32;
+    constant BYTEEN_WIDTH     : positive := DATA_WIDTH/BYTE_WIDTH;
+    ```
+    
+    These constants define some basic bit widths in the context of the RV ISA.
+    
 ---
 
 
-```vhdl
-subtype data_t is std_ulogic_vector(DATA_WIDTH-1 downto 0);
-```
-
-
-
-```vhdl
-subtype instr_t       is std_ulogic_vector(WIDTH_INSTRUCTION-1 downto 0);
-```
-
-These two subtypes can be used for all data, respectively instruction, words in the context of the RV ISA, thus improving the readability and maintainability of RV implementations.
-
-
+-   ```vhdl
+    subtype data_t  is std_ulogic_vector(DATA_WIDTH-1 downto 0);
+    subtype instr_t is std_ulogic_vector(WIDTH_INSTRUCTION-1 downto 0);
+    ```
+    
+    These two subtypes can be used for all data, respectively instruction, words in the context of the RV ISA, thus improving the readability and maintainability of RV implementations.
+    
 ---
 
 
-```vhdl
-constant WIDTH_OPCODE      : natural := 7;
-```
-
-
-
-```vhdl
-constant INDEX_OPCODE      : natural := 0;
-```
-
-
-
-```vhdl
-subtype opcode_t      is std_ulogic_vector(WIDTH_OPCODE-1 downto 0);
-```
-
-The `rv_core_pkg` declares `WIDTH_` and `INDEX_` constants for the bit widths of fields of a 32-bit RISC-V instruction, respectively their positions within the instructions.
-Furthermore, subtypes are declared that can be used to hold values of the various fields.
-For example: the `WIDTH_OPCODE`, `INDEX_OPCODE` constants contain the information that the opcode of an instructions starts at bit 0 and consists of 7 bits.
-
-
-
+-   ```vhdl
+    constant WIDTH_OPCODE      : natural := 7;
+    constant INDEX_OPCODE      : natural := 0;
+    ```
+    
+    
+    
 ---
 
 
-```vhdl
-constant OPCODE_LOAD   : opcode_t := "0000011";
-```
-
-The various `OPCODE_` constants hold the corresponding opcode defined in the RISC-V ISA.
-For example, the `OPCODE_LOAD` holds the "0000011" opcode defined for LOAD instructions.
-
-
-
+-   ```vhdl
+    subtype opcode_t      is std_ulogic_vector(WIDTH_OPCODE-1 downto 0);
+    ```
+    
+    The `rv_core_pkg` declares `WIDTH_` and `INDEX_` constants for the bit widths of fields of a 32-bit RISC-V instruction, respectively their positions within the instructions.
+    Furthermore, subtypes are declared that can be used to hold values of the various fields.
+    For example: the `WIDTH_OPCODE`, `INDEX_OPCODE` constants contain the information that the opcode of an instruction starts at bit 0 and consists of 7 bits.
+    
+    
 ---
 
 
-```vhdl
-constant FUNCT7_EXT_M  : funct7_t := "0000001";
-```
-
-
-
-```vhdl
-constant FUNCT3_MUL    : funct3_t := "000";
-```
-
-These constants hold the `funct7` respectively `funct7` values defined in the specification of the RISC-V [M-extension](https://five-embeddev.com/riscv-user-isa-manual/Priv-v1.12/m.html) for distinguishing between it and other `OP` instructions.
-
-
-
+-   ```vhdl
+    constant OPCODE_LOAD   : opcode_t := "0000011";
+    ```
+    
+    The various `OPCODE_` constants hold the corresponding opcode defined in the RISC-V ISA.
+    For example, the `OPCODE_LOAD` holds the "0000011" opcode defined for LOAD instructions.
+    
+    
 ---
 
 
-```vhdl
-constant REG_COUNT : positive      := 2**WIDTH_REG_ADDRESS;
-```
-
-Amount of registers specified by the RV ISA.
-
-
+-   ```vhdl
+    constant FUNCT7_EXT_M  : funct7_t := "0000001";
+    constant FUNCT3_MUL    : funct3_t := "000";
+    ```
+    
+    These constants hold the `funct7` respectively `funct7` values defined in the specification of the RISC-V [M-extension](https://five-embeddev.com/riscv-user-isa-manual/Priv-v1.12/m.html) for distinguishing between it and other `OP` instructions.
+    
+    
 ---
 
 
-```vhdl
-constant ZERO_REG  : reg_address_t := (others => '0');
-```
-
-Address of the zero register, i.e., `x0`.
-
-
+-   ```vhdl
+    constant REG_COUNT : positive      := 2**WIDTH_REG_ADDRESS;
+    ```
+    
+    Amount of registers specified by the RV ISA.
+    
 ---
 
 
-```vhdl
-constant ZERO_DATA : data_t        := (others => '0');
-```
-
-Zero data word.
-
-
+-   ```vhdl
+    constant ZERO_REG  : reg_address_t := (others => '0');
+    ```
+    
+    Address of the zero register, i.e., `x0`.
+    
 ---
 
 
-```vhdl
-type instr_format_t is (
-	FORMAT_U,
-	FORMAT_J,
-	FORMAT_I,
-	FORMAT_B,
-	FORMAT_S,
-	FORMAT_R,
-	FORMAT_INVALID
-);
-```
+-   ```vhdl
+    constant ZERO_DATA : data_t        := (others => '0');
+    ```
+    
+    Zero data word.
+    
+---
 
-Enumeration type for the different instruction formats.
+
+-   ```vhdl
+    type instr_format_t is (
+    	FORMAT_U,
+    	FORMAT_J,
+    	FORMAT_I,
+    	FORMAT_B,
+    	FORMAT_S,
+    	FORMAT_R,
+    	FORMAT_INVALID
+    );
+    ```
+    
+    Enumeration type for the different instruction formats.
+    
+
+
+
 
 ## Subprograms
-
-```vhdl
-function get_opcode (instr : instr_t) return opcode_t;
-```
-
-The various `get_*` functions declared in the `rv_core_pkg` can be used to extract the respective field from a 32-bit RISC-V instruction.
-For example, the `get_opcode` function takes an instruction and returns its opcode.
-Apart from the opcode functions for extracting `rd`, `rs1`, `rs2`, `funct3`, and `funct7` are available.
-
-
-
+-   ```vhdl
+    function get_opcode (instr : instr_t) return opcode_t;
+    ```
+    
+    The various `get_*` functions declared in the `rv_core_pkg` can be used to extract the respective field from a 32-bit RISC-V instruction.
+    For example, the `get_opcode` function takes an instruction and returns its opcode.
+    Apart from the opcode functions for extracting `rd`, `rs1`, `rs2`, `funct3`, and `funct7` are available.
+    
+    
 ---
 
 
-```vhdl
-function to_string(opcode : opcode_t) return string;
-function to_string(fmt : instr_format_t) return string;
-```
+-   ```vhdl
+    function to_string(opcode : opcode_t) return string;
+    function to_string(fmt : instr_format_t) return string;
+    ```
+    
+    The two overloads of the `to_string` function return a string representation of the respective `opcode_t` / `instr_format_t` value.
+    
+    
 
-The two overloads of the `to_string` function return a string representation of the respective `opcode_t` / `instr_format_t` value.
+
 
 
 

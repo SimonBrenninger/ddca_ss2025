@@ -7,15 +7,14 @@ The `decimal_printer_pkg` provides a single core that can be used to print the d
 
 ## Required Files
 
-- [decimal_printer.vhd](src/decimal_printer.vhd)
+- [`decimal_printer.vhd`](src/decimal_printer.vhd)
 
-- [decimal_printer_pkg.vhd](src/decimal_printer_pkg.vhd)
+- [`decimal_printer_pkg.vhd`](src/decimal_printer_pkg.vhd)
 
 ## Components
 
-### decimal_printer
+### `decimal_printer`
 The `decimal_printer` prints the 5-digit decimal representation of an unsigned 16-bit number using a GCI.
-
 
 ```vhdl
 component decimal_printer is

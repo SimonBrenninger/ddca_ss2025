@@ -7,7 +7,7 @@ The utility support package provides some convenient functions and constants you
 
 ## Required Files
 
-- [util_pkg.vhd](src/util_pkg.vhd)
+- [`util_pkg.vhd`](src/util_pkg.vhd)
 
 ## Types and Constants
 
@@ -18,91 +18,39 @@ Besides the 16 symbols required to display hexadecimal numbers, sevent-segment d
 
 
 
+
 ```vhdl
 constant SSD_CHAR_OFF  : std_ulogic_vector(6 downto 0) := "1111111";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_DASH : std_ulogic_vector(6 downto 0) := "0111111";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_A    : std_ulogic_vector(6 downto 0) := "0001000";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_G    : std_ulogic_vector(6 downto 0) := "1000010";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_P    : std_ulogic_vector(6 downto 0) := "0001100";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_O    : std_ulogic_vector(6 downto 0) := "1000000";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_E    : std_ulogic_vector(6 downto 0) := "0000110";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_F    : std_ulogic_vector(6 downto 0) := "0001110";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_L    : std_ulogic_vector(6 downto 0) := "1000111";
-```
-
-
-
-```vhdl
 constant SSD_CHAR_OPENING_BRACKET : std_ulogic_vector(6 downto 0) := "1000110"; -- (
-```
-
-
-
-```vhdl
 constant SSD_CHAR_CLOSING_BRACKET : std_ulogic_vector(6 downto 0) := "1110000"; -- )
-```
-
-
-
-```vhdl
+constant SSD_CHAR_CLOSING_BRACKET : std_ulogic_vector(6 downto 0) := "1110000"; -- )
 constant SSD_CHAR_LC_R : std_ulogic_vector(6 downto 0) := "0101111"; -- lowercase r
-```
-
-
-
-```vhdl
+constant SSD_CHAR_LC_I : std_ulogic_vector(6 downto 0) := "1101111"; -- lowercase i
 constant SSD_CHAR_LC_I : std_ulogic_vector(6 downto 0) := "1101111"; -- lowercase i
 ```
 
 
 
-## Subprograms
 
+
+
+## Subprograms
 ```vhdl
 function to_segs(value : in std_ulogic_vector(3 downto 0)) return std_ulogic_vector;
 ```
 
 Converts the hexadecimal (4-bit) input value into a bit-pattern that can be displayed on a seven-segment display.
+
+
+
 
 
 

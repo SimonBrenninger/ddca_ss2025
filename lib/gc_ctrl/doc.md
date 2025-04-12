@@ -7,17 +7,18 @@ This package provides everything required to interface with a [GameCube gamepad]
 
 ## Required Files
 
-- [gc_ctrl.vhd](src/gc_ctrl.vhd)
+- [`gc_ctrl.vhd`](src/gc_ctrl.vhd)
 
-- [gc_ctrl_arch_ref.vhd](src/gc_ctrl_arch_ref.vhd)
+- [`gc_ctrl_arch_ref.vhd`](src/gc_ctrl_arch_ref.vhd)
 
-- [gc_ctrl_pkg.vhd](src/gc_ctrl_pkg.vhd)
+- [`gc_ctrl_pkg.vhd`](src/gc_ctrl_pkg.vhd)
+
+- [`test.xml`](src/test.xml)
 
 ## Components
 
-### gc_ctrl
+### `gc_ctrl`
 The self-contained `gc_ctrl` module can be directly connected to a GameCube gamepad and will continuously poll the states of its buttons.
-
 
 ```vhdl
 component gc_ctrl is
@@ -61,7 +62,7 @@ Setting it to `'1'` will result in the gamepads rumble motor being activated for
 
 #### Implementation
 
-The obfuscated reference implementation of the `gc_ctrl` can be found in [gc_ctrl_arch_ref.vhd](src/gc_ctrl_arch_ref.vhd).
+The obfuscated reference implementation of the `gc_ctrl` can be found in [`gc_ctrl_arch_ref.vhd`](src/gc_ctrl_arch_ref.vhd).
 
 This reference architecture implements the GameCube gamepad protocol and polls the state of a connected controller every 1.56 ms.
 This corresponds to a `REFRESH_TIMEOUT` of 60000.
@@ -72,81 +73,87 @@ The reference implementation expects a **50 MHz clock to be applied at `clk`** a
 
 
 ## Types and Constants
-
-```vhdl
-type gc_ctrl_state_t is record
-	-- buttons
-	btn_up    : std_ulogic;
-	btn_down  : std_ulogic;
-	btn_left  : std_ulogic;
-	btn_right : std_ulogic;
-	btn_a     : std_ulogic;
-	btn_b     : std_ulogic;
-	btn_x     : std_ulogic;
-	btn_y     : std_ulogic;
-	btn_z     : std_ulogic;
-	btn_start : std_ulogic;
-	btn_l     : std_ulogic;
-	btn_r     : std_ulogic;
-	-- joysticks
-	joy_x     : std_ulogic_vector(7 downto 0);
-	joy_y     : std_ulogic_vector(7 downto 0);
-	c_x       : std_ulogic_vector(7 downto 0);
-	c_y       : std_ulogic_vector(7 downto 0);
-	-- trigger
-	trigger_l : std_ulogic_vector(7 downto 0);
-	trigger_r : std_ulogic_vector(7 downto 0);
-end record;
-```
-
-Represents the state of a GameCube Controller using a single-bit element for the button states and 8 bits for the states of the analog triggers and the joysticks.
-
-
-
+-   ```vhdl
+    type gc_ctrl_state_t is record
+    	-- buttons
+    	btn_up    : std_ulogic;
+    	btn_down  : std_ulogic;
+    	btn_left  : std_ulogic;
+    	btn_right : std_ulogic;
+    	btn_a     : std_ulogic;
+    	btn_b     : std_ulogic;
+    	btn_x     : std_ulogic;
+    	btn_y     : std_ulogic;
+    	btn_z     : std_ulogic;
+    	btn_start : std_ulogic;
+    	btn_l     : std_ulogic;
+    	btn_r     : std_ulogic;
+    	-- joysticks
+    	joy_x     : std_ulogic_vector(7 downto 0);
+    	joy_y     : std_ulogic_vector(7 downto 0);
+    	c_x       : std_ulogic_vector(7 downto 0);
+    	c_y       : std_ulogic_vector(7 downto 0);
+    	-- trigger
+    	trigger_l : std_ulogic_vector(7 downto 0);
+    	trigger_r : std_ulogic_vector(7 downto 0);
+    end record;
+    ```
+    
+    Represents the state of a GameCube Controller using a single-bit element for the button states and 8 bits for the states of the analog triggers and the joysticks.
+    
+    
 ---
 
 
-```vhdl
-
-```
-
-The reset value for registers of type `gc_ctrl_state_t` where all buttons are "not pressed" (i.e., reset to `'0'`) and the analog triggers and the joysticks are in neutral positions (all bits set to `'0'`).
-
-
+-   ```vhdl
+    constant GC_CTRL_STATE_RESET_VALUE : gc_ctrl_state_t := (
+    	joy_x     => (others => '0'),
+    	joy_y     => (others => '0'),
+    	c_x       => (others => '0'),
+    	c_y       => (others => '0'),
+    	trigger_l => (others => '0'),
+    	trigger_r => (others => '0'),
+    	others => '0'
+    );
+    ```
+    
+    The reset value for registers of type `gc_ctrl_state_t` where all buttons are "not pressed" (i.e., reset to `'0'`) and the analog triggers and the joysticks are in neutral positions (all bits set to `'0'`).
+    
 ---
 
 
-```vhdl
-constant GC_POLL_CMD_PREFIX : std_ulogic_vector(22 downto 0) := b"0100_0000_0000_0011_0000_000";
-```
+-   ```vhdl
+    constant GC_POLL_CMD_PREFIX : std_ulogic_vector(22 downto 0) := b"0100_0000_0000_0011_0000_000";
+    ```
+    
+    The constant 23-bit prefix of the 24-bit polling command.
+    
 
-The constant 23-bit prefix of the 24-bit polling command.
+
+
 
 ## Subprograms
-
-```vhdl
-function to_sulv (s : gc_ctrl_state_t) return std_ulogic_vector;
-```
-
-
-
-```vhdl
-function to_gc_ctrl_state(sulv : std_ulogic_vector(63 downto 0)) return gc_ctrl_state_t;
-```
-
-Conversion functions between a 64-bit `std_ulogic_value` and one of `gc_ctrl_state_t` and vice versa.
-You can find the respective order of the individual button bits in the function bodies in [gc_ctrl_pkg.vhd](src/gc_ctrl_pkg.vhd).
-
-
-
+-   ```vhdl
+    function to_sulv (s : gc_ctrl_state_t) return std_ulogic_vector;
+    function to_gc_ctrl_state(sulv : std_ulogic_vector(63 downto 0)) return gc_ctrl_state_t;
+    ```
+    
+    Conversion functions between a 64-bit `std_ulogic_value` and one of `gc_ctrl_state_t` and vice versa.
+    You can find the respective order of the individual button bits in the function bodies in [`gc_ctrl_pkg.vhd`](src/gc_ctrl_pkg.vhd).
+    
+    
 ---
 
 
-```vhdl
-function to_string(s : gc_ctrl_state_t) return string;
-```
+-   ```vhdl
+    function to_string(s : gc_ctrl_state_t) return string;
+    ```
+    
+    Converts a `gc_ctrl_state_t` value into a human-readable string.
+    
 
-Converts a `gc_ctrl_state_t` value into a human-readable string.
+
+
 
 
 [Return to main page](../../README.md)

@@ -14,7 +14,6 @@ In this task you will implement the Tetris game logic and create your own Tetris
 The `tetris` game module features the following interface:
 
 
-
 ```vhdl
 entity tetris is
 	port (
@@ -60,7 +59,6 @@ However, if you want you may implement this feature as well.
 ### Controlling the game
 
 Note that in order to make controlling the game independent of the actual physical gamepad used by the design, the [tetris_pkg](src/tetris_pkg.vhd) defines a custom record type:
-
 
 
 ```vhdl
@@ -192,11 +190,11 @@ Download and test your game on the hardware.
 
 ## Delieverables
 
-- **Implement**: [tetris_arch.vhd](src/tetris_arch.vhd)
+- **Implement**: [`tetris_arch.vhd`](src/tetris_arch.vhd)
 
-- **Implement**: [tetris_tb.vhd](tb/tetris_tb.vhd)
+- **Implement**: [`tetris_tb.vhd`](tb/tetris_tb.vhd)
 
-- **Implement**: [top_arch.vhd](top_arch.vhd)
+- **Implement**: [`top_arch.vhd`](top_arch.vhd)
 
 
 [Return to main page](../../../README.md)
