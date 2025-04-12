@@ -22,6 +22,9 @@ package tb_util_pkg is
 		procedure dump_bitmap (base_address, width, height : natural; filename : string);
 	end protected;
 
+	procedure uart_receive (signal s: in std_ulogic; baud_rate: integer; data: out std_ulogic_vector(7 downto 0));
+	procedure uart_transmit (signal s: out std_ulogic; baud_rate: integer; data: std_ulogic_vector(7 downto 0));
+	function to_character(b: std_ulogic_vector(7 downto 0)) return character;
 end package;
 
 package body tb_util_pkg is
@@ -131,5 +134,35 @@ package body tb_util_pkg is
 		end procedure;
 	end protected body;
 
+	procedure uart_receive (signal s: in std_ulogic; baud_rate: integer; data: out std_ulogic_vector(7 downto 0) ) is
+	begin
+		wait until falling_edge(s);
+		wait for (1000 ms/baud_rate)*0.5;
+		assert s = '0' report "start bit error" severity warning;
+		for i in 0 to 7 loop
+			wait for (1000 ms/baud_rate);
+			-- report "sampling bit " & to_string(i);
+			data(i) := s;
+		end loop;
+		wait for (1000 ms/baud_rate);
+		assert s = '1' report "stop bit error" severity warning;
+	end procedure;
+
+	procedure uart_transmit (signal s: out std_ulogic; baud_rate: integer; data: std_ulogic_vector(7 downto 0)) is
+	begin
+		s <= '0';
+		wait for (1000 ms/baud_rate);
+		for i in 0 to 7 loop
+			s <= data(i);
+			wait for (1000 ms/baud_rate);
+		end loop;
+		s <= '1';
+		wait for (1000 ms/baud_rate);
+	end procedure;
+
+	function to_character(b: std_ulogic_vector(7 downto 0)) return character is
+	begin
+		return character'val(to_integer(unsigned(b)));
+	end function;
 
 end package body;
