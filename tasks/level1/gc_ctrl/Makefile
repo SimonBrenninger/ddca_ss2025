@@ -6,6 +6,7 @@ VHDL_FILES =\
 	../../../lib/tb_util/src/tb_util_pkg.vhd\
 	../../../lib/gc_ctrl/src/gc_ctrl_pkg.vhd\
 	../../../lib/gc_ctrl/src/gc_ctrl.vhd\
+	../../../lib/gc_ctrl/src/gc_ctrl_arch_ref.vhd\
 	../../../lib/top/src/top.vhd\
 	src/gc_ctrl_arch.vhd\
 	tb/gc_ctrl_tb.vhd\
