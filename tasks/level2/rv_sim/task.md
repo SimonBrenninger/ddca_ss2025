@@ -70,13 +70,13 @@ Since there is no simulation time that fits all the programs well (some assembly
 This can essentially be done the same way as for the `ELF_FILE` generic above (here for a simulation time of 50 microseconds):
 
 ```bash
-Make sim [VSIM|GHDL]_USER_ARGS="-gSIM_STOP_TIME_US=50"
+make sim [VSIM|GHDL]_USER_ARGS="-gSIM_STOP_TIME_US=50"
 ```
 
 If you want to set both generics at once, give them as a space-separated list:
 
 ```bash
-Make sim [VSIM|GHDL]_USER_ARGS="-gELF_FILE=path/to/prog.elf -gSIM_STOP_TIME_US=50"
+make sim [VSIM|GHDL]_USER_ARGS="-gELF_FILE=path/to/prog.elf -gSIM_STOP_TIME_US=50"
 ```
 
 The provided testbench prints all memory interactions as well as all characters received via the UART and changes at the general purpose outputs to the console.
