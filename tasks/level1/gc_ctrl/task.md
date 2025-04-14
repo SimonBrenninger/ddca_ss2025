@@ -121,8 +121,6 @@ Ask a tutor for help if you are unsure how to proceed!
 
 ## Delieverables
 
-- **Create**: period.png
-
 - **Implement**: [`gc_ctrl_arch.vhd`](src/gc_ctrl_arch.vhd)
 
 - **Implement**: [`gc_ctrl_tb.vhd`](tb/gc_ctrl_tb.vhd)

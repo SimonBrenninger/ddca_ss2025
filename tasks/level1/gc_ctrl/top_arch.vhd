@@ -14,7 +14,7 @@ begin
 		clk        => clk,
 		res_n      => keys(0),
 		data       => gc_data,
-		rumble     => keys(1),
+		rumble     => not keys(1),
 		ctrl_state => ctrl_state
 	);
 
