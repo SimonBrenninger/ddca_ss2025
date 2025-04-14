@@ -313,7 +313,7 @@ begin
   wrap_ctrl_state_trigger_l <= n18;
   wrap_ctrl_state_trigger_r <= n19;
   n0_c_oport <= n374; -- (inout - port)
-  n0_c_o <= data; -- (inout - read)
+  n0_c_o <= to_X01(data); -- (inout - read)
   n2 <= n33 (0);
   n3 <= n33 (1);
   n4 <= n33 (2);

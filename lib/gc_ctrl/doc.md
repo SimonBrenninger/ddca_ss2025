@@ -13,8 +13,6 @@ This package provides everything required to interface with a [GameCube gamepad]
 
 - [`gc_ctrl_pkg.vhd`](src/gc_ctrl_pkg.vhd)
 
-- [`test.xml`](src/test.xml)
-
 ## Components
 
 ### `gc_ctrl`

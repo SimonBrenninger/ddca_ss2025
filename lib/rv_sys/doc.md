@@ -31,8 +31,6 @@ To that end the package provides two modules named `rv_sys` and `memu`.
 
 - [`sld_virtual_jtag_stub.vhd`](src/sld_virtual_jtag_stub.vhd)
 
-- [`test.xml`](src/test.xml)
-
 - [`virtual_jtag_wrapper.vhd`](src/virtual_jtag_wrapper.vhd)
 
 
