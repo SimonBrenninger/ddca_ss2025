@@ -113,7 +113,8 @@ Your login credentials are the same as for the (local) TILab.
 ![Level 2 Task Dependency Graph](.mdata/level2_graph.svg)
 | task | Points | Keywords (Topics) | TUWEL Submission |
 | ---- | ------ | ----------------- | ---------------- |
-| [rv_sim](tasks/level2/rv_sim/task.md) | 15 | Simulation, RISC-V, Specificatins | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2623643) |
+| [rv_sim](tasks/level2/rv_sim/task.md) | 15 | Simulation, RISC-V, Specifications | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2623643) |
+| [rv_fsm](tasks/level2/rv_fsm/task.md) | 25 | RISC-V, Specifications | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2623883) |
 
 
 
@@ -141,4 +142,5 @@ Feel free to use them in your designs as you see fit.
 | GameCube Controller Package | [gc_ctrl](lib/gc_ctrl/doc.md) |
 | RISC-V Core Package | [rv_core](lib/rv_core/doc.md) |
 | RISCV-V ALU Package | [rv_alu](lib/rv_alu/doc.md) |
+| RISC-V System Package | [rv_sys](lib/rv_sys/doc.md) |
 

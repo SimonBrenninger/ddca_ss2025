@@ -25,6 +25,14 @@ package tb_util_pkg is
 	procedure uart_receive (signal rx: in std_ulogic; baud_rate: positive; rx_data: out std_ulogic_vector(7 downto 0));
 	procedure uart_transmit (signal tx: out std_ulogic; baud_rate: positive; tx_data: std_ulogic_vector(7 downto 0));
 	function to_character(b: std_ulogic_vector(7 downto 0)) return character;
+
+	procedure print_line(s : string);
+	procedure clk_gen(signal clk : out std_ulogic; period : time; signal stop_clock : boolean);
+
+	procedure tc_print_result(tc : string; r : boolean);
+	procedure tc_failed(tc : string);
+	procedure tc_passed(tc : string);
+	procedure tc_timeout(tc : string; duration : time; signal complete : boolean);
 end package;
 
 package body tb_util_pkg is
@@ -163,5 +171,53 @@ package body tb_util_pkg is
 	begin
 		return character'val(to_integer(unsigned(b)));
 	end function;
+
+	procedure print_line(s : string) is
+		variable l : line;
+	begin
+		swrite(l, s);
+		writeline(output, l);
+	end procedure;
+
+	procedure clk_gen(signal clk : out std_ulogic; period : time; signal stop_clock : boolean) is
+	begin
+		while not stop_clock loop
+			clk <= '1';
+			wait for period / 2;
+			clk <= '0';
+			wait for period / 2;
+		end loop;
+		wait;
+	end procedure;
+
+	procedure tc_print_result(tc : string; r : boolean) is
+	begin
+		if r then
+			tc_passed(tc);
+		else
+			tc_failed(tc);
+		end if;
+	end procedure;
+
+	procedure tc_failed(tc : string) is
+	begin
+		print_line(tc & " FAILED");
+	end procedure;
+
+	procedure tc_passed(tc : string) is
+	begin
+		print_line(tc & " PASSED");
+	end procedure;
+
+	procedure tc_timeout(tc : string; duration : time; signal complete : boolean) is
+	begin
+		wait for duration;
+		if not complete then
+			report "timeout -> stoping simulation" severity error;
+			tc_failed(tc);
+		end if;
+		std.env.stop;
+		wait;
+	end procedure;
 
 end package body;

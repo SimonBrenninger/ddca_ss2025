@@ -40,7 +40,7 @@ architecture behavior of mm_serial_port is
 	signal rx_data_empty : std_ulogic;
 	signal rx_data_full : std_ulogic;
 
-	signal rd_address : std_logic_vector(0 downto 0);
+	signal rd_address : std_ulogic_vector(0 downto 0);
 
 	signal rx_int, tx_int, new_data : std_ulogic;
 	signal data : std_ulogic_vector(7 downto 0);
@@ -67,7 +67,7 @@ begin
 		type rx_fsm_state_t is (IDLE, WAIT_START_BIT, GOTO_MIDDLE_OF_START_BIT, MIDDLE_OF_START_BIT, WAIT_DATA_BIT, MIDDLE_OF_DATA_BIT, WAIT_STOP_BIT, MIDDLE_OF_STOP_BIT);
 		signal state, next_state: rx_fsm_state_t;
 		signal next_new_data: std_ulogic;
-		signal next_data, data_int, next_data_int: std_logic_vector(7 downto 0);
+		signal next_data, data_int, next_data_int: std_ulogic_vector(7 downto 0);
 
 		--clock cycle counter
 		signal clk_cnt : integer range 0 to CLK_DIVISOR := 0;

@@ -93,8 +93,8 @@ begin
 
 	wr <= v_udr when ir_in = SET_DATA else '0';
 	rd <= v_cdr when ir_in = SET_DATA or ir_in = GET_DATA else '0';
-	addr <= dr_addr;
-	wrdata <= dr_data;
+	addr <= std_ulogic_vector(dr_addr);
+	wrdata <= std_ulogic_vector(dr_data);
 
 	sync : process(tck, res_n)
 	begin
@@ -110,7 +110,7 @@ begin
 					end if;
 				when SET_DATA | GET_DATA =>
 					if v_cdr = '1' then
-						dr_data <= rddata;
+						dr_data <= std_logic_vector(rddata);
 					elsif v_sdr = '1' then
 						dr_data <= tdi & dr_data(DATA_WIDTH-1 downto 1);
 					elsif v_udr = '1' then

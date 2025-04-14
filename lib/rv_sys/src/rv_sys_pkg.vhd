@@ -38,7 +38,7 @@ package rv_sys_pkg is
 		busy   => '0',
 		rddata => (others => '0')
 	);
-	
+
 	type mem_data_array_t is array(natural range<>) of mem_data_t;
 
 	function swap_endianness(i : mem_data_t) return mem_data_t;
@@ -52,44 +52,44 @@ package rv_sys_pkg is
 	);
 
 	type memu_op_t is record
-		rd : std_ulogic;
-		wr : std_ulogic;
+		rd          : std_ulogic;
+		wr          : std_ulogic;
 		access_type : memu_access_type_t;
 	end record;
 
 	constant MEMU_NOP : memu_op_t := (
-		rd => '0',
-		wr => '0',
+		rd          => '0',
+		wr          => '0',
 		access_type => MEM_W
 	);
 
 	component rv_sys is
 		generic (
-			BAUD_RATE  : natural := 115200;
-			CLK_FREQ   : natural := 75000000;
-			SIMULATE_ELF_FILE : string := "OFF";
-			GPIO_ADDR_WIDTH : natural := 8;
-			DMEM_DELAY : natural := 0;
-			IMEM_DELAY : natural := 0
+			BAUD_RATE         : natural := 115200;
+			CLK_FREQ          : natural := 75000000;
+			SIMULATE_ELF_FILE : string  := "OFF";
+			GPIO_ADDR_WIDTH   : natural := 8;
+			DMEM_DELAY        : natural := 0;
+			IMEM_DELAY        : natural := 0
 		);
 		port (
 			clk   : in std_ulogic;
 			res_n : in std_ulogic;
-	
+
 			cpu_reset_n : out std_ulogic;
-	
+
 			-- instruction memory interface
 			imem_out : in  mem_out_t;
 			imem_in  : out mem_in_t;
-	
+
 			-- data memory interface
 			dmem_out : in  mem_out_t;
 			dmem_in  : out mem_in_t;
-			
+
 			-- UART port
-			rx : in std_ulogic;
+			rx : in  std_ulogic;
 			tx : out std_ulogic;
-			
+
 			-- GPIO
 			gp_out : out mem_data_array_t(2**GPIO_ADDR_WIDTH-1 downto 0);
 			gp_in  : in  mem_data_array_t(2**GPIO_ADDR_WIDTH-1 downto 0)
@@ -103,10 +103,10 @@ package rv_sys_pkg is
 			wrdata : in  mem_data_t;
 			rddata : out mem_data_t := (others => '0');
 			busy   : out std_ulogic := '0';
-	
+
 			xl : out std_ulogic := '0';
 			xs : out std_ulogic := '0';
-	
+
 			-- to rv_sys
 			mem_in  : in  mem_in_t;
 			mem_out : out mem_out_t

@@ -298,11 +298,11 @@ By convention, it is encoded as an `ADDI x0,x0,0` instruction, which corresponds
 
 
 -   ```vhdl
-    function to_string(opcode : opcode_t) return string;
+    function opcode_to_string(opcode : opcode_t) return string;
     function to_string(fmt : instr_format_t) return string;
     ```
     
-    The two overloads of the `to_string` function return a string representation of the respective `opcode_t` / `instr_format_t` value.
+    The `opcode_to_string`function and the overload of the `to_string` function for ìnstr_format_t` return a string representation of the respective `opcode_t` / `instr_format_t` value.
     
     
 

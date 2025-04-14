@@ -1,7 +1,7 @@
 
 # RISC-V Simulation Model
 
-**Points:** 15 `|` **Keywords**: simulation, risc-v, specificatins
+**Points:** 15 `|` **Keywords**: simulation, risc-v, specifications
 
 [[_TOC_]]
 
@@ -49,40 +49,15 @@ For your implementation consider the following remarks and hints:
 
 ## Testbench
 
-We already provide you with a testbench in [`rv_sim_tb.vhd`](tb/rv_sim_tb.vhd) which instantiates the `rv_sim` and connects it to an instance of [`rv_sys`](../../../lib/rv_sys/doc.md).
+We already provide you with a testbench in rv_sim_tb.vhd which instantiates the `rv_sim` and connects it to an instance of [`rv_sys`](../../../lib/rv_sys/doc.md).
 You do not have to change anything in testbench, but you can if you want to.
 
 In order to actually test your processor, run programs on it and check if they work as expected (you can observe the register contents, memory interfaces and - if available - UART output).
-We already provide you with some programs in [`rv_sys/software`](../../../lib/rv_sys/software) and we recommend you to also put your own programs in the [`software`](../../../lib/rv_sys/software) folder of the `rv_sys` lib core, as you might use them for other tasks as well. However, make sure to give them specific names like, e.g., "my_PROGRAM_NAME", in order to mitigate conflicts when we might add future programs.
+We already provide you with some programs in [`rv_sys/software`](../../../lib/rv_sys/software) and we recommend you to also put your own programs in the [`software`](../../../lib/rv_sys/software) folder of the `rv_sys` lib core, as you might use them for other tasks as well. However, make sure to put them in a dedicated subdirectory, e.g., named `user`.
 
 However, as written above, start with verifying basic functionality such as arithmetic, memory and jump instructions in lockstep with your implementation efforts and then continue with more elaborate programs.
 
-
-To actually run programs on in the simulation, you have to provide the simulation with a path to an ELF file (which is an executable that was compiled for the specified RV ISA). This can be done by setting the top-level generic `ELF_FILE` of the `rv_sim_tb` (the path can be relative):
-
-```bash
-  make sim [VSIM|GHDL]_USER_ARGS="-gELF_FILE=path/to/prog.elf"
-```
-
-Furthermore, note that your processor essentially never stops reading new instructions and, hence, the simulation would never stop by itself.
-Thus, the simulation is terminated after a certain time.
-Since there is no simulation time that fits all the programs well (some assembly programs might end very quickly, while the C-programs with UART output take considerably longer in simulation), you can change this simulation stop time by setting the `SIM_STOP_TIME_US` generic, which is an integer defining the number of microseconds the simulation is will run.
-This can essentially be done the same way as for the `ELF_FILE` generic above (here for a simulation time of 50 microseconds):
-
-```bash
-make sim [VSIM|GHDL]_USER_ARGS="-gSIM_STOP_TIME_US=50"
-```
-
-If you want to set both generics at once, give them as a space-separated list:
-
-```bash
-make sim [VSIM|GHDL]_USER_ARGS="-gELF_FILE=path/to/prog.elf -gSIM_STOP_TIME_US=50"
-```
-
-The provided testbench prints all memory interactions as well as all characters received via the UART and changes at the general purpose outputs to the console.
-Comment out what you don't need or use `grep` on the simulator output (e.g. `make sim | grep "UART"`).
-
-**Note**: This simulation environment is not a replacement for proper testing, as it is difficult to produce test vectors for the individual parts of a processor when simulating the execution of a program on it.
+To add your own, more targeted, testcases check out the respective section in the documentation of [`rv_sys`](../../../lib/rv_sys/doc.md).
 
 
 

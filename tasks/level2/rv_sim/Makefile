@@ -9,6 +9,7 @@ VHDL_FILES = \
 	../../../lib/mem/src/fifo_1c1r1w_fwft.vhd\
 	../../../lib/mem/src/dp_ram_2c2rw.vhd\
 	../../../lib/mem/src/dp_ram_2c2rw_byteen.vhd\
+	../../../lib/rv_alu/src/rv_alu_pkg.vhd\
 	../../../lib/rv_core/src/rv_core_pkg.vhd\
 	../../../lib/rv_sys/src/rv_sys_pkg.vhd\
 	../../../lib/rv_sys/src/delay.vhd\
@@ -20,12 +21,13 @@ VHDL_FILES = \
 	../../../lib/rv_sys/src/mm_counter.vhd\
 	../../../lib/rv_sys/src/mm_gpio.vhd\
 	../../../lib/rv_sys/src/rv_sys.vhd\
-	src/rv_sim.vhd\
-	tb/rv_sim_tb.vhd
+	../../../lib/rv_sys/src/rv.vhd\
+	src/rv_sim.vhd
 
-TB=rv_sim_tb
+TB=
 WAVE_FILE=wave.do
 GTK_WAVE_FILE=wave.gtkw
 
+include ../../../lib/rv_sys/rv_testcases.mk
 include ../../../util/simple_flow.mk
 

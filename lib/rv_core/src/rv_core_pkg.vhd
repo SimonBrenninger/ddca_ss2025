@@ -86,7 +86,7 @@ package rv_core_pkg is
 		FORMAT_INVALID
 	);
 
-	function to_string(opcode : opcode_t) return string;
+	function opcode_to_string(opcode : opcode_t) return string;
 	function to_string(fmt : instr_format_t) return string;
 
 
@@ -126,7 +126,7 @@ package body rv_core_pkg is
 	end function;
 
 
-	function to_string(opcode : opcode_t) return string is
+	function opcode_to_string(opcode : opcode_t) return string is
 	begin
 		case opcode is
 			when OPCODE_LOAD   => return "load";

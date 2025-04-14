@@ -3,6 +3,9 @@ use ieee.std_logic_1164.all;
 
 use work.rv_sys_pkg.all;
 
+--pragma synthesis_off
+use work.tb_util_pkg.all;
+--pragma synthesis_on
 
 entity rv_sys is
 	generic (
@@ -241,4 +244,92 @@ begin
 		end if;
 	end process;
 
+	--pragma synthesis_off
+	uart_pritner : block
+		function to_char_string(data : std_logic_vector(7 downto 0)) return string is
+		begin
+			if data = x"0A" then
+				return "[new line]";
+			end if;
+			return "'" & to_string(to_character(data)) & "'";
+		end function;
+	begin
+		uart_tx_printer : process
+			variable uart_data : std_logic_vector(7 downto 0);
+		begin
+			loop
+				uart_receive(tx, BAUD_RATE, uart_data);
+				report "UART TX: 0x" & to_hstring(uart_data) & " (" & to_char_string(uart_data) & ")";
+			end loop;
+			wait;
+		end process;
+
+		uart_rx_printer : process
+			variable uart_data : std_logic_vector(7 downto 0);
+		begin
+			loop
+				uart_receive(rx, BAUD_RATE, uart_data);
+				report "UART RX: 0x" & to_hstring(uart_data) & " (" & to_char_string(uart_data) & ")";
+			end loop;
+			wait;
+		end process;
+	end block;
+
+	dmem_printer : block
+		signal read_issued : std_logic := '0';
+	begin
+		process
+		begin
+			wait until rising_edge(clk);
+			if (dmem_out.wr = '1') then
+				report
+					"DMEM write: " &
+					"addr=0x" & to_hstring(dmem_out.address) & ", " &
+					"data=0x" & to_hstring(dmem_out.wrdata) & ", " &
+					"byteen=" & to_string(dmem_out.byteena);
+			end if;
+
+			if dmem_in.busy = '0' then
+				read_issued <= '0';
+			end if;
+			if dmem_out.rd = '1' then
+				read_issued <= '1';
+			end if;
+			if (read_issued = '1' and dmem_in.busy = '0') then
+				report
+					"DMEM read: " &
+					"addr=0x" & to_hstring(dmem_out.address) & ", " &
+					"data=0x" & to_hstring(dmem_in.rddata);
+			end if;
+		end process;
+	end block;
+
+	imem_printer : block
+		signal read_issued : std_logic := '0';
+	begin
+		process
+		begin
+			wait until rising_edge(clk);
+			if imem_in.busy = '0' then
+				read_issued <= '0';
+			end if;
+			if imem_out.rd = '1' then
+				read_issued <= '1';
+			end if;
+			if (read_issued = '1' and imem_in.busy = '0') then
+				report
+					"IMEM read: " &
+					"addr=0x" & to_hstring(imem_out.address) & ", " &
+					"data=0x" & to_hstring(imem_in.rddata);
+			end if;
+		end process;
+	end block;
+
+	gpio_printer : process (gp_out)
+	begin
+		for i in 0 to 2**GPIO_ADDR_WIDTH-1 loop
+			report "GPIO["  & to_string(i) & "]: " & to_hstring(gp_out(i));
+		end loop;
+	end process;
+	--pragma synthesis_on
 end architecture;
