@@ -49,9 +49,6 @@ For your implementation consider the following remarks and hints:
 
 ## Testbench
 
-We already provide you with a testbench in rv_sim_tb.vhd which instantiates the `rv_sim` and connects it to an instance of [`rv_sys`](../../../lib/rv_sys/doc.md).
-You do not have to change anything in testbench, but you can if you want to.
-
 In order to actually test your processor, run programs on it and check if they work as expected (you can observe the register contents, memory interfaces and - if available - UART output).
 We already provide you with some programs in [`rv_sys/software`](../../../lib/rv_sys/software) and we recommend you to also put your own programs in the [`software`](../../../lib/rv_sys/software) folder of the `rv_sys` lib core, as you might use them for other tasks as well. However, make sure to put them in a dedicated subdirectory, e.g., named `user`.
 
