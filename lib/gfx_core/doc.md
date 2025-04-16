@@ -31,14 +31,12 @@ The interface specification consists of two parts:
 The physical interface consists of two record types:
 
 
-
 ```vhdl
 type gci_in_t is record
 	wr_data : gfx_cmd_t;
 	wr      : std_ulogic;
 end record;
 ```
-
 
 
 ```vhdl
