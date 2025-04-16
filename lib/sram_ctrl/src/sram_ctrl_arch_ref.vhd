@@ -16,16 +16,16 @@ entity dp_ram_1c1r1w_3_38 is
     rd1_data : out std_logic_vector (37 downto 0));
 end entity dp_ram_1c1r1w_3_38;
 architecture ref of dp_ram_1c1r1w_3_38 is
-  signal n692 : std_logic_vector (37 downto 0);
-  signal n693 : std_logic_vector (37 downto 0) := "00000000000000000000000000000000000000";
-  signal n695 : std_logic_vector (37 downto 0);
+  signal n696 : std_logic_vector (37 downto 0);
+  signal n697 : std_logic_vector (37 downto 0) := "00000000000000000000000000000000000000";
+  signal n699 : std_logic_vector (37 downto 0);
 begin
-  rd1_data <= n693;
-  n692 <= n693 when rd1 = '0' else n695;
+  rd1_data <= n697;
+  n696 <= n697 when rd1 = '0' else n699;
   process (clk)
   begin
     if rising_edge (clk) then
-      n693 <= n692;
+      n697 <= n696;
     end if;
   end process;
   process (rd1_addr, clk) is
@@ -33,7 +33,7 @@ begin
       of std_logic_vector (37 downto 0);
     variable ram : ram_type := (others => (others => '0'));
   begin
-    n695 <= ram(to_integer (unsigned (rd1_addr)));
+    n699 <= ram(to_integer (unsigned (rd1_addr)));
     if rising_edge (clk) and (wr2 = '1') then
       ram (to_integer (unsigned (wr2_addr))) := wr2_data;
     end if;
@@ -66,64 +66,64 @@ architecture ref of fifo_1c1r1w_8_38 is
   signal half_full_next : std_logic;
   signal pointer_diff : std_logic_vector (31 downto 0);
   signal pointer_diff_next : std_logic_vector (31 downto 0);
-  signal memory_inst_n579 : std_logic_vector (37 downto 0);
+  signal memory_inst_n587 : std_logic_vector (37 downto 0);
   signal memory_inst_c_rd1_data : std_logic_vector (37 downto 0);
-  signal n583 : std_logic;
-  signal n606 : std_logic;
-  signal n607 : std_logic;
-  signal n609 : std_logic_vector (2 downto 0);
-  signal n610 : std_logic_vector (2 downto 0);
-  signal n613 : std_logic;
+  signal n591 : std_logic;
+  signal n614 : std_logic;
   signal n615 : std_logic;
-  signal n616 : std_logic;
+  signal n617 : std_logic_vector (2 downto 0);
   signal n618 : std_logic_vector (2 downto 0);
-  signal n619 : std_logic_vector (2 downto 0);
-  signal n622 : std_logic;
+  signal n621 : std_logic;
+  signal n623 : std_logic;
   signal n624 : std_logic;
-  signal n625 : std_logic;
-  signal n627 : std_logic_vector (31 downto 0);
-  signal n628 : std_logic;
-  signal n629 : std_logic;
-  signal n631 : std_logic_vector (31 downto 0);
-  signal n632 : std_logic_vector (31 downto 0);
-  signal n633 : std_logic_vector (31 downto 0);
-  signal n635 : std_logic;
-  signal n638 : std_logic;
-  signal n641 : std_logic_vector (2 downto 0);
-  signal n642 : std_logic;
-  signal n644 : std_logic;
+  signal n626 : std_logic_vector (2 downto 0);
+  signal n627 : std_logic_vector (2 downto 0);
+  signal n630 : std_logic;
+  signal n632 : std_logic;
+  signal n633 : std_logic;
+  signal n635 : std_logic_vector (31 downto 0);
+  signal n636 : std_logic;
+  signal n637 : std_logic;
+  signal n639 : std_logic_vector (31 downto 0);
+  signal n640 : std_logic_vector (31 downto 0);
+  signal n641 : std_logic_vector (31 downto 0);
+  signal n643 : std_logic;
   signal n646 : std_logic;
-  signal n647 : std_logic;
   signal n649 : std_logic_vector (2 downto 0);
   signal n650 : std_logic;
-  signal n651 : std_logic;
   signal n652 : std_logic;
   signal n654 : std_logic;
   signal n655 : std_logic;
-  signal n657 : std_logic;
-  signal n664 : std_logic_vector (2 downto 0);
-  signal n665 : std_logic_vector (2 downto 0);
-  signal n666 : std_logic_vector (31 downto 0) := "00000000000000000000000000000000";
-  signal n667 : std_logic;
-  signal n668 : std_logic;
-  signal n669 : std_logic;
+  signal n657 : std_logic_vector (2 downto 0);
+  signal n658 : std_logic;
+  signal n659 : std_logic;
+  signal n660 : std_logic;
+  signal n662 : std_logic;
+  signal n663 : std_logic;
+  signal n665 : std_logic;
+  signal n668 : std_logic_vector (2 downto 0);
+  signal n669 : std_logic_vector (2 downto 0);
+  signal n670 : std_logic_vector (31 downto 0) := "00000000000000000000000000000000";
+  signal n671 : std_logic;
+  signal n672 : std_logic;
+  signal n673 : std_logic;
 begin
-  rd_data <= memory_inst_n579;
-  empty <= n667;
-  full <= n668;
-  half_full <= n669;
-  read_address <= n664; -- (signal)
-  read_address_next <= n619; -- (signal)
-  write_address <= n665; -- (signal)
-  write_address_next <= n610; -- (signal)
-  full_next <= n654; -- (signal)
-  empty_next <= n657; -- (signal)
-  wr_int <= n613; -- (signal)
-  rd_int <= n622; -- (signal)
-  half_full_next <= n638; -- (signal)
-  pointer_diff <= n666; -- (isignal)
-  pointer_diff_next <= n633; -- (isignal)
-  memory_inst_n579 <= memory_inst_c_rd1_data; -- (signal)
+  rd_data <= memory_inst_n587;
+  empty <= n671;
+  full <= n672;
+  half_full <= n673;
+  read_address <= n668; -- (signal)
+  read_address_next <= n627; -- (signal)
+  write_address <= n669; -- (signal)
+  write_address_next <= n618; -- (signal)
+  full_next <= n662; -- (signal)
+  empty_next <= n665; -- (signal)
+  wr_int <= n621; -- (signal)
+  rd_int <= n630; -- (signal)
+  half_full_next <= n646; -- (signal)
+  pointer_diff <= n670; -- (isignal)
+  pointer_diff_next <= n641; -- (isignal)
+  memory_inst_n587 <= memory_inst_c_rd1_data; -- (signal)
   memory_inst : entity work.dp_ram_1c1r1w_3_38 port map (
     clk => clk,
     rd1_addr => read_address,
@@ -132,85 +132,85 @@ begin
     wr2_data => wr_data,
     wr2 => wr_int,
     rd1_data => memory_inst_c_rd1_data);
-  n583 <= not res_n;
-  n606 <= not n668;
-  n607 <= n606 and wr;
-  n609 <= std_logic_vector (unsigned (write_address) + unsigned'("001"));
-  n610 <= write_address when n607 = '0' else n609;
-  n613 <= '0' when n607 = '0' else '1';
-  n615 <= not n667;
-  n616 <= n615 and rd;
-  n618 <= std_logic_vector (unsigned (read_address) + unsigned'("001"));
-  n619 <= read_address when n616 = '0' else n618;
-  n622 <= '0' when n616 = '0' else '1';
-  n624 <= not rd;
-  n625 <= n624 and wr;
-  n627 <= std_logic_vector (unsigned (pointer_diff) + unsigned'("00000000000000000000000000000001"));
-  n628 <= not wr;
-  n629 <= n628 and rd;
-  n631 <= std_logic_vector (unsigned (pointer_diff) - unsigned'("00000000000000000000000000000001"));
-  n632 <= pointer_diff when n629 = '0' else n631;
-  n633 <= n632 when n625 = '0' else n627;
-  n635 <= '1' when signed (n633) >= signed'("00000000000000000000000000000100") else '0';
-  n638 <= '0' when n635 = '0' else '1';
-  n641 <= std_logic_vector (unsigned (read_address) + unsigned'("001"));
-  n642 <= '1' when write_address = n641 else '0';
-  n644 <= n667 when n647 = '0' else '1';
-  n646 <= n668 when rd = '0' else '0';
-  n647 <= n642 and rd;
-  n649 <= std_logic_vector (unsigned (write_address) + unsigned'("001"));
-  n650 <= '1' when read_address = n649 else '0';
-  n651 <= not rd;
-  n652 <= n651 and n650;
-  n654 <= n646 when n655 = '0' else '1';
-  n655 <= n652 and wr;
-  n657 <= n644 when wr = '0' else '0';
-  process (clk, n583)
+  n591 <= not res_n;
+  n614 <= not n672;
+  n615 <= n614 and wr;
+  n617 <= std_logic_vector (unsigned (write_address) + unsigned'("001"));
+  n618 <= write_address when n615 = '0' else n617;
+  n621 <= '0' when n615 = '0' else '1';
+  n623 <= not n671;
+  n624 <= n623 and rd;
+  n626 <= std_logic_vector (unsigned (read_address) + unsigned'("001"));
+  n627 <= read_address when n624 = '0' else n626;
+  n630 <= '0' when n624 = '0' else '1';
+  n632 <= not rd;
+  n633 <= n632 and wr;
+  n635 <= std_logic_vector (unsigned (pointer_diff) + unsigned'("00000000000000000000000000000001"));
+  n636 <= not wr;
+  n637 <= n636 and rd;
+  n639 <= std_logic_vector (unsigned (pointer_diff) - unsigned'("00000000000000000000000000000001"));
+  n640 <= pointer_diff when n637 = '0' else n639;
+  n641 <= n640 when n633 = '0' else n635;
+  n643 <= '1' when signed (n641) >= signed'("00000000000000000000000000000100") else '0';
+  n646 <= '0' when n643 = '0' else '1';
+  n649 <= std_logic_vector (unsigned (read_address) + unsigned'("001"));
+  n650 <= '1' when write_address = n649 else '0';
+  n652 <= n671 when n655 = '0' else '1';
+  n654 <= n672 when rd = '0' else '0';
+  n655 <= n650 and rd;
+  n657 <= std_logic_vector (unsigned (write_address) + unsigned'("001"));
+  n658 <= '1' when read_address = n657 else '0';
+  n659 <= not rd;
+  n660 <= n659 and n658;
+  n662 <= n654 when n663 = '0' else '1';
+  n663 <= n660 and wr;
+  n665 <= n652 when wr = '0' else '0';
+  process (clk, n591)
   begin
-    if n583 = '1' then
-      n664 <= "000";
+    if n591 = '1' then
+      n668 <= "000";
     elsif rising_edge (clk) then
-      n664 <= read_address_next;
+      n668 <= read_address_next;
     end if;
   end process;
-  process (clk, n583)
+  process (clk, n591)
   begin
-    if n583 = '1' then
-      n665 <= "000";
+    if n591 = '1' then
+      n669 <= "000";
     elsif rising_edge (clk) then
-      n665 <= write_address_next;
+      n669 <= write_address_next;
     end if;
   end process;
-  process (clk, n583)
+  process (clk, n591)
   begin
-    if n583 = '1' then
-      n666 <= "00000000000000000000000000000000";
+    if n591 = '1' then
+      n670 <= "00000000000000000000000000000000";
     elsif rising_edge (clk) then
-      n666 <= pointer_diff_next;
+      n670 <= pointer_diff_next;
     end if;
   end process;
-  process (clk, n583)
+  process (clk, n591)
   begin
-    if n583 = '1' then
-      n667 <= '1';
+    if n591 = '1' then
+      n671 <= '1';
     elsif rising_edge (clk) then
-      n667 <= empty_next;
+      n671 <= empty_next;
     end if;
   end process;
-  process (clk, n583)
+  process (clk, n591)
   begin
-    if n583 = '1' then
-      n668 <= '0';
+    if n591 = '1' then
+      n672 <= '0';
     elsif rising_edge (clk) then
-      n668 <= full_next;
+      n672 <= full_next;
     end if;
   end process;
-  process (clk, n583)
+  process (clk, n591)
   begin
-    if n583 = '1' then
-      n669 <= '0';
+    if n591 = '1' then
+      n673 <= '0';
     elsif rising_edge (clk) then
-      n669 <= half_full_next;
+      n673 <= half_full_next;
     end if;
   end process;
 end architecture;
