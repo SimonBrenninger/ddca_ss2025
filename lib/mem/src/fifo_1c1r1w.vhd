@@ -1,4 +1,3 @@
-
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -7,17 +6,17 @@ use work.mem_pkg.all;
 
 entity fifo_1c1r1w is
 	generic (
-		DEPTH  : positive;
+		DEPTH      : positive;
 		DATA_WIDTH : positive
 	);
 	port (
 		clk       : in  std_ulogic;
 		res_n     : in  std_ulogic;
 
-		rd_data   : out std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+		rd_data   : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
 		rd        : in  std_ulogic;
 
-		wr_data   : in  std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+		wr_data   : in  std_ulogic_vector(DATA_WIDTH-1 downto 0);
 		wr        : in  std_ulogic;
 
 		empty     : out std_ulogic;
@@ -32,14 +31,17 @@ end entity;
 architecture arch of fifo_1c1r1w is
 	constant ADDR_WIDTH : integer := log2c(DEPTH);
 
-	signal read_address, read_address_next   : unsigned(log2c(DEPTH) - 1 downto 0);
-	signal write_address, write_address_next : unsigned(log2c(DEPTH) - 1 downto 0);
+	signal read_address, read_address_next : unsigned(log2c(DEPTH)-1 downto 0);
+	signal write_address, write_address_next : unsigned(log2c(DEPTH)-1 downto 0);
 	signal full_next : std_ulogic;
 	signal empty_next : std_ulogic;
 	signal wr_int, rd_int : std_ulogic;
 	signal half_full_next : std_ulogic;
 	signal pointer_diff, pointer_diff_next : integer := 0;
 begin
+
+	postponed assert not(wr='1' and full='1' and rising_edge(clk)) report "Write operations are not possible on full FIFOs" severity failure;
+	postponed assert not(rd='1' and empty='1' and rising_edge(clk)) report "Read operations are not possible on empty FIFOs" severity failure;
 
 	memory_inst : dp_ram_1c1r1w
 		generic map (
@@ -75,10 +77,7 @@ begin
 		end if;
 	end process;
 
-	--------------------------------------------------------------------
-	--                    PROCESS : EXEC                              --
-	--------------------------------------------------------------------
-	exec : process(all)
+	comb : process(all)
 		variable pointer_diff_temp : integer;
 	begin
 		half_full_next <= '0';
@@ -132,9 +131,6 @@ begin
 			end if;
 		end if;
 	end process;
-
-	postponed assert not(wr='1' and full='1') report "Write operations are not possible on full FIFOs" severity failure;
-	postponed assert not(rd='1' and empty='1') report "Read operations are not possible on empty FIFOs" severity failure;
 
 end architecture;
 

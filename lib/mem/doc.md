@@ -254,17 +254,17 @@ The `fifo_1c1r1w` (1 clock 1 read 1 write) is a single-clock FIFO (first-in firs
 ```vhdl
 entity fifo_1c1r1w is
 	generic (
-		DEPTH  : positive;
+		DEPTH      : positive;
 		DATA_WIDTH : positive
 	);
 	port (
 		clk       : in  std_ulogic;
 		res_n     : in  std_ulogic;
 
-		rd_data   : out std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+		rd_data   : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
 		rd        : in  std_ulogic;
 
-		wr_data   : in  std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+		wr_data   : in  std_ulogic_vector(DATA_WIDTH-1 downto 0);
 		wr        : in  std_ulogic;
 
 		empty     : out std_ulogic;
@@ -325,18 +325,18 @@ The `fifo_1c1r1w_fwft` (1 clock 1 read 1 write with First Word Fall Through beha
 ```vhdl
 entity fifo_1c1r1w_fwft is
 	generic (
-		DEPTH  : positive;
+		DEPTH      : positive;
 		DATA_WIDTH : positive
 	);
 	port (
 		clk       : in  std_ulogic;
 		res_n     : in  std_ulogic;
 
-		rd_data   : out std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+		rd_data   : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
 		rd_ack    : in  std_ulogic;
 		rd_valid  : out std_ulogic;
 
-		wr_data   : in  std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+		wr_data   : in  std_ulogic_vector(DATA_WIDTH-1 downto 0);
 		wr        : in  std_ulogic;
 		full      : out std_ulogic;
 		half_full : out std_ulogic

@@ -28,12 +28,12 @@ package mem_pkg is
 			DATA_WIDTH : positive
 		);
 		port (
-			clk           : in std_ulogic;
-			rd1_addr      : in std_ulogic_vector(ADDR_WIDTH-1 downto 0);
-			rd1_data      : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
-			wr2_addr      : in std_ulogic_vector(ADDR_WIDTH-1 downto 0);
-			wr2_data      : in std_ulogic_vector(DATA_WIDTH-1 downto 0);
-			wr2           : in std_ulogic
+			clk : in std_ulogic;
+			rd1_addr : in std_ulogic_vector(ADDR_WIDTH-1 downto 0);
+			rd1_data : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
+			wr2_addr : in std_ulogic_vector(ADDR_WIDTH-1 downto 0);
+			wr2_data : in std_ulogic_vector(DATA_WIDTH-1 downto 0);
+			wr2 : in std_ulogic
 		);
 	end component;
 
@@ -94,10 +94,10 @@ package mem_pkg is
 			clk : in std_ulogic;
 			res_n : in std_ulogic;
 			-- read port
-			rd_data : out std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+			rd_data : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
 			rd : in std_ulogic;
 			-- write port
-			wr_data : in std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+			wr_data : in std_ulogic_vector(DATA_WIDTH-1 downto 0);
 			wr : in std_ulogic;
 			-- status flags
 			empty : out std_ulogic;
@@ -115,11 +115,11 @@ package mem_pkg is
 			clk : in std_ulogic;
 			res_n : in std_ulogic;
 			-- read port
-			rd_data : out std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+			rd_data : out std_ulogic_vector(DATA_WIDTH-1 downto 0);
 			rd_ack : in std_ulogic;
 			rd_valid : out std_ulogic;
 			-- write port
-			wr_data : in std_ulogic_vector(DATA_WIDTH - 1 downto 0);
+			wr_data : in std_ulogic_vector(DATA_WIDTH-1 downto 0);
 			wr : in std_ulogic;
 			-- status flags
 			full : out std_ulogic;
