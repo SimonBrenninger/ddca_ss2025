@@ -117,7 +117,8 @@ If you are working in the TILab, connect the oscilloscope to an FPGA board using
 Connect the three color channels and the horizontal synchronization signal to the four inputs of the device.
 
 If you want to use the Remote Lab you have to use the host `ti50`. The board located at this host is already connected to an oscilloscope that can be controlled using our web interface.
-Channels 1 to 3 of this oscilloscope are connected to the R, G and B channels of the VGA signal in this order, while channel 4 is connected to the horizontal synchronization (`hsync`) signal.
+Channels 2 to 4 of this oscilloscope are connected to the R, G and B channels of the VGA signal in this order, while channel 1 is connected to the horizontal synchronization (`hsync`) signal.
+Note, that the channel color coding used by oscilloscope corresponds to color channels of the VGA signal (e.g., the blue VGA channel is connected to the blue input of the scope).
 
 Make a measurement showing one of the visible lines that goes through the *gradient* area of the test image.
 Use markers to measure the length of the whole line as well as the length of the synchronization pulse.
