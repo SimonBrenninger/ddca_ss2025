@@ -50,7 +50,7 @@ For your implementation consider the following remarks and hints:
 ## Testbench
 
 In order to actually test your processor, run programs on it and check if they work as expected (you can observe the register contents, memory interfaces and - if available - UART output).
-We already provide you with some programs in [`rv_sys/software`](../../../lib/rv_sys/software) and we recommend you to also put your own programs in the [`software`](../../../lib/rv_sys/software) folder of the `rv_sys` lib core, as you might use them for other tasks as well. However, make sure to put them in a dedicated subdirectory, e.g., named `user`.
+We already provide you with some programs in [`rv_sys/testcases`](../../../lib/rv_sys/testcases) and we recommend you to also put your own programs in the [`testcases`](../../../lib/rv_sys/testcases) folder of the `rv_sys` lib core, as you might use them for other tasks as well. However, make sure to put them in a dedicated subdirectory, e.g., named `user`.
 
 However, as written above, start with verifying basic functionality such as arithmetic, memory and jump instructions in lockstep with your implementation efforts and then continue with more elaborate programs.
 
