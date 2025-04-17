@@ -36,11 +36,66 @@ To that end the package provides two modules named `rv_sys` and `memu`.
 
 ## Overview
 
-While the [RISC-V ISA](../rv_core/doc.md) specifies the instruction of a processor and thus what operations it can perform, it does not really define the processor's surroundings except for the fact that 32-bit instruction- and data words are used.
+While the [RISC-V ISA](../rv_core/doc.md) specifies the instructions of a processor and thus what operations it can perform, it does not really define the processor's surroundings except for the fact that 32-bit instruction- and data words are used.
 Where these data words come from and what the respective interface looks like is left to the implementation.
 Such details are part of what is referred to as the microarchitecture.
 The purpose of this package is to specify and provide the memory subsystem of the DDCA RISC-V processing systems.
 
+Hence, let us first define a physical memory interface that will be used throughout the cores provided by this package.
+A memory interface always consists of a pair of signal of the types `mem_out_t` and `mem_in_t`.
+
+
+```vhdl
+type mem_out_t is record
+	address  : mem_address_t;
+	rd       : std_ulogic;
+	wr       : std_ulogic;
+	byteena  : mem_byteena_t;
+	wrdata   : mem_data_t;
+end record;
+```
+
+
+```vhdl
+type mem_in_t is record
+	busy   : std_ulogic;
+	rddata : mem_data_t;
+end record;
+```
+
+
+
+The directional indicators `in` and `out` used in the record names have to be read from the point of view of the module that uses the memory interface (e.g., the processor core).
+Note that, following the [Harvard architecture](https://en.wikipedia.org/wiki/Harvard_architecture) design paradigm the processors cors (such as the `rv` entity) have two separate memory interfaces.
+
+The `mem_out_t` record type combines outputs going to a connected memory.
+It contains elements for the word-address (`address`), the byte-enable signals (`byteena`) and for the data to be written to memory (`wrdata`).
+Note that the interface uses **big-endian** byte ordering (i.e., the most significant byte is stored at the lowest memory address).
+The `byteena` signal is used to enable sub-word (write) access.
+If bit $b_i$​ of the `byteena` signal is asserted the corresponding byte $i$ in `wrdata` will be written.
+Moreover, it contains read / write (`rd` / `wr`) flag to initate memory operations.
+
+The `mem_in_t` record type combines all memory outputs.
+The `rddata` signal contains the read data, while the `busy` signal is asserted during an ongoing memory operation.
+
+A memory operation is issued by asserting either `rd` or `wr` for exactly one clock cycle.
+While `busy` is asserted no new memory operation (read or write) may be issued.
+Asserting both `rd` and `wr` simultaneously is not allowed.
+The behavior of the memory interface is such a case is **undefined**.
+
+When `wr` is asserted `address`, `byteena` and `wrdata` must be valid in the same clock cycle.
+When `rd` is asserted `aadress` must be valid in the same clock cycle, `wrdata` and `byteena` are not used.
+If neither `wr` nor `rd` is asserted the values of all other signals in the `mem_out_t` record are irrelevant (don't care).
+
+When a read is performed, the earliest the read data is available is in the next clock cycle on`rddata`.
+However, it can happen that the memory needs more time to respond and asserts the `busy` signal instead.
+Then `rddata` is only valid when busy goes back to low again.
+The busy signal may stay high for an arbitray amount of clock cycles.
+The timing diagram below illustrates this behavior.
+Note that `rddata` is only valid for **one clock cycle**.
+
+
+![Image Caption](.mdata/mem_read.svg)
 
 
 ## Components
@@ -99,7 +154,6 @@ Details on its behavior can be found in the Implementation section below.
 
 The `rv_sys` module provides interfaces to two memories: an instruction memory (`imem_*` signals) and a data memory (`dmem_*` signals).
 Note that these signals are named from the processor's point of view (i.e., the processor's instruction memory *output* interface is called *imem_out* in the `rv_sys` interface).
-Both memories hold 32-bit wide data words, are **word-addressed**, and use a **big-endian** byte ordering (i.e., the most significant byte is stored at the lowest memory address).
 
 To enable the attached RISC-V processor to conveniently communicate with a host PC, the `rv_sys` module integrates a UART controller, which produces the `tx` signal and reads the `rx` signal.
 The baud rate of this interface can be set using the `BAUD_RATE` generic (the baud rate is given in symbols per second).
@@ -118,20 +172,33 @@ The `cpu_reset_n` reset signal is connected to `res_n` in simulations. enabling 
 On the actual hardware, this signal is controlled via JTAG, allowing your CPU to be reset automatically (e.g., after downloading a new program).
 
 
-The signals of `mem_out_t` (provided by the processor) have the following semantics.
-The `rd` and `wr` signals are active-high and must be set for a read / write operation to the respective memory.
-The address associated with this operation is `address`.
-In case of a write operation the data to be written must obviously also be provided.
-This is done via the `wrdata` field of the `mem_out_t` record.
-Furthermore, there is also a byte-enable (`byteena`) signal for facilitating sub-word (write) access to the respective memory.
-If bit $b_i$​ of the `byteena` signal is asserted the corresponding byte $i$ of the addressed word will be written (interpreted from the **memory's point of view**).
+
+### `rv`
+The `rv` module implements represents an RISC-V core that can connected to the `rv_sys` module. Note that the packae itself only specifies the entity/component and does not provide an implementation.
 
 
-The signals of `mem_in_t` (provided by the memories to the processor) have the following semantics.
-`busy` is asserted during an on-going memory operation.
-While this signal is asserted no new memory operation (neither read nor write) must be issued.
-`rd_data` provides the result of a read operation. This value is only valid when `busy` is low.
+```vhdl
+component rv is
+	generic (
+		CLK_FREQ : positive := 50_000_000
+	);
+	port (
+		clk      : in std_ulogic;
+		res_n    : in std_ulogic;
+		-- Interface to instruction memory
+		imem_out : out mem_out_t;
+		imem_in  : in mem_in_t;
+		-- Interface to data memory
+		dmem_out : out mem_out_t;
+		dmem_in  : in mem_in_t
+	);
+end component;
+```
 
+
+#### Interface
+
+The signals `dmem_*` and `imem_*` can directly be conntected to the corresponding signals of the `rv_sys` module.
 
 
 ### `memu`
@@ -261,10 +328,13 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	byteena  : mem_byteena_t;
     	wrdata   : mem_data_t;
     end record;
+    type mem_in_t is record
+    	busy   : std_ulogic;
+    	rddata : mem_data_t;
+    end record;
     ```
     
-    The `mem_out_t` record type combines all processor outputs going to a connected memory.
-    It contains elements for the word-address (`address`), for read / write (`rd` / `wr`) operations and for the write data (`wrdata`).
+    The `mem_out_t` and `mem_in_t` record types represent a memory interface and combine all signals going to and coming from memory.
     
     
 ---
@@ -278,38 +348,13 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	byteena => (others => '1'),
     	wrdata  => (others => '0')
     );
-    ```
-    
-    Default value for `mem_out_t` that corresponds to doing no operation (*nop*) at a respective interface to a memory.
-    
----
-
-
--   ```vhdl
-    type mem_in_t is record
-    	busy   : std_ulogic;
-    	rddata : mem_data_t;
-    end record;
-    ```
-    
-    The `mem_in_t` record type combines all memory outputs connected to processor inputs.
-    The `rddata` signal contains the read data, while the `busy` signal is asserted during an ongoing memory operation.
-    
-    While busy is asserted no new memory operation (read or write) may be issued.
-    The rddata signal is only valid when busy is low.
-    
-    
----
-
-
--   ```vhdl
     constant MEM_IN_NOP : mem_in_t := (
     	busy   => '0',
     	rddata => (others => '0')
     );
     ```
     
-    Default value for `mem_in_t` that corresponds to doing no operation (*nop*) at the respective connected interface to a memory.
+    Default values for `mem_out_t` and `mem_in_t` that corresponds to doing no operation (*nop*) at a memory interface.
     
 ---
 

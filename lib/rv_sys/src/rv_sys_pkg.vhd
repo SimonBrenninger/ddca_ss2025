@@ -113,6 +113,22 @@ package rv_sys_pkg is
 		);
 	end component;
 
+	component rv is
+		generic (
+			CLK_FREQ : positive := 50_000_000
+		);
+		port (
+			clk      : in std_ulogic;
+			res_n    : in std_ulogic;
+			-- Interface to instruction memory
+			imem_out : out mem_out_t;
+			imem_in  : in mem_in_t;
+			-- Interface to data memory
+			dmem_out : out mem_out_t;
+			dmem_in  : in mem_in_t
+		);
+	end component;
+
 end package;
 
 package body rv_sys_pkg is
