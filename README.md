@@ -115,6 +115,7 @@ Your login credentials are the same as for the (local) TILab.
 | ---- | ------ | ----------------- | ---------------- |
 | [rv_sim](tasks/level2/rv_sim/task.md) | 15 | Simulation, RISC-V, Specifications | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2623643) |
 | [rv_fsm](tasks/level2/rv_fsm/task.md) | 25 | RISC-V, Specifications | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2623883) |
+| [sorting_network](tasks/level2/sorting_network/task.md) | 10 | Pipeline | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2624369) |
 
 
 
@@ -143,4 +144,5 @@ Feel free to use them in your designs as you see fit.
 | RISC-V Core Package | [rv_core](lib/rv_core/doc.md) |
 | RISCV-V ALU Package | [rv_alu](lib/rv_alu/doc.md) |
 | RISC-V System Package | [rv_sys](lib/rv_sys/doc.md) |
+| UART Data Streamer Package | [uart_data_streamer](lib/uart_data_streamer/doc.md) |
 
