@@ -111,7 +111,7 @@ Then the whole process starts over.
 
 ### Hints
 
-* Use the ALU from the [`alu`](../../level1/alu/task.md) task.
+* Use the ALU from the [`rv_alu`](../../../lib/rv_alu/doc.md) package.
 * Use the provided [rf_ram](./src/rf_ram.vhd) for the register file. This core already handles the special register 0 correctly, i.e., reading address 0 always returns zero.
 * Use the `memu` provided as part of [rv_sys](../../../lib/rv_sys/doc.md) to interface with the data memory.
 * You can always calculate `PC`+4 for any instruction (and store the result in `NX`).
