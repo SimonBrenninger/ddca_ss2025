@@ -9,14 +9,9 @@ include $(TESTCASE_FILES)
 
 define rv_def_tc_vars
 
-ifndef $($1_WAVE_FILE)
-	$1_WAVE_FILE=$(WAVE_FILE)
-endif
-
-ifndef $($1_GTKW_WAVE_FILE)
-	$1_GTK_WAVE_FILE=$(GTKW_WAVE_FILE)
-endif
-
+$1_WAVE_FILE?=$(WAVE_FILE)
+$1_GTK_WAVE_FILE?=$(GTKW_WAVE_FILE)
+$1_NAME?=$1
 $1_GENERICS=-gELF_FILE=$($1_ELF) -gTESTCASE_NAME=$($1_NAME)
 
 endef
@@ -46,7 +41,7 @@ $($1_NAME)_info:
 	@echo "ELF            $($1_ELF)"
 	@echo "TB             $($1_TB)"
 	@echo "WAVE_FILE      $($1_WAVE_FILE)"
-	@echo "VCOM_USER_ARGS $($1_VCOM_USER_ARGS)"
+	@echo "VSIM_USER_ARGS $($1_VSIM_USER_ARGS)"
 	@echo "GHDL_USER_ARGS $($1_GHDL_USER_ARGS)"
 	@echo "VHDL_FILES     $($1_VHDL_FILES)"
 

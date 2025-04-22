@@ -299,11 +299,11 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     constant RV_SYS_ADDR_WIDTH : positive := 14;
     constant RV_SYS_DATA_WIDTH : positive := 32;
     ```
-    
+
     Address and data widths of the instruction and data memories provided by `rv_sys` (in bits).
     Note that the address width refers to the addressable **words** rather than bytes!
-    
-    
+
+
 ---
 
 
@@ -312,11 +312,11 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     subtype mem_data_t       is std_ulogic_vector(RV_SYS_DATA_WIDTH-1 downto 0);
     subtype mem_byteena_t    is std_ulogic_vector(RV_SYS_DATA_WIDTH/8-1 downto 0);
     ```
-    
+
     Utility subtypes for interfacing with the instruction and data memories.
     Note that `mem_address_t` holds **word** addresses.
-    
-    
+
+
 ---
 
 
@@ -333,10 +333,10 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	rddata : mem_data_t;
     end record;
     ```
-    
+
     The `mem_out_t` and `mem_in_t` record types represent a memory interface and combine all signals going to and coming from memory.
-    
-    
+
+
 ---
 
 
@@ -353,18 +353,18 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	rddata => (others => '0')
     );
     ```
-    
+
     Default values for `mem_out_t` and `mem_in_t` that corresponds to doing no operation (*nop*) at a memory interface.
-    
+
 ---
 
 
 -   ```vhdl
     type mem_data_array_t is array(natural range<>) of mem_data_t;
     ```
-    
+
     The `mem_data_t` array type can be used to refer to regions / section of `rv_sys` arrays (e.g., for special memory regions like the addressable GPIO).
-    
+
 ---
 
 
@@ -375,11 +375,11 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	access_type : memu_access_type_t;
     end record;
     ```
-    
+
     Contains the control information required for a single operation of the `memu`.
     For read / write operations `rd` / `wr` must be asserted, `access_type` is the respective access type (see below).
-    
-    
+
+
 ---
 
 
@@ -392,11 +392,11 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	MEM_W
     );
     ```
-    
+
     This enum type defines the various access modes for memory operations performed by / at the `memu`.
     It supports (unsigned) byte accesses (`MEM_B[U]`), (unsigned) halfword (i.e., 16 bit) accesses (`MEM_H[U]`) and word accesses (`MEM_W`).
-    
-    
+
+
 ---
 
 
@@ -407,10 +407,10 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	access_type => MEM_W
     );
     ```
-    
+
     Default value for `memu_op_t` that corresponds to no operation (*nop*) at the respective memu interface.
-    
-    
+
+
 
 
 
@@ -442,13 +442,13 @@ sudo tar -xvf riscv.tar.gz -C /opt/ddca/
 Don't change any of the paths and place the compiler exactly in this directory, otherwise it will not work.
 
 
-The [`sdk`](sdk) directory contains [`Makefile`](Makefile)s that implement all the required steps to compile C or assembly programs and to download the generated binaries to the data and instruction memories of an `rv_sys` instance.
-In order to use them, you have to create a [`Makefile`](Makefile) and include either [rv_asm.mk](./sdk/rv_asm.mk) or for assembly programs or [rv_c.mk](./sdk/rv_c.mk) for C-programs.
+The [`sdk`](sdk) directory contains Makefiles that implement all the required steps to compile C or assembly programs and to download the generated binaries to the data and instruction memories of an `rv_sys` instance.
+In order to use them, you have to create a Makefile and include either [rv_asm.mk](./sdk/rv_asm.mk) or for assembly programs or [rv_c.mk](./sdk/rv_c.mk) for C-programs.
 You will find more details about what to include and to configure for creating your own testcases further below in the *Testcases* section of this documentation.
-However, including the respective [`Makefile`](Makefile) allows compiling testcases inside their respective directory (e.g., calling `make` in `testcases/asm/send_uart`).
+However, including the respective Makefile allows compiling testcases inside their respective directory (e.g., calling `make` in `testcases/asm/send_uart`).
 
 Successful compilation of a testcase (no matter if C or assembly) generates a `.elf` executable file, as well as the files `.imem.mif` and `.dmem.mif`, which contain the contents of the instruction and data memories, respectively.
-E.g., for the `send_uart` test case the files `[`send_uart.elf`](testcases/asm/send_uart/send_uart.elf)`, `[`send_uart.imem.mif`](testcases/asm/send_uart/send_uart.imem.mif)` and `[`send_uart.dmem.mif`](testcases/asm/send_uart/send_uart.dmem.mif)` files will be created.
+E.g., for the `send_uart` test case the files [`send_uart.elf`](testcases/asm/send_uart/send_uart.elf), [`send_uart.imem.mif`](testcases/asm/send_uart/send_uart.imem.mif) and [`send_uart.dmem.mif`](testcases/asm/send_uart/send_uart.dmem.mif) files will be created.
 The `.mif` files are **human-readable** and can be quite useful for debugging processors.
 In particular, each row of the file contains a single instruction / data word where the row number is the word address (starting at 0).
 
@@ -456,7 +456,7 @@ The `clean` target can then be used to delete all files created during compilati
 
 
 After a program has been compiled successfully, it can be downloaded to the actual processing system running on the FPGA (i.e., the data and instruction memories in the `rv_sys` module).
-To do so, first program the FPGA with the desired bitstream (SOF file) and then execute the `run` [`Makefile`](Makefile) target in the respective testcase directory.
+To do so, first program the FPGA with the desired bitstream (SOF file) and then execute the `run` Makefile target in the respective testcase directory.
 
 You can also use the `remote_run` target to download your program to a board in the Remote Lab.
 To use this target you must already have an active connection to the Remote Lab, i.e., either via `rpa_shell.py` or `rpa_gui.py`.
@@ -476,53 +476,56 @@ Later in the development you can switch to C to try more elaborate programs.
 For C-programs we provide you with some library functions in [util.h](sdk/util.h).
 Use these functions to write to (and potentially read from) the UART interface and to read and write the GPIOs.
 Please note that the program is not linked against a full-featured *libc*.
-Therefore, not all standard functions are working.
+Therefore, not all standard functions are available.
 
 
 While the testcases we provide you with are a first starting point, they are insufficient for debugging your processor.
 You will therefore have to create your own testcases.
 In the following we'll explain how this can be done.
 
-First, we recommend you to create your testcases in a distinct directory in [testcases](testcases/) (e.g., `testcases/user`),
-where each testcase resides in a respective subdirectory.
-Each testcase consists of the following files (where TESTCASE is the name of the particular testcase):
+Create and place your testcases in a `user` subdirectory in the [testcases](testcases/) folder.
+Each individual testcase in turn resides in its own subdirectory (e.g., `testcases/user/mytestcase`).
+Each testcase consists of the following files:
 
-- `[`Makefile`](Makefile)`: For assembly language testcases this file only needs to include the [`rv_asm.mk`](sdk/rv_asm.mk) file.
-  For C-programs the [`rv_c.mk`](sdk/rv_c.mk) file must be included and additionally, the source files and the target file name must be specified using the `SRC_FILES` and `ELF_NAME` Make variables.
-  You can find an example in, e.g., [`uart_loopback`](testcases/c/uart_loopback/Makefile).
+- Makefile: This Makefile is responsible to compile the software part of a testcase. For assembly language testcases this file only needs to include the [`rv_asm.mk`](sdk/rv_asm.mk) file (refer to the [`startup`](testcases/asm/startup/Makefile) testcase for a basic example).
+  For C-programs the [`rv_c.mk`](sdk/rv_c.mk) file must be included and additionally, the source files and the target elf file name must be specified using the `SRC_FILES` and `ELF_NAME` Make variables.
+  A basic example is the [`uart_loopback`](testcases/c/uart_loopback/Makefile) testcase.
 
-- `TESTCASE.rvtc.mk`: This is the *RISC-V Testcase* (rvtc) [`Makefile`](Makefile) of the respective testcase.
-  It basically consists of a bunch of Make variables it sets / appends that provide information for the actual simulation.
-  This files first needs to append TESTCASE to the `RV_TESTCASES` Make variable (use the `+=` operator) in order to make it "globally" visible for your RISC-V simulations.
-  Next, it must provide a name for the testcase (`TESTCASE_NAME`).
-  This can, but is not required to, be TESTCASE.
-  This name will influence the names of all Make targets created for this particular testcase.
-  Next, specify the **entity name** of the respective testbench as `TESTCASE_TB` and the target ELF file as `TESTCASE_ELF` (the whole path, not just the name!).
-  You can then, optionally, define further VHDL files that are required for this particular testcase (`TESTCASE_VHDL_FILES`) and a wave file ('TESTCASE_[GTKW_]WAVE_FILE') that overrides one of the task's [`Makefile`](Makefile).
-  Finally, arguments can be passed to the simulator (Questasim / GHDL) by setting the `TESTCASE_[GHDL|VSIM]_USER_ARGS`.
-  This is paricularly useful for setting generics of the testbench entity.
-  More details can be found further below.
+- *RISC-V Testcase (RVTC)* Makefile: This is another Makefile containing a series of Make variables that provide information for the actual simulation.
+  Its filename must end in `rvtc.mk`. We recommend naming this file after the testcase folder it resides in (e.g., `mytestcase.rvtc.mk`).
+  The RVTC Makefile must first annouce the testcase name to the test framework by appending a unique name to the `RV_TESTCASES` Make variable (e.g., `RV_TESTCASES+=MYTESTCASE`).
+  All other variables that are set in the file must then be prefixed with this name (e.g., setting the `TB` variable below actually requires you to set `MYTESTCASE_TB=some_tb`).
+  There are only two required variables that must always be set:
 
-- Actual source files. For the assembly test cases this is usually a single file `TESTCASE.S`, for C it might be multiple C files.
+   - `TB`: The **entity name** of the testbench used to run the testcase simulation. Refer to the *Creating Testcase Testbenches* section to learn about the minimal set of generics testcase testbenches must provide.
+   - `ELF_FILE`: The complete **absolute** path to the ELF file the processor shall execute in the testcase. This path is passed into the testbench entity via its `ELF_FILE` generic.
+
+  The optional variabes are:
+
+   - `[GTKW_]WAVE_FILE`: These variabes override the default wave file in a task's Makefile, set via the `[GTKW_]WAVE_FILE` varibales.
+   - `[GHDL|VSIM]_USER_ARGS`: User defined arguments passed to the simulator (Questasim / GHDL).
+   - `VHDL_FILES`: VHDL files that are required for the testcase (in most cases this will be the actual testbench). Note that here also an absolute path must be specfied.
+   - `NAME`: The default name used for the testcase is the one appended to the `RV_TESTCASES` variable. This name is used for as a prefix for the automatically generated makefile targets and is also passed to the testbench via its `TESTCASE_NAME` generic. Explictly setting the `NAME` variables overrides this default value.
+
+- Actual source files: For an assembly test case this must be a single file (e.g., `mytestcase.S`). For C programs multiple (source and header) files can be used (e.g., `mytestcase.c` and `mytestcase.h`).
 
 - Optional: A VHDL file containing a particular testbench for this testcase (e.g., `TESTCASE_tb.vhd`).
-  More details on such testbenches can be found below.
-
+  More details on the actual testbenches can be found below.
 
 Examples on which you can base your testcases can be found in [send_uart](testcases/asm/send_uart) and [uart_loopback](testcases/c/uart_loopback).
 
-Each testcase adhering to the above structure results in the creation of respective Make targets that can then be used to test your various RV implementations.
-In particular, the following targets will be created:
+Each testcase adhering to the structure decribed above, results in the creation of a set of Make targets that can then be used to test your various RV implementations.
+In particular, the following targets will be created (`NAME` refers to the name choosen for the testcase):
 
-- `TESTCASE_NAME_info`: Dumps information about the testcase like its name, the target elf, used testbench etc.
-- `TESTCASE_NAME_[g]sim`: Runs a simulation using GHDL / QuestaSim for the respective testcase in headless mode.
-- `TESTCASE_NAME_[g]sim_gui`: Runs a simulation using GHDL / QuestaSim for the respective testcase and opens the waveform viewer.
+- `NAME_info`: Dumps information about the testcase like its name, the target elf, used testbench etc.
+- `NAME_[g]sim`: Runs a simulation using GHDL / QuestaSim for the respective testcase in headless mode.
+- `NAME_[g]sim_gui`: Runs a simulation using GHDL / QuestaSim for the respective testcase and opens the waveform viewer.
 
-Furthermore, the [`Makefile`](Makefile) targets `rvall_[g]sim` are provided that run **all** testcases and grep for reports of "PASSED" / "FAILED".
+Furthermore, the Makefile targets `rvall_[g]sim` are provided that run **all** testcases and grep for reports of "PASSED" / "FAILED".
 You can use this for simple regression testing.
 
 
-As mentioned above, each testcase can have a dedicated testbench.
+As mentioned above, each testcase has a dedicated testbench.
 However, such testbenches cannot be arbitrary but must provide at least two generics:
 
 - `TESTCASE_NAME` of type string
@@ -531,9 +534,9 @@ However, such testbenches cannot be arbitrary but must provide at least two gene
 These generics are then later set to the values of particular testcases by the framework.
 Hence, you do not need to provide (default) values for them.
 However, you can add aribtrary further generics which are set during simulation by the framework.
-An example, is the provided [`rv_uart_io_tb`](tb/rv_uart_io_tb.vhd) testbench that declares a `UART_RX` and `UART_TX` generic and uses them to check recived UART data, and to transmit data via UART by itself.
-Such generics can then easily be set in the `TESTCASE.rvtc.mk` file via the `TESTCASE_[GHDL|VSIM]_USER_ARGS` by setting them to particular values using the `-gGENERIC='VALUE'` switch.
-You can find an example in [`uart_loopback.rvtc.mk`](testcases/c/uart_loopback/uart_loopback.rvtc.mk).
+An example, is the provided [`rv_uart_io_tb`](tb/rv_uart_io_tb.vhd) testbench that declares a `UART_RX` and `UART_TX` generic and uses them to check received UART data, and to transmit data via UART by itself.
+Such generics can then easily be set in the `*.rvtc.mk` files via the `NAME_[GHDL|VSIM]_USER_ARGS` by setting them to particular values using the `-gGENERIC='VALUE'` switch.
+You can find an example in [uart_loopback.rvtc.mk](testcases/c/uart_loopback/uart_loopback.rvtc.mk).
 
 
 To assist you in your debugging efforts, `rv_sys` reports certain events for which you can grep in the simulator output.

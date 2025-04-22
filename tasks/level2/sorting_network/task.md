@@ -162,7 +162,5 @@ To use UART, perform the following steps:
 
 - **Implement**: [`sorting_network_tb.vhd`](tb/sorting_network_tb.vhd)
 
-- **Implement**: [`top_arch.vhd`](top_arch.vhd)
-
 
 [Return to main page](../../../README.md)

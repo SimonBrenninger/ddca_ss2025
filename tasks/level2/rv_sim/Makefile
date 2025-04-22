@@ -22,6 +22,7 @@ VHDL_FILES = \
 	../../../lib/rv_sys/src/mm_gpio.vhd\
 	../../../lib/rv_sys/src/rv_sys.vhd\
 	../../../lib/rv_sys/src/rv.vhd\
+	../../../lib/rv_sys/src/memu.vhd\
 	src/rv_sim.vhd
 
 TB=
