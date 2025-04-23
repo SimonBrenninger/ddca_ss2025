@@ -18,7 +18,6 @@ architecture arch of rv is
 		constant BYTE_EN_MASK : byteena_mask_t:= ("1000", "0100", "0010", "0001");
 		constant HW_EN_MASK : byteena_mask_t:= ("1100", "1100", "0011", "0011");
 	begin
-		end case;
 
 		return "1111";
 	end function;
@@ -31,13 +30,13 @@ architecture arch of rv is
 begin
 
 	main: process is
-		-- variable registers : registers_t;
-		-- variable pc        : data_t;
-		-- variable instr     : instr_t;
-		-- variable opcode    : opcode_t;
-		-- variable funct3    : funct3_t;
-		-- variable funct7    : funct7_t;
-		-- variable immediate : data_t;
+		variable registers : registers_t;
+		variable pc        : data_t;
+		variable instr     : instr_t;
+		variable opcode    : opcode_t;
+		variable funct3    : funct3_t;
+		variable funct7    : funct7_t;
+		variable immediate : data_t;
 
 		-- TODO: Add further variables and procedures as needed
 
