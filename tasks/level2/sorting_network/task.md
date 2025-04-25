@@ -13,7 +13,7 @@ For reference check out [this list](https://bertdobbelaere.github.io/sorting_net
 
 ## Description
 
-The particular network you will implement in this tasks features 10 inputs, uses 29 *compare/exchange elements* (CEs) and 8 has layers.
+The particular network you will implement in this task features 10 inputs, uses 29 *compare/exchange elements* (CEs) and has 8 layers.
 It is thus referred to as `N10L29D8`.
 
 Note that, although it is not directly about pipelining, the [video about the synchronous design style](https://hwmod.lva.tuwien.ac.at/sync.html) of Hardware Modeling might be a good resource to grasp the concept of pipelining.
@@ -62,7 +62,7 @@ Below you will find a short description of the different architectures and steps
 - Next, ensure that your testbench (see Testbench section) validates that your **combinatorial** sorting network is actually capable to sort.
   In particular, at latest now you should implement the testbench.
 
-- Synthesize your **combinatorial** sorting network, download it to the FPGA board and utilize the UART interfface to send the data that shall be sorted (and receive the sorted one).
+- Synthesize your **combinatorial** sorting network, download it to the FPGA board and utilize the UART interface to send the data that shall be sorted (and receive the sorted one).
   Also: Check Quartus' timing analyzer and note down your `Fmax` (highest possible clock frequency) and `Worst-Case Timing Paths`.
 
 
@@ -77,7 +77,7 @@ Below you will find a short description of the different architectures and steps
   This is expected and we will next discuss how this can be dealt with.
   In principle there are two ways, both of which you will explore in the following:
 
-  - Delay the combinatorial logic of your cricital-path such that your design supports the given clock frequency.
+  - Delay the combinatorial logic of your critical-path such that your design supports the given clock frequency.
   - Introduce work-steps (pipeline stages) and furthermore improve throughput.
 
 
@@ -116,7 +116,7 @@ Test your design in testbenches before synthesizing your design.
 Especially check, whether your sorting network asserts `sorted_valid` in the correct clock cycle.
 
 When done correctly, your pipelined design should be able to run on a 150 MHz clock without timing violations.
-If not, always check for the ciritical path and try to optimize your design.
+If not, always check for the critical path and try to optimize your design.
 
 **Hint:** `sorted_valid` should 'follow' the input data through the pipeline stages in your network. Check out shift registers.
 
@@ -146,7 +146,7 @@ To use UART, perform the following steps:
 - Send two different inputs to be sorted (e.g. numbers and strings). The documentation of [top](../../../lib/top/doc.md) provides information about how to do that.
 - Unassert `halt` such that the `uart_data_streamer` sends both words in consecutive clock cycles to your network and check the results.
 
-**Hint:** Yout can use "0003000900070005000600010000000800020004" and "wisppavelushgermcozyhazeyarnployvastdusk" as reference UART inputs.
+**Hint:** You can use "0003000900070005000600010000000800020004" and "wisppavelushgermcozyhazeyarnployvastdusk" as reference UART inputs.
 
 
 
