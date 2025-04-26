@@ -118,15 +118,15 @@ Note that `shamt` (*shift amount*) is used instead of `imm[4:0]` for shift opera
 | OPCODE_BRANCH |   110  |    -   |  B  | **BLTU rs1,rs2,imm** | $\mathtt{if(rs1^\emptyset\lt rs2^\emptyset)\ pc=pc+(imm^\pm\lt\lt1)}$ |
 | OPCODE_BRANCH |   111  |    -   |  B  | **BGEU rs1,rs2,imm** | $\mathtt{if(rs1^\emptyset\gt =rs2^\emptyset)\ pc=pc+(imm^\pm\lt\lt1)}$ |
 | | | | | |
-| OPCODE_LOAD   |   000  |    -   |  I  | **LB rd,rs1,imm**  | $\mathtt{rd=(int8\_t)\ DMEM[rs1+imm^\pm]}$ |
-| OPCODE_LOAD   |   001  |    -   |  I  | **LH rd,rs1,imm**  | $\mathtt{rd=(int16\_t)\ DMEM[rs1+imm^\pm]}$ |
-| OPCODE_LOAD   |   010  |    -   |  I  | **LW rd,rs1,imm**  | $\mathtt{rd=(int32\_t)\ DMEM[rs1+imm^\pm]}$ |
-| OPCODE_LOAD   |   100  |    -   |  I  | **LBU rd,rs1,imm** | $\mathtt{rd=(uint8\_t)\ DMEM[rs1+imm^\pm]}$ |
-| OPCODE_LOAD   |   101  |    -   |  I  | **LHU rd,rs1,imm** | $\mathtt{rd=(uint16\_t)\ DMEM[rs1+imm^\pm]}$ |
+| OPCODE_LOAD   |   000  |    -   |  I  | **LB rd,imm(rs1)**  | $\mathtt{rd=(int8\_t)\ DMEM[rs1+imm^\pm]}$ |
+| OPCODE_LOAD   |   001  |    -   |  I  | **LH rd,imm(rs1)**  | $\mathtt{rd=(int16\_t)\ DMEM[rs1+imm^\pm]}$ |
+| OPCODE_LOAD   |   010  |    -   |  I  | **LW rd,imm(rs1)**  | $\mathtt{rd=(int32\_t)\ DMEM[rs1+imm^\pm]}$ |
+| OPCODE_LOAD   |   100  |    -   |  I  | **LBU rd,imm(rs1)** | $\mathtt{rd=(uint8\_t)\ DMEM[rs1+imm^\pm]}$ |
+| OPCODE_LOAD   |   101  |    -   |  I  | **LHU rd,imm(rs1)** | $\mathtt{rd=(uint16\_t)\ DMEM[rs1+imm^\pm]}$ |
 | | | | | |
-| OPCODE_STORE |   000  |    -   |  S  | **SB rs1,rs2,imm** | $\mathtt{DMEM[rs1+imm^\pm]=rs2_{7:0}}$ |
-| OPCODE_STORE |   001  |    -   |  S  | **SH rs1,rs2,imm** | $\mathtt{DMEM[rs1+imm^\pm]=rs2_{15:0}}$ |
-| OPCODE_STORE |   010  |    -   |  S  | **SW rs1,rs2,imm** | $\mathtt{DMEM[rs1+imm^\pm]=rs2}$ |
+| OPCODE_STORE |   000  |    -   |  S  | **SB rs2,imm(rs1)** | $\mathtt{DMEM[rs1+imm^\pm]=rs2_{7:0}}$ |
+| OPCODE_STORE |   001  |    -   |  S  | **SH rs2,imm(rs1)** | $\mathtt{DMEM[rs1+imm^\pm]=rs2_{15:0}}$ |
+| OPCODE_STORE |   010  |    -   |  S  | **SW rs2,imm(rs1)** | $\mathtt{DMEM[rs1+imm^\pm]=rs2}$ |
 | | | | | |
 | OPCODE_OP_IMM |   000  |    -   |  I  | **ADDI rd,rs1,imm** | $\mathtt{rd=rs1+imm^\pm}$ |
 | OPCODE_OP_IMM |   010  |    -   |  I  | **SLTI rd,rs1,imm** | $\mathtt{rd=(rs1^\pm\lt imm^\pm)\ ?\ 1 : 0}$ |
