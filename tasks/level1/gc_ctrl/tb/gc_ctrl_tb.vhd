@@ -45,7 +45,7 @@ begin
 			-- TODO: Implement
 		end procedure;
 
-			variable gc_ctrl_state : gc_ctrl_state_t;
+		variable gc_ctrl_state : gc_ctrl_state_t;
 	begin
 		res_n         <= '0';
 		rumble        <= '0';
@@ -80,5 +80,4 @@ begin
 	end process;
 
 end architecture;
-
 
