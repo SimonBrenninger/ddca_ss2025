@@ -32,20 +32,20 @@ begin
 	-- Stimulus process
 	stimulus: process
 
-		procedure send_gc_ctrl_state(data : gc_ctrl_state_t) is
+		procedure send_gc_cntrl_state (data : gc_ctrl_state_t) is
 		begin
 			-- this procedure simulates the response of the actual controller
-			-- only setting gc_data to either '0' or 'Z'
-		-- TODO: Implement
+			-- only set gc_data to either '0' or 'Z'
+			-- TODO: Implement
 		end procedure;
-
-		procedure read_polling_command(expected_rumble: in std_ulogic_vector) is
+		procedure read_polling_command (data : out std_ulogic_vector) is
 		begin
-			-- this procedure is used to read and assert the polling command produced by the gc_ctrl
-		-- TODO: Implement
+			-- this is procedure is used to read the polling command produced by the UUT
+			-- the first thing this procedure need to do is what for gc_data to become '0'
+			-- TODO: Implement
 		end procedure;
 
-		variable gc_ctrl_state : gc_ctrl_state_t;
+			variable gc_ctrl_state : gc_ctrl_state_t;
 	begin
 		res_n         <= '0';
 		rumble        <= '0';
@@ -80,4 +80,5 @@ begin
 	end process;
 
 end architecture;
+
 
