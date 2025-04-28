@@ -1,1 +1,1 @@
-{"points": 15, "sublevel": "Core", "files": {"Makefile": {"Type": "DONT CARE"}, "src/rv_sim.vhd": {"Type": "COMPLETE", "Lines": 78}}, "checks": []}
+{"points": 15, "sublevel": "Core", "files": {"Makefile": {"Type": "DONT CARE"}, "src/rv_sim.vhd": {"Type": "COMPLETE", "Lines": 77}}, "checks": []}
