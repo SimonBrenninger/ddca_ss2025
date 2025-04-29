@@ -5,6 +5,7 @@ use ieee.math_real.all;
 use work.sorting_network_pkg.all;
 use work.util_pkg.all;
 use work.uart_data_streamer_pkg.all;
+use work.sync_pkg.all;
 
 architecture top_arch of top is
 	constant DATA_BYTES    : positive := 4;
@@ -13,7 +14,7 @@ architecture top_arch of top is
 	constant IS_BYTES      : positive := OS_BYTES;
 	constant IS_DATA_WIDTH : positive := IS_BYTES * 8;
 
-	signal os_valid, is_valid, os_ready,  is_ready : std_ulogic := '0';
+	signal os_valid, is_valid, os_ready,  is_ready, switch0_d, key0_d : std_ulogic := '0';
 	signal os_data : std_ulogic_vector(OS_DATA_WIDTH - 1 downto 0) := (others => '0');
 	signal sorted_array : word_array_t(0 to IS_DATA_WIDTH / DATA_BYTES / 8 -1) := (others => (others => '0'));
 
@@ -52,6 +53,30 @@ begin
 		c0 => clk_150MHz
 	);
 
+	sync_sw: sync
+	generic map (
+		SYNC_STAGES => 2,
+		RESET_VALUE => '0'
+	)
+	port map (
+		clk      => clk_150MHz,
+		res_n    => '1',
+		data_in  => switches(0),
+		data_out => switch0_d
+	);
+
+	sync_res: sync
+	generic map (
+		SYNC_STAGES => 2,
+		RESET_VALUE => '0'
+	)
+	port map (
+		clk      => clk_150MHz,
+		res_n    => '1',
+		data_in  => keys(0),
+		data_out => key0_d
+	);
+
 	uart_data_streamer_inst : uart_data_streamer
 	generic map (
 		CLK_FREQ        => 150_000_000,
@@ -64,13 +89,13 @@ begin
 	)
 	port map (
 		clk   => clk_150MHz,
-		res_n => keys(0),
+		res_n => key0_d,
 
 		-- UART
 		rx => rx,
 		tx => tx,
 
-		halt => switches(0),
+		halt => switch0_d,
 		full => LEDG(0),
 
 		-- output stream -- from rx to core
@@ -90,7 +115,7 @@ begin
 	sorting_network : entity work.sorting_network(arch_combinatorial)
 	port map (
 		clk   => clk_150MHz,
-		res_n => keys(0),
+		res_n => key0_d,
 
 		unsorted_ready  => os_ready,
 		unsorted_data   => gen_array_from_vector(os_data),
