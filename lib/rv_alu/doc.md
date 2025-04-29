@@ -31,7 +31,7 @@ end component;
 #### Interface
 
 The `op` input of the enumeration type `rv_alu_op_t` defines the operation the ALU performs on its two operands `a` and `b`.
-The output `result` provides the result of the current operation and `z` is an outpout flag for certain operations, e.g., to indicate if the result of a subtraction is zero.
+The output `result` provides the result of the current operation and `z` is an output flag for certain operations, e.g., to indicate if the result of a subtraction is zero.
 
 
 

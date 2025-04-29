@@ -84,7 +84,7 @@ Asserting both `rd` and `wr` simultaneously is not allowed.
 The behavior of the memory interface is such a case is **undefined**.
 
 When `wr` is asserted `address`, `byteena` and `wrdata` must be valid in the same clock cycle.
-When `rd` is asserted `aadress` must be valid in the same clock cycle, `wrdata` and `byteena` are not used.
+When `rd` is asserted `adress` must be valid in the same clock cycle, `wrdata` and `byteena` are not used.
 If neither `wr` nor `rd` is asserted the values of all other signals in the `mem_out_t` record are irrelevant (don't care).
 
 When a read is performed, the earliest the read data is available is in the next clock cycle on`rddata`.
@@ -174,7 +174,7 @@ On the actual hardware, this signal is controlled via JTAG, allowing your CPU to
 
 
 ### `rv`
-The `rv` module implements represents an RISC-V core that can connected to the `rv_sys` module. Note that the packae itself only specifies the entity/component and does not provide an implementation.
+The `rv` module implements represents an RISC-V core that can connected to the `rv_sys` module. Note that the package itself only specifies the entity/component and does not provide an implementation.
 
 
 ```vhdl
