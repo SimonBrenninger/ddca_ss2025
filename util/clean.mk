@@ -12,6 +12,7 @@ clean:
 	rm -f *.ppm
 	rm -f $(CLEAN_FILES)
 	rm -rf $(CLEAN_DIRS)
+	rm -rf vendor_libs
 
 
 .PHONY: clean

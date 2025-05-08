@@ -6,13 +6,14 @@ use work.rv_sys_pkg.all;
 use work.rv_core_pkg.all;
 use work.rv_alu_pkg.all;
 use work.rv_fsm_types_pkg.all;
+use work.rv_ext_m_pkg.all;
 
 architecture rv_fsm of rv is
 	subtype data_t is std_ulogic_vector(31 downto 0);
 
 	-- program counter
 	signal pc : data_t;
-	
+
 	-- internal registers
 	signal ir : data_t; -- instruction register
 	signal wb : data_t; -- ALU output buffer, stores mem addr or data that has to written back to the regfile
@@ -36,7 +37,7 @@ architecture rv_fsm of rv is
 	-- ALU signals
 	signal alu_op : rv_alu_op_t;
 	signal alu_z : std_ulogic;
-	
+
 	-- memroy signals
 	signal rd_imem : std_ulogic;
 	signal memu_op : memu_op_t;
@@ -45,6 +46,10 @@ architecture rv_fsm of rv is
 	--regfile signals
 	signal wr_rf : std_ulogic;
 	signal rd_rf : std_ulogic;
+
+	-- these signals are only relevant for the rv_ext_m task, you can ignore them for now
+	signal ext_m_start, ext_m_busy : std_ulogic;
+	signal ext_m_op : ext_m_op_t;
 
 begin
 
@@ -69,6 +74,7 @@ begin
 		alu_z => alu_z,
 		dmem_busy => dmem_busy,
 		imem_busy => imem_busy,
+		ext_m_busy => '0',
 		ma => ma,
 		mb => mb,
 		mpc => mpc,
@@ -82,7 +88,9 @@ begin
 		wr_rf => wr_rf,
 		rd_imem => rd_imem,
 		alu_op => alu_op,
-		memu_op => memu_op
+		memu_op => memu_op,
+		ext_m_op => ext_m_op,
+		ext_m_start => ext_m_start
 	);
-	
+
 end architecture;

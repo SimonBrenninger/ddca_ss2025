@@ -19,6 +19,8 @@ To that end the package provides two modules named `rv_sys` and `memu`.
 
 - [`mm_counter.vhd`](src/mm_counter.vhd)
 
+- [`mm_gci.vhd`](src/mm_gci.vhd)
+
 - [`mm_gpio.vhd`](src/mm_gpio.vhd)
 
 - [`mm_serial_port.vhd`](src/mm_serial_port.vhd)
@@ -84,7 +86,7 @@ Asserting both `rd` and `wr` simultaneously is not allowed.
 The behavior of the memory interface is such a case is **undefined**.
 
 When `wr` is asserted `address`, `byteena` and `wrdata` must be valid in the same clock cycle.
-When `rd` is asserted `adress` must be valid in the same clock cycle, `wrdata` and `byteena` are not used.
+When `rd` is asserted `address` must be valid in the same clock cycle, `wrdata` and `byteena` are not used.
 If neither `wr` nor `rd` is asserted the values of all other signals in the `mem_out_t` record are irrelevant (don't care).
 
 When a read is performed, the earliest the read data is available is in the next clock cycle on`rddata`.
@@ -299,11 +301,11 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     constant RV_SYS_ADDR_WIDTH : positive := 14;
     constant RV_SYS_DATA_WIDTH : positive := 32;
     ```
-
+    
     Address and data widths of the instruction and data memories provided by `rv_sys` (in bits).
     Note that the address width refers to the addressable **words** rather than bytes!
-
-
+    
+    
 ---
 
 
@@ -312,11 +314,11 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     subtype mem_data_t       is std_ulogic_vector(RV_SYS_DATA_WIDTH-1 downto 0);
     subtype mem_byteena_t    is std_ulogic_vector(RV_SYS_DATA_WIDTH/8-1 downto 0);
     ```
-
+    
     Utility subtypes for interfacing with the instruction and data memories.
     Note that `mem_address_t` holds **word** addresses.
-
-
+    
+    
 ---
 
 
@@ -333,10 +335,10 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	rddata : mem_data_t;
     end record;
     ```
-
+    
     The `mem_out_t` and `mem_in_t` record types represent a memory interface and combine all signals going to and coming from memory.
-
-
+    
+    
 ---
 
 
@@ -353,18 +355,18 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	rddata => (others => '0')
     );
     ```
-
+    
     Default values for `mem_out_t` and `mem_in_t` that corresponds to doing no operation (*nop*) at a memory interface.
-
+    
 ---
 
 
 -   ```vhdl
     type mem_data_array_t is array(natural range<>) of mem_data_t;
     ```
-
+    
     The `mem_data_t` array type can be used to refer to regions / section of `rv_sys` arrays (e.g., for special memory regions like the addressable GPIO).
-
+    
 ---
 
 
@@ -375,11 +377,11 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	access_type : memu_access_type_t;
     end record;
     ```
-
+    
     Contains the control information required for a single operation of the `memu`.
     For read / write operations `rd` / `wr` must be asserted, `access_type` is the respective access type (see below).
-
-
+    
+    
 ---
 
 
@@ -392,11 +394,11 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	MEM_W
     );
     ```
-
+    
     This enum type defines the various access modes for memory operations performed by / at the `memu`.
     It supports (unsigned) byte accesses (`MEM_B[U]`), (unsigned) halfword (i.e., 16 bit) accesses (`MEM_H[U]`) and word accesses (`MEM_W`).
-
-
+    
+    
 ---
 
 
@@ -407,10 +409,10 @@ For example, $SSSb_3$ means that the result of the read operation is the sign-ex
     	access_type => MEM_W
     );
     ```
-
+    
     Default value for `memu_op_t` that corresponds to no operation (*nop*) at the respective memu interface.
-
-
+    
+    
 
 
 
@@ -491,7 +493,7 @@ Each testcase consists of the following files:
   For C-programs the [`rv_c.mk`](sdk/rv_c.mk) file must be included and additionally, the source files and the target elf file name must be specified using the `SRC_FILES` and `ELF_NAME` Make variables.
   A basic example is the [`uart_loopback`](testcases/c/uart_loopback/Makefile) testcase.
 
-- *RISC-V Testcase (RVTC)* Makefile: This is another Makefile containing a series of Make variables that provide information for the actual simulation.
+- *RISC-V Testcase (RVTC) Makefile*: This is another Makefile containing a series of Make variables that provide information for the actual simulation.
   Its filename must end in `rvtc.mk`. We recommend naming this file after the testcase folder it resides in (e.g., `mytestcase.rvtc.mk`).
   The RVTC Makefile must first annouce the testcase name to the test framework by appending a unique name to the `RV_TESTCASES` Make variable (e.g., `RV_TESTCASES+=MYTESTCASE`).
   All other variables that are set in the file must then be prefixed with this name (e.g., setting the `TB` variable below actually requires you to set `MYTESTCASE_TB=some_tb`).

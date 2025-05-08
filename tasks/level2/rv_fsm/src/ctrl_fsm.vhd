@@ -7,6 +7,7 @@ use work.rv_sys_pkg.all;
 use work.rv_core_pkg.all;
 use work.rv_alu_pkg.all;
 use work.rv_fsm_types_pkg.all;
+use work.rv_ext_m_pkg.all;
 
 entity ctrl_fsm is
 	port (
@@ -19,6 +20,7 @@ entity ctrl_fsm is
 		alu_z : in std_ulogic;
 		dmem_busy : in std_ulogic;
 		imem_busy : in std_ulogic;
+		ext_m_busy : in std_logic;
 		ma : out ma_ctrl_t;
 		mb : out mb_ctrl_t;
 		mpc : out mpc_ctrl_t;
@@ -32,7 +34,9 @@ entity ctrl_fsm is
 		wr_rf : out std_logic;
 		rd_imem : out std_ulogic;
 		alu_op : out rv_alu_op_t;
-		memu_op : out memu_op_t
+		memu_op : out memu_op_t;
+		ext_m_op : out ext_m_op_t;
+		ext_m_start : out std_ulogic
 	);
 end entity;
 

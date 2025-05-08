@@ -9,6 +9,7 @@ VHDL_FILES = \
 	../../../lib/mem/src/fifo_1c1r1w_fwft.vhd\
 	../../../lib/mem/src/dp_ram_2c2rw.vhd\
 	../../../lib/mem/src/dp_ram_2c2rw_byteen.vhd\
+	../../../lib/gfx_core/src/gfx_core_pkg.vhd\
 	../../../lib/rv_alu/src/rv_alu_pkg.vhd\
 	../../../lib/rv_core/src/rv_core_pkg.vhd\
 	../../../lib/rv_sys/src/rv_sys_pkg.vhd\
@@ -20,6 +21,7 @@ VHDL_FILES = \
 	../../../lib/rv_sys/src/mm_serial_port.vhd\
 	../../../lib/rv_sys/src/mm_counter.vhd\
 	../../../lib/rv_sys/src/mm_gpio.vhd\
+	../../../lib/rv_sys/src/mm_gci.vhd\
 	../../../lib/rv_sys/src/rv_sys.vhd\
 	../../../lib/rv_sys/src/rv.vhd\
 	../../../lib/rv_sys/src/memu.vhd\

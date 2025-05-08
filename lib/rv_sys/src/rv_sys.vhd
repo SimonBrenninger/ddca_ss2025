@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 use work.rv_sys_pkg.all;
+use work.gfx_core_pkg.all;
 
 --pragma synthesis_off
 use work.tb_util_pkg.all;
@@ -29,11 +30,15 @@ entity rv_sys is
 		-- data memory interface
 		dmem_out  : in  mem_out_t;
 		dmem_in   : out mem_in_t;
-		
+
 		-- UART port
-		rx         : in std_ulogic;
-		tx         : out std_ulogic;
-		
+		rx : in std_ulogic;
+		tx : out std_ulogic;
+
+		-- graphics command interface
+		gci_in  : out gci_in_t;
+		gci_out : in gci_out_t := (rd_data => (others => '0'), others => '0');
+
 		-- GPIO
 		gp_out : out mem_data_array_t(2**GPIO_ADDR_WIDTH-1 downto 0);
 		gp_in  : in  mem_data_array_t(2**GPIO_ADDR_WIDTH-1 downto 0)
@@ -49,6 +54,9 @@ architecture arch of rv_sys is
 	signal uart_out : mem_out_t;
 	signal uart_in  : mem_in_t;
 
+	signal mm_gci_out : mem_out_t;
+	signal mm_gci_in  : mem_in_t;
+
 	signal counter_in  : mem_in_t;
 
 	signal gpio_out : mem_out_t;
@@ -57,13 +65,14 @@ architecture arch of rv_sys is
 	signal imem_in_del, imem_in_del_sim, imem_in_del_jtag : mem_in_t;
 	signal imem_out_del : mem_out_t;
 
-	type mux_type is (MUX_OCRAM, MUX_UART, MUX_COUNT, MUX_GPIO);
+	type mux_type is (MUX_OCRAM, MUX_UART, MUX_GCI, MUX_COUNT, MUX_GPIO);
 	signal mux : mux_type;
 
 	signal mem_ctrl, mem_ctrl_sim, mem_ctrl_jtag : mem_data_t;
 
 	-- See comment further below at MUX
 	constant IS_SIM : boolean := (SIMULATE_ELF_FILE /= "") and (SIMULATE_ELF_FILE /= "OFF");
+	constant MEM_ADDR_WIDTH : natural := 12;
 begin
 	cpu_reset_n <= mem_ctrl(0);
 
@@ -118,7 +127,7 @@ begin
 
 	mem_sim : entity work.memory_sim
 	generic map (
-		RAM_SIZE_LD => 12,
+		RAM_SIZE_LD => MEM_ADDR_WIDTH,
 		ELF_FILE => SIMULATE_ELF_FILE
 	)
 	port map (
@@ -136,7 +145,7 @@ begin
 
 	mem_jtag : entity work.memory_jtag
 	generic map (
-		RAM_SIZE_LD => 12
+		RAM_SIZE_LD => MEM_ADDR_WIDTH
 	)
 	port map (
 		clk => clk,
@@ -174,6 +183,22 @@ begin
 	);
 	uart_in.busy <= '0';
 
+	gci : entity work.mm_gci
+	port map (
+		clk     => clk,
+		res_n   => res_n,
+
+		address => mm_gci_out.address(0 downto 0),
+		wr      => mm_gci_out.wr,
+		wr_data => mm_gci_out.wrdata,
+		rd      => mm_gci_out.rd,
+		rd_data => mm_gci_in.rddata,
+
+		gci_in  => gci_in,
+		gci_out => gci_out
+	);
+	mm_gci_in.busy <= '0';
+
 	counter : entity work.mm_counter
 	generic map (
 		CLK_FREQ => CLK_FREQ
@@ -209,17 +234,23 @@ begin
 
 		mux <= MUX_OCRAM;
 
-		case dmem_out.address(RV_SYS_ADDR_WIDTH-1 downto RV_SYS_ADDR_WIDTH-2) is
+		case dmem_out.address(MEM_ADDR_WIDTH+1 downto MEM_ADDR_WIDTH) is
 			when "00" => mux <= MUX_OCRAM;
 			when "01" => mux <= MUX_GPIO;
 			when "10" => mux <= MUX_COUNT;
-			when "11" => mux <= MUX_UART;
+			when "11" =>
+				if dmem_out.address(MEM_ADDR_WIDTH-1) = '1' then
+					mux <= MUX_UART;
+				else
+					mux <= MUX_GCI;
+				end if;
 			when others => null;
 		end case;
 
 		case mux is
 			when MUX_OCRAM => dmem_in <= ocram_in;
 			when MUX_UART  => dmem_in <= uart_in;
+			when MUX_GCI   => dmem_in <= mm_gci_in;
 			when MUX_COUNT => dmem_in <= counter_in;
 			when MUX_GPIO  => dmem_in <= gpio_in;
 			when others    => dmem_in <= MEM_IN_NOP;
@@ -241,6 +272,12 @@ begin
 		if mux /= MUX_GPIO then
 			gpio_out.rd <= '0';
 			gpio_out.wr <= '0';
+		end if;
+
+		mm_gci_out <= dmem_out;
+		if mux /= MUX_GCI then
+			mm_gci_out.rd <= '0';
+			mm_gci_out.wr <= '0';
 		end if;
 	end process;
 

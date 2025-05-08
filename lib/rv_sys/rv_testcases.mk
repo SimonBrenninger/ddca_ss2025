@@ -20,7 +20,8 @@ define rv_def_tc_rules
 
 $($1_ELF):
 	@echo "Building software"
-	@make --no-print-directory -C $(dir $($1_ELF)) $(notdir $(basename $($1_ELF))).imem.mif $(notdir $(basename $($1_ELF))).dmem.mif
+	@make --no-print-directory -C $(dir $($1_ELF)) clean # always do a fresh build before simulation
+	@make --no-print-directory -C $(dir $($1_ELF)) $(notdir $(basename $($1_ELF))).imem.mif $(notdir $(basename $($1_ELF))).dmem.mif 2>&1
 
 .PHONY: $($1_ELF)
 
@@ -45,6 +46,12 @@ $($1_NAME)_info:
 	@echo "GHDL_USER_ARGS $($1_GHDL_USER_ARGS)"
 	@echo "VHDL_FILES     $($1_VHDL_FILES)"
 
+_GRUN_$1:
+	@(make $($(tc)_NAME)_gsim 2>&1 | grep -E "PASSED|FAILED") || echo "$($(tc)_NAME) FAILED (to run)"
+
+_RUN_$1:
+	@(make $($(tc)_NAME)_sim 2>&1 | grep -E "PASSED|FAILED") || echo "# $($(tc)_NAME) FAILED (to run)"
+
 endef
 
 $(foreach tc, $(RV_TESTCASES), $(eval VHDL_FILES += $($(tc)_VHDL_FILES)))
@@ -52,8 +59,8 @@ $(foreach tc, $(RV_TESTCASES), $(eval $(call rv_def_tc_vars,$(tc))))
 $(foreach tc, $(RV_TESTCASES), $(eval $(call rv_def_tc_rules,$(tc))))
 
 rvall_gsim:
-	make $(foreach tc, $(RV_TESTCASES), $($(tc)_NAME)_gsim) | grep -E "PASSED|FAILED"
+	@make --no-print-directory $(foreach tc, $(RV_TESTCASES), _GRUN_$(tc))
 
 rvall_sim:
-	make $(foreach tc, $(RV_TESTCASES), $($(tc)_NAME)_sim) | grep -E "PASSED|FAILED"
+	@make --no-print-directory $(foreach tc, $(RV_TESTCASES), _RUN_$(tc))
 

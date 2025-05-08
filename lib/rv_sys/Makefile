@@ -9,6 +9,7 @@ VHDL_FILES = \
 	../mem/src/fifo_1c1r1w_fwft.vhd\
 	../rv_core/src/rv_core_pkg.vhd\
 	../tb_util/src/tb_util_pkg.vhd\
+	../gfx_core/src/gfx_core_pkg.vhd\
 	src/rv_sys_pkg.vhd\
 	src/delay.vhd\
 	src/virtual_jtag_wrapper.vhd\
@@ -17,8 +18,10 @@ VHDL_FILES = \
 	src/mm_serial_port.vhd\
 	src/mm_counter.vhd\
 	src/mm_gpio.vhd\
+	src/mm_gci.vhd\
 	src/rv_sys.vhd\
-	src/memu.vhd
+	src/memu.vhd\
+	src/rv.vhd
 
 
 include ../../util/simple_flow.mk

@@ -11,6 +11,7 @@ VHDL_FILES = \
 	$(LIB)/mem/src/fifo_1c1r1w_fwft.vhd\
 	$(LIB)/mem/src/dp_ram_2c2rw.vhd\
 	$(LIB)/mem/src/dp_ram_2c2rw_byteen.vhd\
+	$(LIB)/gfx_core/src/gfx_core_pkg.vhd\
 	$(LIB)/rv_core/src/rv_core_pkg.vhd\
 	$(LIB)/rv_alu/src/rv_alu_pkg.vhd\
 	$(LIB)/rv_alu/src/rv_alu.vhd\
@@ -23,13 +24,20 @@ VHDL_FILES = \
 	$(LIB)/rv_sys/src/mm_serial_port.vhd\
 	$(LIB)/rv_sys/src/mm_counter.vhd\
 	$(LIB)/rv_sys/src/mm_gpio.vhd\
+	$(LIB)/rv_sys/src/mm_gci.vhd\
 	$(LIB)/rv_sys/src/rv_sys.vhd\
 	$(LIB)/rv_sys/src/memu.vhd\
 	$(LIB)/rv_sys/src/rv.vhd\
+	../rv_ext_m/src/rv_ext_m_pkg.vhd\
+	../rv_ext_m/src/rv_ext_m.vhd\
 	src/rv_fsm_types_pkg.vhd\
 	src/ctrl_fsm.vhd\
 	src/rf_ram.vhd\
 	src/rv_fsm.vhd
+
+
+GHDL_USE_ALTERA_LIB=1
+CLEAN_DIRS=vendor_libs
 
 WAVE_FILE=wave.do
 
