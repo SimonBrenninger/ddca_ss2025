@@ -118,7 +118,8 @@ Your login credentials are the same as for the (local) TILab.
 | [sorting_network](tasks/level2/sorting_network/task.md) | 10 | Pipeline | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2624369) |
 | [rv_ext_m](tasks/level2/rv_ext_m/task.md) | 10 | RISC-V, Specifications | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2632076) |
 | [vnorm](tasks/level2/vnorm/task.md) | 10 | Pipeline, Fixed-Point, IP Cores, File I/O | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2632079) |
-| [rv_tetris](tasks/level2/rv_tetris/task.md) | 5 | RISC-V, Specifications, C Software development | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2632082) |
+| [rv_tetris](tasks/level2/rv_tetris/task.md) | 5 | RISC-V, C Software development | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2632082) |
+| [rv_snes](tasks/level2/rv_snes/task.md) | 5 | RISC-V, Assembly Software Development, Bit banging | [Link to activity](https://tuwel.tuwien.ac.at/mod/assign/view.php?id=2632085) |
 
 
 

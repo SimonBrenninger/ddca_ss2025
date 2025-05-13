@@ -1,0 +1,6 @@
+
+QUARTUS_VERSION = "22.1std.2 Standard Edition"
+DATE = "00:00:00  February 17, 20:00"
+
+# Revisions
+PROJECT_REVISION = "dbg_top"
