@@ -1,7 +1,7 @@
 
 # RISC-V Tetris
 
-**Points:** 5 `|` **Keywords**: risc-v, specifications, c software development
+**Points:** 5 `|` **Keywords**: risc-v, c software development
 
 [[_TOC_]]
 

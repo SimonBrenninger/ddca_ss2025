@@ -70,3 +70,7 @@ GHDL_USE_ALTERA_LIB=1
 include ../../../util/simple_flow.mk
 include ../../../util/quartus.mk
 
+run:
+	make -C software
+	make -C software run
+
