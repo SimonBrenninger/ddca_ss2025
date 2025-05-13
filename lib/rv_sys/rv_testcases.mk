@@ -46,6 +46,9 @@ $($1_NAME)_info:
 	@echo "GHDL_USER_ARGS $($1_GHDL_USER_ARGS)"
 	@echo "VHDL_FILES     $($1_VHDL_FILES)"
 
+$($1_NAME)_disassemble:
+	/opt/ddca/riscv/bin/riscv32-unknown-elf-objdump -d $($1_ELF)
+
 _GRUN_$1:
 	@(make $($(tc)_NAME)_gsim 2>&1 | grep -E "PASSED|FAILED") || echo "$($(tc)_NAME) FAILED (to run)"
 

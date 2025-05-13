@@ -1,6 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+use work.rv_core_pkg.all;
+
 package rv_sys_pkg is
 
 	-- NOTE: these are word addresses
@@ -128,6 +130,8 @@ package rv_sys_pkg is
 			dmem_in  : in mem_in_t
 		);
 	end component;
+
+	constant RV_SYS_USER_CSR : csr_t := x"BC0";
 
 end package;
 
