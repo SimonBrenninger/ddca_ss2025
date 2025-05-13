@@ -4,14 +4,17 @@ use ieee.numeric_std.all;
 
 
 package rv_core_pkg is
+	-- width of an integer register in bits
+	constant XLEN : positive := 32;
+
 	-- width of a byte
-	constant BYTE_WIDTH       : positive := 8;
+	constant BYTE_WIDTH        : positive := 8;
 	-- width of a dataword (multiple of BYTE_WIDTH)
-	constant DATA_WIDTH       : positive := 32;
+	constant DATA_WIDTH        : positive := 32;
 	-- width of an instruction word
 	constant WIDTH_INSTRUCTION : natural := 32;
 	-- width of byte enable
-	constant BYTEEN_WIDTH     : positive := DATA_WIDTH/BYTE_WIDTH;
+	constant BYTEEN_WIDTH      : positive := DATA_WIDTH/BYTE_WIDTH;
 	-- CPU data type
 	subtype data_t  is std_ulogic_vector(DATA_WIDTH-1 downto 0);
 	-- CPU instruction type
@@ -28,12 +31,18 @@ package rv_core_pkg is
 	constant WIDTH_FUNCT3      : natural := 3;
 	constant INDEX_FUNCT7      : natural := 25;
 	constant WIDTH_FUNCT7      : natural := 7;
-
+	constant INDEX_UIMM        : natural := INDEX_RS1;
+	constant WIDTH_UIMM        : natural := WIDTH_REG_ADDRESS;
+	constant INDEX_CSR         : natural := 20;
+	constant WIDTH_CSR         : natural := 12;
+	
 	-- utility subtypes for the RISC-V instruction fields
 	subtype opcode_t      is std_ulogic_vector(WIDTH_OPCODE-1 downto 0);
 	subtype reg_address_t is std_ulogic_vector(WIDTH_REG_ADDRESS-1 downto 0);
 	subtype funct3_t      is std_ulogic_vector(WIDTH_FUNCT3-1 downto 0);
 	subtype funct7_t      is std_ulogic_vector(WIDTH_FUNCT7-1 downto 0);
+	subtype uimm_t        is std_ulogic_vector(WIDTH_UIMM-1 downto 0);
+	subtype csr_t         is std_ulogic_vector(WIDTH_CSR-1 downto 0);
 
 	-- utility functions for extracting fields from RISC-V instructions
 	function get_opcode (instr : instr_t) return opcode_t;
@@ -42,6 +51,9 @@ package rv_core_pkg is
 	function get_rs2 (instr : instr_t) return reg_address_t;
 	function get_funct3 (instr : instr_t) return funct3_t;
 	function get_funct7 (instr : instr_t) return funct7_t;
+	function get_uimm (instr : instr_t) return uimm_t;
+	function get_csr (instr : instr_t) return csr_t;
+	
 
 	constant OPCODE_LOAD   : opcode_t := "0000011";
 	constant OPCODE_STORE  : opcode_t := "0100011";
@@ -125,6 +137,16 @@ package body rv_core_pkg is
 		return instr(WIDTH_FUNCT7+INDEX_FUNCT7-1 downto INDEX_FUNCT7);
 	end function;
 
+	function get_uimm (instr : instr_t) return uimm_t is
+	begin
+		return instr(WIDTH_UIMM+INDEX_UIMM-1 downto INDEX_UIMM);
+	end function;
+
+	function get_csr (instr : instr_t) return csr_t is
+	begin
+		return instr(WIDTH_CSR+INDEX_CSR-1 downto INDEX_CSR);
+	end function;
+	
 
 	function opcode_to_string(opcode : opcode_t) return string is
 	begin

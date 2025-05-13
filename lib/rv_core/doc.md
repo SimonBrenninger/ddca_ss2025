@@ -80,6 +80,7 @@ The table below lists the supported opcodes.
 | 0110011 | OPCODE_OP |
 | 0010111 | OPCODE_AUIPC |
 | 0110111 | OPCODE_LUI |
+| 1110011 | OPCODE_SYSTEM |
 
 The field `imm` denotes the *immediate*, a constant valuee mbedded directly in the instruction and used during its execution.
 
@@ -175,9 +176,9 @@ By convention, it is encoded as an `ADDI x0,x0,0` instruction, which corresponds
 
 ## Types and Constants
 -   ```vhdl
-    constant BYTE_WIDTH       : positive := 8;
-    constant DATA_WIDTH       : positive := 32;
-    constant BYTEEN_WIDTH     : positive := DATA_WIDTH/BYTE_WIDTH;
+    constant BYTE_WIDTH        : positive := 8;
+    constant DATA_WIDTH        : positive := 32;
+    constant BYTEEN_WIDTH      : positive := DATA_WIDTH/BYTE_WIDTH;
     ```
     
     These constants define some basic bit widths in the context of the RV ISA.
