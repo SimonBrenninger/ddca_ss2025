@@ -181,7 +181,7 @@ To simplify this, the [`vnorm_pkg.vhd`](src/vnorm_pkg.vhd) file defines an overl
 However, note that due to rounding in the datapath `vnorm` might yield results that can be slightly off (by one bit).
 The check in the testbench must account for these slight deviations and accept them.
 
-In case you want to refresh your knowledge about file-handling in VHDL testbenches, consider the respective [HWMod lecture](https://hwmod.lva.tuwien.ac.at/atb.html) or online resources like [this](https://vhdlguide.com/2017/08/10/files-theory-examples/).
+In case you want to refresh your knowledge about file-handling in VHDL testbenches, consider the respective [HWMod lecture](https://hwmod.lva.tuwien.ac.at/atb.html) or online resources like [this](https://vhdlwhiz.com/stimulus-file/).
 
 **Note**: The last reference value is wrong on purpose to allow you to test if your testbench / assertion correctly detects deviations.
 
