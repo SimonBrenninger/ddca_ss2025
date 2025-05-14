@@ -6,7 +6,9 @@
     TODO
 - What is your design's `Fmax`? Explain how you got this value.
 
-    TODO
+    21.31 MHz
+    Quartus -> Tasks -> Timing Analysis -> Timing Analyser -> Tasks -> Report Fmax Summary
 - What is your design's `Critical-Path`? Explain how you got this information.
 
-    TODO
+    clock path -> uart_streamer -> sorting network -> uart_streamer:
+    Timing Analyser -> Tasks -> Report Setup Summary -> right click on pll clk -> Report Timing

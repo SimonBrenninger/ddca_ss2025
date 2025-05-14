@@ -9,6 +9,7 @@ VHDL_FILES = \
 	../../../lib/mem/src/fifo_1c1r1w_fwft.vhd\
 	../../../lib/uart_data_streamer/src/uart_data_streamer_pkg.vhd\
 	../../../lib/uart_data_streamer/src/uart_data_streamer.vhd\
+	../../../lib/tb_util/src/tb_util_pkg.vhd\
 	../../../lib/top/src/top.vhd\
 	src/sorting_network_pkg.vhd\
 	src/sorting_network.vhd\
